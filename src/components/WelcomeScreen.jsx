@@ -3,20 +3,21 @@ import Image from "next/image";
 
 export default function WelcomeScreen() {
 	return (
-		<div className="flex px-24 py-10 m-auto justify-evenly bg-gradient-to-tr from-skiey to-mint rounded-2xl w-7xl h-70">
+		<div className="flex flex-col items-center px-8 py-4 mx-auto text-xs text-center md:flex-row justify-evenly bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl">
 			<MainBlock></MainBlock>
 			<div className="flex flex-col">
-				<div className="flex self-end">
+				<div className="relative flex self-end text-xs sm:text-sm md:text-base lg:text-lg top-4">
 					<Image
 						src="/images/logo-white.svg"
-						width={20}
-						height={20}
+						className="w-5"
+						width={512}
+						height={512}
 						alt="Логотип Grow School"
 					></Image>
 					<span className="ml-1 font-medium text-white">Grow School</span>
 				</div>
 				<Image
-					className="relative bottom-4"
+					className="w-xs sm:w-sm md:w-md"
 					src="/images/welcome.svg"
 					width={512}
 					height={512}
