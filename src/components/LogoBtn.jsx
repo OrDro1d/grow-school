@@ -10,7 +10,7 @@ export default function LogoBtn() {
 				height={20}
 				alt="Логотип Grow School"
 			></Image>
-			<span className="font-medium ml-1">Grow School</span>
+			<span className="ml-1 font-medium">Grow School</span>
 		</Link>
 	);
 }
