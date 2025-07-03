@@ -14,10 +14,10 @@ export default function NavBar() {
 				<NavBarBtn href="#" className="hidden sm:block">
 					Мое обучение
 				</NavBarBtn>
-				<Search>Поиск по сайту</Search>
+				<Search className="hidden sm:block">Поиск по сайту</Search>
 			</div>
 			<div className="flex items-center">
-				<ProfileBtn></ProfileBtn>
+				<ProfileBtn href="/signin">Войти</ProfileBtn>
 			</div>
 		</nav>
 	);
