@@ -17,7 +17,7 @@ export default function NavBar() {
 				<Search className="hidden sm:block">Поиск по сайту</Search>
 			</div>
 			<div className="flex items-center">
-				<ProfileBtn href="/signin">Войти</ProfileBtn>
+				<ProfileBtn href="/auth/signup">Войти</ProfileBtn>
 			</div>
 		</nav>
 	);
