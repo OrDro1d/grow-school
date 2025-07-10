@@ -1,4 +1,4 @@
-import MainBlockBtn from "./MainBlockBtn";
+import MainBlockBtn from "@/components/main/WelcomeScreenBtn";
 
 export default function MainBlock() {
 	return (
@@ -12,7 +12,7 @@ export default function MainBlock() {
 			<div className="*:m-1">
 				<MainBlockBtn>Все курсы</MainBlockBtn>
 				<MainBlockBtn>Рекомендованные</MainBlockBtn>
-				<MainBlockBtn>Популярные</MainBlockBtn>
+				<MainBlockBtn href="#main-courses">Популярные</MainBlockBtn>
 			</div>
 		</section>
 	);

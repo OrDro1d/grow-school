@@ -1,13 +1,13 @@
 import Image from "next/image";
-import WelcomeScreen from "../components/main/WelcomeScreen";
-import NavBar from "../components/main/NavBar";
-import MainCourses from "../components/main/MainCourses";
+import WelcomeScreen from "@/components/main/WelcomeScreen";
+import NavBar from "@/components/main/NavBar";
+import MainCourses from "@/components/main/MainCourses";
 
 export default function Home() {
 	return (
 		<>
 			<NavBar></NavBar>
-			<main className="p-2 mx-2 sm:p-4 md:p-8 sm:mx-4 md:mx-8 lg:mx-16 bg-neutral-100 rounded-b-4xl">
+			<main className="p-2 mx-2 mt-12 *:my-4 sm:p-4 md:p-8 sm:mx-4 md:mx-8 lg:mx-16 bg-neutral-100 rounded-b-4xl">
 				<WelcomeScreen></WelcomeScreen>
 				<MainCourses></MainCourses>
 			</main>

@@ -5,7 +5,7 @@ export default function LogoBtn() {
 	return (
 		<Link href="#" className="flex text-xs sm:text-sm md:text-base">
 			<Image
-				src="/images/logo.svg"
+				src="/images/icons/logo.svg"
 				className="w-4"
 				width={512}
 				height={512}
