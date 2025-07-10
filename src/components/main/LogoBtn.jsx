@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function LogoBtn() {
 	return (
-		<Link href="#" className="flex text-xs sm:text-sm md:text-base lg:text-lg">
+		<Link href="#" className="flex text-xs sm:text-sm md:text-base">
 			<Image
 				src="/images/logo.svg"
-				className="w-4 md:w-5"
+				className="w-4"
 				width={512}
 				height={512}
 				alt="Логотип Grow School"
 			></Image>
-			<span className="ml-1 font-medium">Grow School</span>
+			<span className="ml-2 font-medium">Grow School</span>
 		</Link>
 	);
 }

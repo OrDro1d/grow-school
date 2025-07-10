@@ -2,7 +2,7 @@ import MainBlockBtn from "./MainBlockBtn";
 
 export default function MainBlock() {
 	return (
-		<div className="flex flex-col mx-2 *:my-1 sm:w-xl">
+		<section className="flex flex-col mx-2 *:my-1 sm:w-xl">
 			<h1 className="text-3xl font-bold text-white sm:text-4xl flex-wrap">
 				Каждый день - это новый шанс вырасти над собой
 			</h1>
@@ -14,6 +14,6 @@ export default function MainBlock() {
 				<MainBlockBtn>Рекомендованные</MainBlockBtn>
 				<MainBlockBtn>Популярные</MainBlockBtn>
 			</div>
-		</div>
+		</section>
 	);
 }

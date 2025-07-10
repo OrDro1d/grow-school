@@ -5,7 +5,7 @@ import NavBarBtn from "./NavBarBtn";
 
 export default function NavBar() {
 	return (
-		<nav className="sticky flex justify-between p-4 border-b-2 border-b-neutral-200">
+		<nav className="sticky flex justify-between p-3 border-b-2 border-b-neutral-200">
 			<div className="flex items-center *:mx-3">
 				<LogoBtn></LogoBtn>
 				<NavBarBtn href="#" className="hidden sm:block">

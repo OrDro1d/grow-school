@@ -14,14 +14,15 @@ export default function SignIn() {
 		try {
 			const result = await fetch("/api/auth/signin", {
 				method: "POST",
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ email, password })
 			});
+
+			const data = await result.json();
 
 			if (!result.ok) {
 				throw new Error(data.error);
 			}
-
-			const data = await result.json();
 
 			if (result.ok) router.push("/");
 		} catch (error) {
@@ -29,7 +30,10 @@ export default function SignIn() {
 		}
 	}
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			className="flex flex-col w-2xl my-[25vh] mx-auto p-4 border-2 border-neutral-600"
+			onSubmit={handleSubmit}
+		>
 			<label htmlFor="email">Эл. почта</label>
 			<input
 				id="email"
@@ -48,7 +52,7 @@ export default function SignIn() {
 				value={password}
 				required
 			></input>
-			<button>Войти</button>
+			<button className="cursor-pointer">Войти</button>
 		</form>
 	);
 }

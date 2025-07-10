@@ -9,15 +9,33 @@ export default function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmationPassword, setConfirmationPassword] = useState("");
+	const [error, setError] = useState("");
 
 	const router = useRouter();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
+		error = setError("");
 
 		try {
+			if (!name || !email || !password || !confirmationPassword) {
+				error = setError("Пожалуйста, заполните все поля");
+				return;
+			}
+
+			if (password.length < 8) {
+				error = setError("Длина пароля не должна быть меньше 8 символов");
+				return;
+			}
+
+			if (password !== confirmationPassword) {
+				error = setError("Введенные вами пароли не совпадают");
+				return;
+			}
+
 			const result = await fetch("/api/auth/signup", {
 				method: "POST",
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ name, email, password, confirmationPassword })
 			});
 
@@ -34,7 +52,10 @@ export default function SignUp() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			className="flex flex-col w-2xl my-[25vh] mx-auto p-4 border-2 border-neutral-600"
+			onSubmit={handleSubmit}
+		>
 			<label htmlFor="name">Имя</label>
 			<input
 				id="name"
@@ -71,7 +92,7 @@ export default function SignUp() {
 				value={confirmationPassword}
 				required
 			></input>
-			<button>Войти</button>
+			<button className="cursor-pointer">Зарегистрироваться</button>
 		</form>
 	);
 }

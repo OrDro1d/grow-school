@@ -8,32 +8,11 @@ export async function POST(request) {
 	const { name, email, password, confirmationPassword } = await request.json();
 
 	try {
-		if (!name || !email || !password || !confirmationPassword) {
-			return new Response(
-				JSON.stringify({ error: "Пожалуйста, заполните все поля" }),
-				{ status: 400 }
-			);
-		}
-
-		if (password.length < 6) {
-			return new Response(
-				JSON.stringify({ error: "Пароль должен содержать минимум 6 символов" }),
-				{ status: 400 }
-			);
-		}
-
-		if (password !== confirmationPassword) {
-			return new Response(
-				JSON.stringify({ error: "Введенные пароли не совпадают" }),
-				{ status: 400 }
-			);
-		}
-
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
 			return new Response(
 				JSON.stringify({ error: "Пользователь с таким email уже существует" }),
-				{ status: 409 }
+				{ headers: { "Content-Type": "application/json" }, status: 409 }
 			);
 		}
 
@@ -45,15 +24,13 @@ export async function POST(request) {
 
 		return new Response(
 			JSON.stringify({ message: "Регистрация прошла успешно" }),
-			{
-				status: 201
-			}
+			{ headers: { "Content-Type": "application/json" }, status: 201 }
 		);
 	} catch (error) {
 		console.error(error);
 		return new Response(
 			JSON.stringify({ error: "Внутренняя ошибка сервера" }),
-			{ status: 500 }
+			{ headers: { "Content-Type": "application/json" }, status: 500 }
 		);
 	}
 }

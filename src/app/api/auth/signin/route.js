@@ -12,6 +12,7 @@ export async function POST(request) {
 			return new Response(
 				JSON.stringify({ error: "Заполните email и пароль" }),
 				{
+					headers: { "Content-Type": "application/json" },
 					status: 400
 				}
 			);
@@ -20,6 +21,7 @@ export async function POST(request) {
 		const user = await User.findOne({ email });
 		if (!user) {
 			return new Response(JSON.stringify({ error: "Пользователь не найден" }), {
+				headers: { "Content-Type": "application/json" },
 				status: 401
 			});
 		}
@@ -27,15 +29,18 @@ export async function POST(request) {
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
 			return new Response(JSON.stringify({ error: "Неверный пароль" }), {
+				headers: { "Content-Type": "application/json" },
 				status: 401
 			});
 		}
 
 		return new Response(JSON.stringify({ message: "Вход совершен успешно" }), {
+			headers: { "Content-Type": "application/json" },
 			status: 200
 		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: "Внутрення ошибка сервера" }), {
+			headers: { "Content-Type": "application/json" },
 			status: 500
 		});
 	}
