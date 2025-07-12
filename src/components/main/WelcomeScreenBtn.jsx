@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function MainBlockButton({ children, href = "#" }) {
+export default function WelcomeScreenBtn({ children, href = "#" }) {
 	return (
 		<Link
 			href={href}

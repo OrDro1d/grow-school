@@ -1,28 +1,29 @@
-import WelcomeScreenText from "@/components/main/WelcomeScreenText";
 import Image from "next/image";
+import WelcomeScreenBtn from "@/components/main/WelcomeScreenBtn";
 
 export default function WelcomeScreen() {
 	return (
-		<header className="flex flex-col items-center px-8 py-4 sm:px-12 sm:py-6 mx-auto text-xs text-center lg:flex-row justify-evenly bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl">
-			<WelcomeScreenText></WelcomeScreenText>
-			<div className="flex flex-col place-items-end">
-				<div className="relative flex self-end text-xs sm:text-sm md:text-base lg:text-lg top-4">
-					<Image
-						src="/images/icons/logo-white.svg"
-						className="w-5"
-						width={512}
-						height={512}
-						alt="Логотип Grow School"
-					></Image>
-					<span className="ml-1 font-medium text-white">Grow School</span>
-				</div>
-				<Image
-					className="w-xs sm:w-xs"
-					src="/images/icons/welcome.svg"
-					width={512}
-					height={512}
-					alt="Встречающая пользователя картинка. Человечек с цветком в руках"
-				></Image>
+		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 lg:py-16 text-center lg:flex-row bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl w-md md:w-xl md:min-w-sm lg:w-xl lg:min-w-lg shadow-skiey/30 shadow-xl">
+			<h1 className="text-2xl font-bold text-white md:text-3xl lg:text-4xl flex-wrap">
+				Каждый день - это новый шанс вырасти над собой
+			</h1>
+
+			<Image
+				className="w-64 sm:w-xs mx-auto my-2 lg:my-8"
+				src="/images/icons/welcome.svg"
+				width={512}
+				height={512}
+				title="Встречающая пользователя картинка"
+				alt="Встречающая пользователя картинка. Человечек с цветком в руках"
+			></Image>
+
+			<h2 className="text-sm font-medium text-white md:text-lg">
+				И мы вам в этом поможем. <br></br> С чего хотите начать?
+			</h2>
+			<div className="my-2 *:m-1">
+				<WelcomeScreenBtn>Все курсы</WelcomeScreenBtn>
+				<WelcomeScreenBtn>Рекомендованные</WelcomeScreenBtn>
+				<WelcomeScreenBtn href="#main-courses">Популярные</WelcomeScreenBtn>
 			</div>
 		</header>
 	);
