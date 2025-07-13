@@ -6,7 +6,7 @@ export default function Home() {
 	return (
 		<>
 			<NavBar></NavBar>
-			<main className="mt-4">
+			<main className="flex justify-center">
 				<MainBlock></MainBlock>
 			</main>
 		</>
