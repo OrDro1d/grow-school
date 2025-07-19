@@ -27,8 +27,7 @@ export async function POST(request) {
 		return new Response(
 			JSON.stringify(
 				{
-					message: "Вход совершен успешно",
-					userId: User.findOne({ email }).select("_id").json()
+					message: "Вход совершен успешно"
 				},
 				{
 					headers: { "Content-Type": "application/json" },
