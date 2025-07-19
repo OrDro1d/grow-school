@@ -5,19 +5,9 @@ import bcrypt from "bcryptjs";
 export async function POST(request) {
 	await dbConnect();
 
-	const { email, password } = await request.json;
+	const { email, password } = await request.json();
 
 	try {
-		if (!email || !password) {
-			return new Response(
-				JSON.stringify({ error: "Заполните email и пароль" }),
-				{
-					headers: { "Content-Type": "application/json" },
-					status: 400
-				}
-			);
-		}
-
 		const user = await User.findOne({ email });
 		if (!user) {
 			return new Response(JSON.stringify({ error: "Пользователь не найден" }), {
@@ -34,14 +24,25 @@ export async function POST(request) {
 			});
 		}
 
-		return new Response(JSON.stringify({ message: "Вход совершен успешно" }), {
-			headers: { "Content-Type": "application/json" },
-			status: 200
-		});
+		return new Response(
+			JSON.stringify(
+				{
+					message: "Вход совершен успешно",
+					userId: User.findOne({ email }).select("_id").json()
+				},
+				{
+					headers: { "Content-Type": "application/json" },
+					status: 200
+				}
+			)
+		);
 	} catch (error) {
-		return new Response(JSON.stringify({ error: "Внутрення ошибка сервера" }), {
-			headers: { "Content-Type": "application/json" },
-			status: 500
-		});
+		return new Response(
+			JSON.stringify({ error: "Внутренняя ошибка сервера" }),
+			{
+				headers: { "Content-Type": "application/json" },
+				status: 500
+			}
+		);
 	}
 }

@@ -2,16 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import bcrypt from "bcryptjs";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
+	const router = useRouter();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
+		setError("");
 
 		try {
+			if (!email || !password) {
+				setError("Пожалуйста, заполните все поля");
+				return;
+			}
+
 			const result = await fetch("/api/auth/signin", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -21,10 +28,14 @@ export default function SignIn() {
 			const data = await result.json();
 
 			if (!result.ok) {
+				setError(data.error);
 				throw new Error(data.error);
 			}
 
-			if (result.ok) router.push("/");
+			if (result.ok) {
+				localStorage.setItem("userId", data.userId);
+				router.replace("/");
+			}
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -52,6 +63,9 @@ export default function SignIn() {
 				value={password}
 				required
 			></input>
+			{error !== "" ? (
+				<h1 className="text-red-500 text-center">{error}</h1>
+			) : null}
 			<button className="cursor-pointer">Войти</button>
 		</form>
 	);

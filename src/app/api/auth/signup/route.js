@@ -5,7 +5,7 @@ import User from "@/models/User";
 export async function POST(request) {
 	await dbConnect();
 
-	const { name, email, password, confirmationPassword } = await request.json();
+	const { name, email, password } = await request.json();
 
 	try {
 		const existingUser = await User.findOne({ email });

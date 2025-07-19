@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"bcryptjs": "^3.0.2",
+		"express-fileupload": "^1.5.2",
 		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.17.0",
 		"mongoose": "^8.16.1",

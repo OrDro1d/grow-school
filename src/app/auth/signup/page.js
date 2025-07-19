@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import bcrypt from "bcryptjs";
 
 export default function SignUp() {
 	const [name, setName] = useState("");
@@ -15,21 +16,21 @@ export default function SignUp() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		error = setError("");
+		setError("");
 
 		try {
 			if (!name || !email || !password || !confirmationPassword) {
-				error = setError("Пожалуйста, заполните все поля");
+				setError("Пожалуйста, заполните все поля");
 				return;
 			}
 
 			if (password.length < 8) {
-				error = setError("Длина пароля не должна быть меньше 8 символов");
+				setError("Длина пароля не должна быть меньше 8 символов");
 				return;
 			}
 
 			if (password !== confirmationPassword) {
-				error = setError("Введенные вами пароли не совпадают");
+				setError("Введенные вами пароли не совпадают");
 				return;
 			}
 
@@ -42,6 +43,7 @@ export default function SignUp() {
 			const data = await result.json();
 
 			if (!result.ok) {
+				setError(data.error);
 				throw new Error(data.error);
 			}
 
@@ -92,7 +94,16 @@ export default function SignUp() {
 				value={confirmationPassword}
 				required
 			></input>
+			{error !== "" ? (
+				<h1 className="text-red-500 text-center">{error}</h1>
+			) : null}
 			<button className="cursor-pointer">Зарегистрироваться</button>
+			<div className="text-center text-xs">
+				<span className="mr-1">Уже есть аккаунт?</span>
+				<Link href="/auth/signin" className="text-skiey">
+					Войти
+				</Link>
+			</div>
 		</form>
 	);
 }
