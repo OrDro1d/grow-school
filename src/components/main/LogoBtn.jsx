@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function LogoBtn() {
 	return (
-		<Link href="#" className="flex text-xs sm:text-sm md:text-base">
+		<Link href="/" className="flex text-xs sm:text-sm md:text-base">
 			<Image
 				src="/images/icons/logo.svg"
 				className="w-4"

@@ -3,7 +3,7 @@ import WelcomeScreenBtn from "@/components/main/WelcomeScreenBtn";
 
 export default function WelcomeScreen() {
 	return (
-		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 lg:py-16 text-center lg:flex-row bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl w-sm md:w-xl md:min-w-sm lg:w-xl lg:min-w-lg shadow-skiey/30 shadow-xl">
+		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 lg:py-16 text-center lg:flex-row bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl w-sm md:w-xl md:min-w-sm lg:w-160 lg:min-w-lg shadow-skiey/30 shadow-xl">
 			<h1 className="text-2xl font-bold text-white md:text-3xl lg:text-4xl flex-wrap">
 				Каждый день - это новый шанс вырасти над собой
 			</h1>

@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect.js";
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request) {
 	await dbConnect();
@@ -10,9 +11,9 @@ export async function POST(request) {
 	try {
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
-			return new Response(
-				JSON.stringify({ error: "Пользователь с таким email уже существует" }),
-				{ headers: { "Content-Type": "application/json" }, status: 409 }
+			return NextResponse.json(
+				{ error: "Пользователь с таким email уже существует" },
+				{ status: 409 }
 			);
 		}
 
@@ -22,15 +23,15 @@ export async function POST(request) {
 		const user = new User({ name, email, password: hashedPassword });
 		await user.save();
 
-		return new Response(
-			JSON.stringify({ message: "Регистрация прошла успешно" }),
-			{ headers: { "Content-Type": "application/json" }, status: 201 }
+		return NextResponse.json(
+			{ message: "Регистрация прошла успешно" },
+			{ status: 201 }
 		);
 	} catch (error) {
 		console.error(error);
-		return new Response(
-			JSON.stringify({ error: "Внутренняя ошибка сервера" }),
-			{ headers: { "Content-Type": "application/json" }, status: 500 }
+		return NextResponse.json(
+			{ error: "Внутренняя ошибка сервера" },
+			{ status: 500 }
 		);
 	}
 }

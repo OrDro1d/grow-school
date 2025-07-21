@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function MainCoursesCard() {
 	return (
 		<Link href="#">
-			<section className="flex flex-col md:flex-row p-2 bg-white rounded-2xl shadow-[0_0_12px_lightgray] hover:shadow-[0_0_12px_#42AAFF] transition-all w-40 sm:w-sm md:w-sm lg:w-sm">
+			<section className="flex flex-col md:flex-row p-2 bg-white rounded-2xl hover:border-skiey border-2 border-gray-100 transition-all w-40 sm:w-sm md:w-sm lg:w-sm">
 				<Image
 					className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl"
 					src="/images/course-cards-images/javascript-course.png"

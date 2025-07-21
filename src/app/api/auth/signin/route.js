@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect.js";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
 	await dbConnect();
@@ -10,38 +11,35 @@ export async function POST(request) {
 	try {
 		const user = await User.findOne({ email });
 		if (!user) {
-			return new Response(JSON.stringify({ error: "Пользователь не найден" }), {
-				headers: { "Content-Type": "application/json" },
-				status: 401
-			});
+			return NextResponse.json(
+				{ error: "Пользователь не найден" },
+				{ status: 401 }
+			);
 		}
 
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
-			return new Response(JSON.stringify({ error: "Неверный пароль" }), {
-				headers: { "Content-Type": "application/json" },
-				status: 401
-			});
+			return NextResponse.json({ error: "Неверный пароль" }, { status: 401 });
 		}
 
-		return new Response(
-			JSON.stringify(
-				{
-					message: "Вход совершен успешно"
-				},
-				{
-					headers: { "Content-Type": "application/json" },
-					status: 200
-				}
-			)
+		const res = NextResponse.json(
+			{ error: "Вход совершен успешно" },
+			{ status: 200 }
 		);
+
+		res.cookies.set("userId", user._id, {
+			httpOnly: true,
+			secure: "secure",
+			sameSite: "strict",
+			path: "/",
+			maxAge: 60 * 60 * 24
+		});
+
+		return res;
 	} catch (error) {
-		return new Response(
-			JSON.stringify({ error: "Внутренняя ошибка сервера" }),
-			{
-				headers: { "Content-Type": "application/json" },
-				status: 500
-			}
+		return NextResponse.json(
+			{ error: "Внутренняя ошибка сервера" },
+			{ status: 500 }
 		);
 	}
 }

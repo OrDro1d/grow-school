@@ -16,8 +16,8 @@ export default function MainCourses() {
 				<MainCoursesCard></MainCoursesCard>
 				<MainCoursesCard></MainCoursesCard>
 			</div>
-			<div className="mt-2 p-1 flex items-center justify-evenly bg-skiey/80 rounded-3xl sm:rounded-2xl w-sm sm:w-md lg:w-2xl shadow-skiey/30 shadow-xl">
-				<h1 className="block text-white font-medium text-sm sm:text-base md:text-lg text-left pl-4 lg:pl-8 w-sm">
+			<div className="mt-2 p-1 flex items-center justify-evenly bg-skiey/80 rounded-3xl sm:rounded-2xl w-sm sm:w-md lg:w-2xl shadow-skiey/30 shadow-xl xl:w-full">
+				<h1 className="block text-white font-medium text-sm sm:text-base md:text-lg text-left  w-sm">
 					Не знаете с чего начать? Попробуйте эти популярные курсы!
 				</h1>
 				<Image

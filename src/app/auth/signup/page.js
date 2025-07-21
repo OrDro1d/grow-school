@@ -47,7 +47,7 @@ export default function SignUp() {
 				throw new Error(data.error);
 			}
 
-			if (result.ok) router.push("/auth/signin");
+			if (result.ok) router.replace("/auth/signin");
 		} catch (error) {
 			console.log(error.message);
 		}
