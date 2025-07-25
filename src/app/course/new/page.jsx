@@ -9,6 +9,7 @@ export default function NewCoursePage() {
 	const [coverURL, setCoverURL] = useState("");
 	const [coverID, setCoverID] = useState("");
 	const [title, setTitle] = useState("");
+	const [price, setPrice] = useState(0);
 	const [error, setError] = useState("");
 	const router = useRouter();
 
@@ -23,7 +24,7 @@ export default function NewCoursePage() {
 				return;
 			}
 
-			await saveCourse({ title, coverURL, coverID });
+			await saveCourse({ title, price, coverURL, coverID });
 			router.replace("/");
 		} catch (error) {
 			setError(error.message);
@@ -68,6 +69,17 @@ export default function NewCoursePage() {
 						id="course-name"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
+						required
+					></input>
+				</div>
+				<div className="*:m-2">
+					<label htmlFor="course-price">Стоимость курса</label>
+					<input
+						className="border-2 border-gray-300 p-2 rounded-2xl"
+						type="number"
+						id="course-price"
+						value={price}
+						onChange={(e) => setPrice(e.target.value)}
 						required
 					></input>
 				</div>
