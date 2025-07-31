@@ -9,7 +9,7 @@ export default async function NavBar() {
 	const userId = cookieStore.get("userId")?.value;
 
 	return (
-		<nav className="fixed top-0 left-0 right-0 flex justify-between py-2 px-4 bg-white">
+		<nav className="fixed top-0 left-0 right-0 flex justify-between py-2 px-4 bg-white border-b-2 border-b-neutral-200 shadow-md">
 			<div className="flex items-center *:mx-3">
 				<LogoBtn></LogoBtn>
 				<NavBarBtn href="#" className="hidden sm:block">

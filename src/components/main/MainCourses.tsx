@@ -2,8 +2,6 @@ import { ICourseData } from "@/types/Course.interface";
 
 import { getCourses } from "@/lib/actions";
 
-import Image from "next/image";
-
 import MainCourseCard from "@/components/main/MainCourseCard";
 
 export const revalidate = 60;

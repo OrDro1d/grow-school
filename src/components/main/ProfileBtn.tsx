@@ -11,7 +11,7 @@ export default function ProfileBtn({
 		<Link
 			scroll={false}
 			href={href}
-			className="px-8 py-1 text-xs border-2 md:text-base border-skiey rounded-4xl sm:text-xs"
+			className="px-8 py-1 text-xs border-2 md:text-base border-skiey rounded-4xl sm:text-xs hover:bg-skiey hover:text-white transition-all"
 		>
 			{children}
 		</Link>

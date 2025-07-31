@@ -66,6 +66,7 @@ export default function NewCoursePage() {
 						className="border-2 border-gray-300 p-2 rounded-2xl"
 						type="text"
 						id="course-name"
+						maxLength={100}
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						required

@@ -1,12 +1,12 @@
 "use client";
 
-import { ICourse, ICourseData } from "@/types/Course.interface";
+import { ICourseData } from "@/types/Course.interface";
 
-import Image from "next/image";
 import Link from "next/link";
 import { CldImage } from "next-cloudinary";
 
 import CourseAttribute from "@/components/main/CourseAttribute";
+import AddToWishListBtn from "./AddToWishListBtn";
 
 export default function MainCoursesCard({
 	courseData
@@ -15,13 +15,13 @@ export default function MainCoursesCard({
 }) {
 	return (
 		<Link href="#">
-			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-100 transition-all w-sm shadow-xl hover:shadow-skiey/20">
+			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-100 transition-all w-85 shadow-xl hover:shadow-skiey/20 shadow-neutral-300">
 				<div className="flex items-start gap-2">
 					<CldImage
 						className="rounded-xl"
 						src={courseData.imageURL}
 						width={160}
-						height={100}
+						height={160}
 						title="Изображение на карточке курса"
 						alt="Изображение на карточке курса"
 					></CldImage>
@@ -49,7 +49,7 @@ export default function MainCoursesCard({
 				</div>
 
 				<div className="mt-2">
-					<div className="">
+					<div className="h-20">
 						<h1 className="font-medium text-md break-words">
 							{courseData.title}
 						</h1>
@@ -63,12 +63,7 @@ export default function MainCoursesCard({
 						) : (
 							<p className="text-green-500">Бесплатно</p>
 						)}
-						<button
-							type="button"
-							className="rounded-4xl border-2 border-skiey px-6 py-2 w-fit"
-						>
-							💖
-						</button>
+						<AddToWishListBtn></AddToWishListBtn>
 					</div>
 				</div>
 			</section>

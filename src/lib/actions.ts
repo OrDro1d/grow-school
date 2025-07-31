@@ -59,6 +59,6 @@ export async function getCourses(): Promise<ICourseData[]> {
 				imageURL: doc.imageURL
 			}))
 		);
-	console.log(courses);
+	// console.log(courses);
 	return courses;
 }
