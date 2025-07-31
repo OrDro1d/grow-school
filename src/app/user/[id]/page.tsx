@@ -5,22 +5,14 @@ import { getUser } from "@/lib/actions";
 
 import NavBar from "@/components/main/NavBar";
 import Link from "next/link";
-import { NextResponse } from "next/server";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
+import { use } from "react";
 
-type Params = { id: id };
+export default function UserPage({ params }: { params: { id: id } }) {
+	const { id } = params;
 
-export default async function UserPage({ params }: { params: Params }) {
-	const { id } = await params;
-
-	const user: IUser | null = await getUser(id);
-	if (!user) {
-		const res = NextResponse.json({
-			error: "Пользователь не авторизован",
-			status: 401
-		});
-		return NextResponse.redirect("/auth/signup");
-	}
+	const user: IUser | null = use(getUser(id));
+	if (!user) return redirect("/auth/signup");
 
 	return (
 		<>
