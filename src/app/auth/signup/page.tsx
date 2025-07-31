@@ -14,7 +14,7 @@ export default function SignUp() {
 
 	const router = useRouter();
 
-	async function handleSubmit(event) {
+	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setError("");
 
@@ -48,7 +48,7 @@ export default function SignUp() {
 			}
 
 			if (result.ok) router.replace("/auth/signin");
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error.message);
 		}
 	}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
@@ -9,7 +9,7 @@ export default function SignIn() {
 	const [error, setError] = useState("");
 	const router = useRouter();
 
-	async function handleSubmit(event) {
+	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setError("");
 
@@ -36,7 +36,7 @@ export default function SignIn() {
 				localStorage.setItem("userId", data.userId);
 				router.replace("/");
 			}
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error.message);
 		}
 	}

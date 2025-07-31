@@ -1,15 +1,16 @@
-import dbConnect from "@/lib/dbConnect.js";
+import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
+import { IUser } from "@/types/User.interface";
 import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function POST(request: NextRequest) {
 	await dbConnect();
 
 	const { email, password } = await request.json();
 
 	try {
-		const user = await User.findOne({ email });
+		const user: IUser | null = await User.findOne({ email });
 		if (!user) {
 			return NextResponse.json(
 				{ error: "Пользователь не найден" },
@@ -17,19 +18,19 @@ export async function POST(request) {
 			);
 		}
 
-		const isMatch = await bcrypt.compare(password, user.password);
+		const isMatch: boolean = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
 			return NextResponse.json({ error: "Неверный пароль" }, { status: 401 });
 		}
 
 		const res = NextResponse.json(
-			{ error: "Вход совершен успешно" },
+			{ message: "Вход совершен успешно" },
 			{ status: 200 }
 		);
 
-		res.cookies.set("userId", user._id, {
+		res.cookies.set("userId" as string, user._id as string, {
 			httpOnly: true,
-			secure: "secure",
+			secure: true,
 			sameSite: "strict",
 			path: "/",
 			maxAge: 60 * 60 * 24

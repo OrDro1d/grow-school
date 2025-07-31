@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export default function ProfileBtn({ href, children }) {
+export default function ProfileBtn({
+	href,
+	children
+}: {
+	href: string;
+	children: React.ReactNode;
+}) {
 	return (
 		<Link
 			scroll={false}

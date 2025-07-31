@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export default function WelcomeScreenBtn({ children, href = "#" }) {
+export default function WelcomeScreenBtn({
+	children,
+	href = "#"
+}: {
+	children: string;
+	href?: string;
+}) {
 	return (
 		<Link
 			href={href}

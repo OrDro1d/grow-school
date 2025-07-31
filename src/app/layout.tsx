@@ -6,13 +6,20 @@ const fontInter = Inter({
 });
 
 export const metadata = {
-	title: "Grow School"
+	title: "Grow School",
+	icons: {
+		icon: "/favicon.ico"
+	}
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+	children
+}: {
+	children: React.ReactNode;
+}) {
 	return (
 		<html lang="ru">
-			<body className={fontInter.variable}>{children}</body>
+			<body className={fontInter.className}>{children}</body>
 		</html>
 	);
 }

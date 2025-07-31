@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export default async function WelcomeScreen() {
 	const cookieStore = await cookies();
 	return (
-		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center gap-8 bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl shadow-skiey/30 shadow-xl mt-14 mx-10">
+		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center gap-8 bg-gradient-to-tr from-skiey to-mint rounded-3xl sm:rounded-2xl shadow-skiey/30 shadow-xl mt-16 mx-auto lg:w-6xl lg:px-16">
 			<Image
 				className=""
 				src="/images/icons/welcome.svg"
@@ -24,7 +24,9 @@ export default async function WelcomeScreen() {
 				</h2>
 				<div className="flex gap-2">
 					<WelcomeScreenBtn href="#">Все курсы</WelcomeScreenBtn>
-					<WelcomeScreenBtn href="#">Лучшие курсы</WelcomeScreenBtn>
+					<WelcomeScreenBtn href="#recommended-courses">
+						Лучшие курсы
+					</WelcomeScreenBtn>
 					<WelcomeScreenBtn
 						href={cookieStore.has("userId") ? "/course/new" : "/auth/signup"}
 					>

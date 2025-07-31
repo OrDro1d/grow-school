@@ -6,27 +6,26 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function NewCoursePage() {
-	const [coverURL, setCoverURL] = useState("");
-	const [coverID, setCoverID] = useState("");
+	const [imageURL, setImageURL] = useState("");
+	const [imageId, setImageId] = useState("");
 	const [title, setTitle] = useState("");
 	const [price, setPrice] = useState(0);
 	const [error, setError] = useState("");
 	const router = useRouter();
 
-	async function handleSubmit(event) {
+	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setError("");
 
 		try {
-			if (!coverURL) {
+			if (!imageURL) {
 				setError("Добавьте файл-обложку для курса");
-				console.log(coverURL);
 				return;
 			}
 
-			await saveCourse({ title, price, coverURL, coverID });
+			await saveCourse({ title, price, imageURL, imageId });
 			router.replace("/");
-		} catch (error) {
+		} catch (error: any) {
 			setError(error.message);
 			console.log(error.message);
 		}
@@ -45,9 +44,9 @@ export default function NewCoursePage() {
 							multiple: false,
 							maxFileSize: 2_000_000
 						}}
-						onSuccess={(result) => {
-							setCoverURL(result.info.secure_url);
-							setCoverID(result.info.public_id);
+						onSuccess={(result: any) => {
+							setImageURL(result.info.secure_url);
+							setImageId(result.info.public_id);
 						}}
 					>
 						{({ open }) => (
@@ -79,7 +78,7 @@ export default function NewCoursePage() {
 						type="number"
 						id="course-price"
 						value={price}
-						onChange={(e) => setPrice(e.target.value)}
+						onChange={(e) => setPrice(Number(e.target.value))}
 						required
 					></input>
 				</div>

@@ -1,8 +1,9 @@
 // pages/404.tsx
 import Link from "next/link";
 
-export default function Custom404() {
+export default function NotFoundPage() {
 	return (
+		// Код написан нейронкой. Лучше потом переписать
 		<div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50 px-6 text-center">
 			<div className="text-7xl mb-4">📚</div>
 			<h1 className="text-5xl font-extrabold text-blue-700">

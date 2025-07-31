@@ -18,7 +18,10 @@ export default async function NavBar() {
 				<NavBarBtn href="#" className="hidden sm:block">
 					Мое обучение
 				</NavBarBtn>
-				<SearchBar className="hidden sm:block">Поиск по сайту</SearchBar>
+				<SearchBar
+					className="hidden sm:block"
+					placeholder="Поиск по сайту"
+				></SearchBar>
 			</div>
 			<div className="flex items-center">
 				{userId ? (
