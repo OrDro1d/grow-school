@@ -6,12 +6,15 @@ import { getUser } from "@/lib/actions";
 import NavBar from "@/components/main/NavBar";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { use } from "react";
 
-export default function UserPage({ params }: { params: { id: id } }) {
-	const { id } = params;
+export default async function UserPage({
+	params
+}: {
+	params: Promise<{ id: id }>;
+}) {
+	const { id } = await params;
 
-	const user: IUser | null = use(getUser(id));
+	const user: IUser | null = await getUser(id);
 	if (!user) return redirect("/auth/signup");
 
 	return (
