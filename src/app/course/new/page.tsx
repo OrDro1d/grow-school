@@ -9,8 +9,11 @@ export default function NewCoursePage() {
 	const [imageURL, setImageURL] = useState("");
 	const [imageId, setImageId] = useState("");
 	const [title, setTitle] = useState("");
+	const [certificate, setCertificate] = useState(false);
+	const [length, setLength] = useState(0);
 	const [price, setPrice] = useState(0);
 	const [error, setError] = useState("");
+
 	const router = useRouter();
 
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -23,7 +26,14 @@ export default function NewCoursePage() {
 				return;
 			}
 
-			await saveCourse({ title, price, imageURL, imageId });
+			await saveCourse({
+				title,
+				price,
+				imageURL,
+				imageId,
+				certificate,
+				length
+			});
 			router.replace("/");
 		} catch (error: any) {
 			setError(error.message);
@@ -66,10 +76,31 @@ export default function NewCoursePage() {
 						className="border-2 border-gray-300 p-2 rounded-2xl"
 						type="text"
 						id="course-name"
-						maxLength={100}
+						maxLength={80}
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						required
+					></input>
+				</div>
+				<div className="*:m-2">
+					<label htmlFor="course-length">Продолжительность курса</label>
+					<input
+						className="border-2 border-gray-300 p-2 rounded-2xl"
+						type="number"
+						id="course-length"
+						value={length}
+						onChange={(e) => setLength(Number(e.target.value))}
+						required
+					></input>
+				</div>
+				<div className="*:m-2">
+					<label htmlFor="course-certificate">С сертификатом</label>
+					<input
+						className="border-2 border-gray-300 p-2 rounded-2xl"
+						type="checkbox"
+						id="course-certificate"
+						checked={certificate}
+						onChange={(e) => setCertificate(e.target.checked)}
 					></input>
 				</div>
 				<div className="*:m-2">

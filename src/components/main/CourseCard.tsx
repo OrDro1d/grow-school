@@ -26,7 +26,7 @@ export default function CourseCard({
 				</div>
 
 				<div className="mt-2">
-					<div className="h-20">
+					<div className="h-24">
 						<h1 className="font-medium text-sm break-words">
 							{courseData.title}
 						</h1>
@@ -36,7 +36,7 @@ export default function CourseCard({
 					</div>
 					<div className="flex justify-between items-center">
 						{courseData.price ? (
-							<p>courseData.price</p>
+							<p className="text-skiey font-bold">{courseData.price}р.</p>
 						) : (
 							<p className="text-green-500">Бесплатно</p>
 						)}

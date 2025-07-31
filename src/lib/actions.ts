@@ -22,9 +22,8 @@ export async function saveCourse(courseData: ICourseData): Promise<void> {
 	await dbConnect();
 	const cookieStore = await cookies();
 
-	const author = cookieStore.get("userId")?.value;
 	const title = courseData.title;
-	const price = courseData.price;
+	const author = cookieStore.get("userId")?.value;
 
 	const existingCourse = await Course.exists({ title, author }).lean();
 	if (existingCourse) {
@@ -34,13 +33,12 @@ export async function saveCourse(courseData: ICourseData): Promise<void> {
 			"Курс с таким же названием и от того же автора уже существует"
 		);
 	}
-
+	console.log(courseData);
 	const course = new Course({
-		imageURL: courseData.imageURL,
-		title: title,
-		price: price,
-		author: author
+		...courseData,
+		author
 	});
+	console.log(course);
 	await course.save();
 }
 

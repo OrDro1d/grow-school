@@ -7,7 +7,8 @@ export interface ICourse {
 	createdAt?: Date;
 	updatedAt?: Date;
 	recommended?: boolean;
-	withCertificate?: boolean;
+	certificate?: boolean;
+	length?: number;
 	students?: number;
 	price?: number;
 }
