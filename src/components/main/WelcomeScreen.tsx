@@ -5,12 +5,12 @@ import { cookies } from "next/headers";
 export default async function WelcomeScreen() {
 	const cookieStore = await cookies();
 	return (
-		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl mt-20 mx-auto lg:w-6xl lg:px-32">
+		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl mt-20 mx-auto lg:w-6xl lg:px-24">
 			<Image
-				className=""
+				className="w-xs"
 				src="/images/icons/welcome.svg"
-				width={300}
-				height={300}
+				width={651}
+				height={436}
 				title="Встречающая пользователя картинка"
 				alt="Встречающая пользователя картинка. Человечек с цветком в руках"
 			></Image>

@@ -27,12 +27,12 @@ export default async function MainCourses() {
 					<span className="text-mint">популярные</span> курсы!
 				</h2>
 				<Image
-					className="block justify-self-end"
-					src="/images/icons/dude-with-star.svg"
+					className="block justify-self-end w-3xl"
+					src="/images/icons/star-dude.svg"
 					title="Человечек со звездой в руках"
 					alt="Человечек со звездой в руках предлагает вам оценить самые популярные курсы на платформе"
-					width={180}
-					height={180}
+					width={539}
+					height={341}
 				></Image>
 			</div>
 		</section>
