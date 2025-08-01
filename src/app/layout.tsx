@@ -20,7 +20,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="ru">
-			<body className={fontInter.className}>{children}</body>
+			<body className={fontInter.className}>
+				{children}
+				<SpeedInsights></SpeedInsights>
+			</body>
 		</html>
 	);
 }
