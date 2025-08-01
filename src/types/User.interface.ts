@@ -8,4 +8,6 @@ export interface IUser {
 	age: number;
 	role: string;
 	createdAt: Date;
+	courses: Array<mongoose.Types.ObjectId>;
+	wishList: Array<mongoose.Types.ObjectId>;
 }

@@ -12,7 +12,9 @@ const UserSchema = new mongoose.Schema({
 		enum: ["student", "author"],
 		default: "student"
 	},
-	createdAt: { type: Date, default: Date.now }
+	createdAt: { type: Date, default: Date.now },
+	courses: { type: Array<mongoose.Types.ObjectId>, default: null },
+	wishList: { type: Array<mongoose.Types.ObjectId>, default: null }
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

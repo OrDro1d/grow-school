@@ -1,5 +1,4 @@
-import Image from "next/image";
-import NavBar from "@/components/main/NavBar";
+import NavBar from "@/components/other/NavBar";
 import WelcomeScreen from "@/components/main/WelcomeScreen";
 import MainCourses from "@/components/main/MainCourses";
 import AllCourses from "@/components/main/AllCourses";

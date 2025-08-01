@@ -14,7 +14,7 @@ export default async function AllCourses() {
 			<h2 className="font-bold inline-block text-2xl">Все курсы</h2>
 			<section
 				id="all-courses"
-				className="flex items-center justify-center my-4 gap-4 flex-wrap bg-neutral-100 rounded-xl w-fit p-8"
+				className="grid grid-cols-3 grid-rows-2 my-4 gap-4 flex-wrap bg-neutral-100 rounded-xl w-fit p-8"
 			>
 				{courses.map((course) => (
 					<CourseCard

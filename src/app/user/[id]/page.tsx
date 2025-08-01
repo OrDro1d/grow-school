@@ -3,7 +3,7 @@ import { IUser } from "@/types/User.interface";
 
 import { getUser } from "@/lib/actions";
 
-import NavBar from "@/components/main/NavBar";
+import NavBar from "@/components/other/NavBar";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
