@@ -27,9 +27,10 @@ export default async function MainCourses() {
 					<span className="text-mint">популярные</span> курсы!
 				</h2>
 				<Image
-					className="block relative top-5 justify-self-end"
+					className="block justify-self-end"
 					src="/images/icons/dude-with-star.svg"
-					alt=""
+					title="Человечек со звездой в руках"
+					alt="Человечек со звездой в руках предлагает вам оценить самые популярные курсы на платформе"
 					width={180}
 					height={180}
 				></Image>
