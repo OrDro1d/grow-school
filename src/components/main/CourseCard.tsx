@@ -22,6 +22,7 @@ export default function CourseCard({
 						height={100}
 						title="Изображение на карточке курса"
 						alt="Изображение на карточке курса"
+						crop="pad"
 					></CldImage>
 				</div>
 

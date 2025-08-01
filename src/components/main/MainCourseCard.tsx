@@ -24,6 +24,7 @@ export default function MainCoursesCard({
 						height={160}
 						title="Изображение на карточке курса"
 						alt="Изображение на карточке курса"
+						crop="pad"
 					></CldImage>
 					<div className="flex gap-2 flex-wrap">
 						{

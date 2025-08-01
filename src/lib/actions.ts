@@ -52,7 +52,7 @@ export async function getCourses(): Promise<ICourseData[]> {
 			docs.map((doc) => ({
 				...doc,
 				_id: doc._id?.toString(),
-				author: doc.author.name,
+				author: doc.author?.name,
 				title: doc.title,
 				imageURL: doc.imageURL
 			}))

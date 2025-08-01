@@ -89,6 +89,7 @@ export default function NewCoursePage() {
 						type="number"
 						id="course-length"
 						value={length}
+						max={999}
 						onChange={(e) => setLength(Number(e.target.value))}
 						required
 					></input>
@@ -110,6 +111,7 @@ export default function NewCoursePage() {
 						type="number"
 						id="course-price"
 						value={price}
+						max={99999}
 						onChange={(e) => setPrice(Number(e.target.value))}
 						required
 					></input>
