@@ -1,18 +1,24 @@
 import Image from "next/image";
-import WelcomeScreenBtn from "@/components/main/WelcomeScreenBtn";
+import WelcomeScreenBtn from "@/components/main/MainBtn";
 import { cookies } from "next/headers";
 
-export default async function WelcomeScreen() {
+export default async function WelcomeScreen({
+	className
+}: {
+	className?: string;
+}) {
 	const cookieStore = await cookies();
 	return (
-		<header className="flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl mt-20 mx-auto lg:w-6xl lg:px-24">
+		<header
+			className={`flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl mx-auto lg:w-6xl lg:px-24 ${className}`}
+		>
 			<Image
 				className="w-xs"
 				src="/images/icons/welcome.svg"
 				width={651}
 				height={436}
-				title="Встречающая пользователя картинка"
-				alt="Встречающая пользователя картинка. Человечек с цветком в руках"
+				title="Встречающая на платформе пользователя картинка"
+				alt="Встречающий вас на платформе человечек с цветком в руках "
 			></Image>
 			<div className="lg:flex-col flex w-fit items-center *:my-2">
 				<h1 className="inline-block w-fit text-2xl font-bold text-white md:text-3xl lg:text-4xl flex-wrap text-center">

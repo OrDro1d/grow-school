@@ -22,8 +22,8 @@ export default function MainCoursesCard({
 						src={courseData.imageURL}
 						width={160}
 						height={160}
-						title="Изображение на карточке курса"
-						alt="Изображение на карточке курса"
+						title={`Иллюстрация для курса "${courseData.title}"`}
+						alt="Иллюстрация на карточке курса"
 						crop="pad"
 					></CldImage>
 					<div className="flex gap-2 flex-wrap">
@@ -54,7 +54,7 @@ export default function MainCoursesCard({
 						<h1 className="font-medium text-md break-words">
 							{courseData.title}
 						</h1>
-						<h2 className="font-regular text-sm  break-words text-text">
+						<h2 className="font-regular text-sm  break-words text-text mt-1">
 							{courseData.author as string}
 						</h2>
 					</div>

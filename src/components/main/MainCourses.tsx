@@ -7,13 +7,17 @@ import MainCourseCard from "@/components/main/MainCourseCard";
 
 export const revalidate = 60;
 
-export default async function MainCourses() {
-	const courses: ICourseData[] = await getCourses();
+export default async function MainCourses({
+	className
+}: {
+	className?: string;
+}) {
+	const courses: ICourseData[] = await getCourses(3);
 
 	return (
 		<section
 			id="recommended-courses"
-			className="flex items-center justify-center my-4 gap-2 flex-nowrap"
+			className={`flex items-center justify-center my-4 gap-2 flex-nowrap ${className}`}
 		>
 			{courses.map((course) => (
 				<MainCourseCard
@@ -29,7 +33,7 @@ export default async function MainCourses() {
 				<Image
 					className="block justify-self-end w-3xl"
 					src="/images/icons/star-dude.svg"
-					title="Человечек со звездой в руках"
+					title="Самые популярные курсы"
 					alt="Человечек со звездой в руках предлагает вам оценить самые популярные курсы на платформе"
 					width={539}
 					height={341}

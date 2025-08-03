@@ -1,4 +1,4 @@
-import ProfileBtn from "@/components/main/ProfileBtn";
+import ProfileBtn from "@/components/other/ProfileBtn";
 import LogoBtn from "@/components/other/LogoBtn";
 import SearchBar from "@/components/other/SearchBar";
 import NavBarBtn from "@/components/other/NavBarBtn";
@@ -9,7 +9,7 @@ export default async function NavBar() {
 	const userId = cookieStore.get("userId")?.value;
 
 	return (
-		<nav className="fixed top-0 left-0 right-0 flex justify-between py-2 px-4 bg-white border-b-2 border-b-gray-200 shadow-md">
+		<nav className="fixed top-0 left-0 right-0 flex justify-between py-2 px-4 bg-white border-b-2 border-b-gray-200">
 			<div className="flex items-center *:mx-3">
 				<LogoBtn></LogoBtn>
 				<NavBarBtn href="/" className="hidden sm:block">

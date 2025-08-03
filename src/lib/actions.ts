@@ -42,11 +42,11 @@ export async function saveCourse(courseData: ICourseData): Promise<void> {
 	await course.save();
 }
 
-export async function getCourses(): Promise<ICourseData[]> {
-	// Херотень для получения всех курсов с бд на главную страницу для отрисовки
+export async function getCourses(limit: number = 6): Promise<ICourseData[]> {
 	await dbConnect();
 	const courses: ICourseData[] = await Course.find()
 		.populate("author", "name")
+		.limit(limit)
 		.lean()
 		.transform((docs) =>
 			docs.map((doc) => ({

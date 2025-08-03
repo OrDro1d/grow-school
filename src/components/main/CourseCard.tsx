@@ -20,8 +20,8 @@ export default function CourseCard({
 						src={courseData.imageURL}
 						width={100}
 						height={100}
-						title="Изображение на карточке курса"
-						alt="Изображение на карточке курса"
+						title={`Иллюстрация для курса "${courseData.title}"`}
+						alt="Иллюстрация на карточке курса"
 						crop="pad"
 					></CldImage>
 				</div>
@@ -31,7 +31,7 @@ export default function CourseCard({
 						<h1 className="font-medium text-sm break-words">
 							{courseData.title}
 						</h1>
-						<h2 className="font-regular text-xs  break-words text-text">
+						<h2 className="font-regular text-xs break-words text-text mt-1">
 							{courseData.author as string}
 						</h2>
 					</div>
