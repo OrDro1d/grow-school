@@ -1,5 +1,7 @@
 "use client";
 
+import { getCourseId } from "@/lib/actions";
+import Link from "next/link";
 import { CldUploadWidget } from "next-cloudinary";
 import { saveCourse } from "@/lib/actions";
 import { useState } from "react";
@@ -12,6 +14,7 @@ export default function NewCoursePage() {
 	const [certificate, setCertificate] = useState(false);
 	const [length, setLength] = useState(0);
 	const [price, setPrice] = useState(0);
+	const [description, setDescription] = useState("");
 	const [error, setError] = useState("");
 
 	const router = useRouter();
@@ -25,7 +28,7 @@ export default function NewCoursePage() {
 				setError("Добавьте файл-обложку для курса");
 				return;
 			}
-
+			// Сохраняем курс
 			await saveCourse({
 				title,
 				price,
@@ -34,7 +37,9 @@ export default function NewCoursePage() {
 				certificate,
 				length
 			});
-			router.replace("/");
+			// Получаем id полученного курса и переносим пользователя на страницу дальнейшего редактирования курса
+			const newCourseId = await getCourseId(title);
+			router.replace(`/course/new/${newCourseId}`);
 		} catch (error: any) {
 			setError(error.message);
 			console.log(error.message);
@@ -116,6 +121,16 @@ export default function NewCoursePage() {
 						required
 					></input>
 				</div>
+				<div className="*:m-2">
+					<label htmlFor="course-description">Описание курса</label>
+					<textarea
+						className="border-2 border-gray-300 p-2 rounded-2xl"
+						id="course-description"
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						placeholder="Добавьте описание для своего курса"
+					></textarea>
+				</div>
 				{!!error ? <p className="text-red-500">{error}</p> : null}
 				<button
 					className="border-skiey border-2 rounded-4xl px-8 py-4 mx-auto mt-8 block w-fit"
@@ -123,6 +138,12 @@ export default function NewCoursePage() {
 				>
 					Опубликовать
 				</button>
+				<Link
+					className="border-skiey border-2 rounded-4xl px-8 py-4 mx-auto mt-8 block w-fit"
+					href="/course/new/module/1"
+				>
+					Дальше
+				</Link>
 			</form>
 		</main>
 	);

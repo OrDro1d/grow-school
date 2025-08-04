@@ -11,6 +11,7 @@ export interface ICourse {
 	length?: number;
 	students?: number;
 	price?: number;
+	published?: boolean;
 }
 
 export interface ICourseData extends ICourse {

@@ -33,13 +33,29 @@ export async function saveCourse(courseData: ICourseData): Promise<void> {
 			"Курс с таким же названием и от того же автора уже существует"
 		);
 	}
-	console.log(courseData);
+	// console.log(courseData);
 	const course = new Course({
 		...courseData,
 		author
 	});
-	console.log(course);
+	// console.log(course);
 	await course.save();
+}
+
+export async function getCourseId(title: string): Promise<string | null> {
+	interface CourseId {
+		_id: id;
+	}
+	const courseId: CourseId | null = await Course.findOne(
+		{
+			title: title
+		},
+		"_id"
+	).lean<CourseId>();
+	console.log(courseId);
+	if (courseId) {
+		return courseId._id.toString();
+	} else return null;
 }
 
 export async function getCourses(limit: number = 6): Promise<ICourseData[]> {

@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-import { ICourse } from "@/types/Course.interface";
-
-const CourseSchema = new mongoose.Schema({
+const ModulesSchema = new mongoose.Schema({
 	title: { type: String, required: true },
 	imageURL: { type: String, required: true },
 	author: {
@@ -16,8 +14,8 @@ const CourseSchema = new mongoose.Schema({
 	certificate: { type: Boolean, default: false },
 	length: { type: Number, default: 0 },
 	students: { type: Number, default: 0 },
-	price: { type: Number, default: 0 },
-	published: { type: Boolean, default: false }
+	price: { type: Number, default: 0 }
 });
 
-export default mongoose.models.Course || mongoose.model("Course", CourseSchema);
+export default mongoose.models.Modules ||
+	mongoose.model("Course", ModulesSchema);

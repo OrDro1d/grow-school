@@ -11,13 +11,14 @@ export default function Footer({ className }: { className?: string }) {
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-2">
 					<Image
+						className="w-4"
 						src="/images/icons/logo-black.svg"
 						title="Логотип Grow School"
 						alt="Черный логотип Grow School"
-						width={24}
-						height={24}
+						width={394}
+						height={422}
 					></Image>
-					<p className="font-medium">Grow School</p>
+					<h2 className="font-medium">Grow School</h2>
 				</div>
 				<p className="w-sm">
 					Наша задача - предоставлять удобный сервис для саморазвития и
@@ -64,6 +65,11 @@ export default function Footer({ className }: { className?: string }) {
 				>
 					Подписаться на рассылку
 				</button>
+				<p className="w-sm text-xs font-light">
+					Вы можете подписаться на рассылку новостей от Grow School, чтобы
+					первыми узнавать о новых курсах, акциях, обновлениях и прочих новостях
+					на платформе
+				</p>
 			</div>
 		</footer>
 	);

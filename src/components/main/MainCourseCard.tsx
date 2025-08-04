@@ -22,8 +22,8 @@ export default function MainCoursesCard({
 						src={courseData.imageURL}
 						width={160}
 						height={160}
-						title={`Иллюстрация для курса "${courseData.title}"`}
-						alt="Иллюстрация на карточке курса"
+						title={`Картинка карточки курса "${courseData.title}"`}
+						alt="Картинка на карточке курса"
 						crop="pad"
 					></CldImage>
 					<div className="flex gap-2 flex-wrap">
