@@ -3,7 +3,6 @@ import { IUser } from "@/types/User.interface";
 
 import { getUser } from "@/lib/actions";
 
-import NavBar from "@/components/other/NavBar";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -19,7 +18,6 @@ export default async function UserPage({
 
 	return (
 		<>
-			<NavBar></NavBar>
 			<main className="mx-auto xl:w-xl my-16 border-black border-2 p-8">
 				<div>
 					<p> Имя: {user.name}</p>

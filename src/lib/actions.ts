@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
 import Course from "@/models/Course";
+import Module from "@/models/Module";
+import Lesson from "@/models/Lesson";
+import Step from "@/models/Step";
 
 import { id } from "@/types/id.type";
 import { IUser } from "@/types/User.interface";
@@ -52,7 +55,7 @@ export async function getCourseId(title: string): Promise<string | null> {
 		},
 		"_id"
 	).lean<CourseId>();
-	console.log(courseId);
+	// console.log(courseId);
 	if (courseId) {
 		return courseId._id.toString();
 	} else return null;
@@ -75,4 +78,8 @@ export async function getCourses(limit: number = 6): Promise<ICourseData[]> {
 		);
 	// console.log(courses);
 	return courses;
+}
+
+export async function createModule() {
+	const newModule = new Module();
 }

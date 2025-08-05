@@ -59,7 +59,7 @@ export default function Footer({ className }: { className?: string }) {
 					lyumanowo@gmail.com
 				</Link>
 				<button
-					className="text-sm cursor-pointer bg-white rounded-4xl w-fit py-2 px-8 shadow-lg hover:bg-gray-100 border-2 hover:border-gray-300 border-gray-200"
+					className="text-sm cursor-pointer bg-white rounded-4xl w-fit py-2 px-8 shadow-lg shadow-black/10 hover:bg-gray-100 border-2 hover:border-gray-300 border-gray-200"
 					type="button"
 					onClick={() => alert("Когда-то будет. Клянусь")}
 				>

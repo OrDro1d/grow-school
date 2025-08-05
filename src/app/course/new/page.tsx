@@ -46,7 +46,7 @@ export default function NewCoursePage() {
 		}
 	}
 	return (
-		<main>
+		<main className="mt-16">
 			<form
 				className="flex flex-col w-fit border-2 border-gray-black mx-auto my-4 p-4"
 				onSubmit={handleSubmit}

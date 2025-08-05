@@ -13,7 +13,7 @@ export default function CourseCard({
 }) {
 	return (
 		<Link href="#">
-			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-200 transition-all w-65 shadow-lg shadow-gray-200 hover:shadow-skiey/20">
+			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-200 transition-all w-65 shadow-lg shadow-black/10 hover:shadow-skiey/20">
 				<div className="flex items-start gap-2">
 					<CldImage
 						className="rounded-xl"
