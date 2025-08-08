@@ -1,6 +1,6 @@
 import { ICourseData } from "@/types/Course.interface";
 
-import { getCourses } from "@/lib/actions";
+import { getCourses } from "@/services/courses";
 
 import Image from "next/image";
 import MainCourseCard from "@/components/main/MainCourseCard";

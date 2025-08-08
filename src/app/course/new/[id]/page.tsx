@@ -1,15 +1,48 @@
-import ModulesList from "@/components/create_course/ModulesList";
+import Course from "@/models/Course";
+import { ICourse, ICourseData } from "@/types/Course.interface";
 
-export default function CourseEditingPage({
+import ModulesList from "@/components/create_course/ModulesList";
+import CourseContent from "@/components/create_course/CourseContent";
+import { Suspense } from "react";
+
+import { getModules } from "@/services/courses";
+import { IModuleClient } from "@/types/Module.interface";
+import { authGuard } from "@/services/auth";
+
+export default async function CourseEditingPage({
 	params,
 	searchParams
 }: {
-	params: string;
+	params: Promise<{ id: string }>;
 	searchParams?: string;
 }) {
+	await authGuard();
+
+	const { id } = await params;
+	const course: ICourse | null = await Course.findById(id).lean<ICourse>();
+	// console.log(course);
+	const modulesData: Promise<IModuleClient[]> = getModules(id);
+
 	return (
-		<main className="absolute top-14 right-0 bottom-0 left-0 p-8">
-			<ModulesList></ModulesList>
+		<main className="absolute bottom-0 left-0 right-0 px-8 py-4 overflow-hidden top-14">
+			<div className="flex flex-col h-[75vh]">
+				<div className="flex flex-col">
+					<h1 className="text-2xl font-medium">Редактирование курса</h1>
+					<h2 className="my-2 text-4xl font-bold">{course?.title}</h2>
+				</div>
+				<div className="flex h-full gap-16 mt-2">
+					<Suspense
+						fallback={
+							<div>
+								<p>Ждем</p>
+							</div>
+						}
+					>
+						<ModulesList id={id} initialData={modulesData}></ModulesList>
+					</Suspense>
+					<CourseContent></CourseContent>
+				</div>
+			</div>
 		</main>
 	);
 }

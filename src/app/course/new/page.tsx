@@ -1,13 +1,16 @@
 "use client";
 
-import { getCourseId } from "@/lib/actions";
+import { getCourseId } from "@/services/courses";
 import Link from "next/link";
 import { CldUploadWidget } from "next-cloudinary";
-import { saveCourse } from "@/lib/actions";
-import { useState } from "react";
+import { saveCourse } from "@/services/courses";
+import { useState, use } from "react";
 import { useRouter } from "next/navigation";
+import { authGuard } from "@/services/auth";
 
 export default function NewCoursePage() {
+	use(authGuard());
+
 	const [imageURL, setImageURL] = useState("");
 	const [imageId, setImageId] = useState("");
 	const [title, setTitle] = useState("");

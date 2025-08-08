@@ -1,13 +1,14 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 export interface IUser {
-	_id?: mongoose.Types.ObjectId | string;
+	_id?: Types.ObjectId;
 	name: string;
 	email: string;
 	password: string;
 	age: number;
-	role: string;
-	createdAt: Date;
-	courses: Array<mongoose.Types.ObjectId>;
-	wishList: Array<mongoose.Types.ObjectId>;
+	gender?: string;
+	role?: string;
+	createdAt?: Date;
+	courses?: Types.ObjectId[];
+	wishList?: Types.ObjectId[];
 }

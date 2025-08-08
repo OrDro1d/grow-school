@@ -27,7 +27,7 @@ export default async function NavBar() {
 				{userId ? (
 					<ProfileBtn href={`/user/${userId}`}>Мой профиль</ProfileBtn>
 				) : (
-					<ProfileBtn href="/auth/signup">Войти</ProfileBtn>
+					<ProfileBtn href="/auth/signin">Войти</ProfileBtn>
 				)}
 			</div>
 		</nav>

@@ -17,7 +17,8 @@ const CourseSchema = new mongoose.Schema({
 	length: { type: Number, default: 0 },
 	students: { type: Number, default: 0 },
 	price: { type: Number, default: 0 },
-	published: { type: Boolean, default: false }
+	published: { type: Boolean, default: false },
+	modules: { type: [mongoose.Schema.Types.ObjectId], ref: "Module" }
 });
 
 export default mongoose.models.Course || mongoose.model("Course", CourseSchema);

@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 export interface ICourse {
 	title: string;
 	imageURL: string;
-	author?: mongoose.Types.ObjectId | string;
+	author?: Types.ObjectId;
 	createdAt?: Date;
 	updatedAt?: Date;
 	recommended?: boolean;
@@ -12,9 +12,10 @@ export interface ICourse {
 	students?: number;
 	price?: number;
 	published?: boolean;
+	modules?: Types.ObjectId[];
 }
 
 export interface ICourseData extends ICourse {
-	_id?: mongoose.Types.ObjectId | string;
+	_id?: Types.ObjectId | string;
 	imageId?: string;
 }

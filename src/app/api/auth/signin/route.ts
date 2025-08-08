@@ -1,4 +1,4 @@
-import dbConnect from "@/lib/dbConnect";
+import { dbConnect } from "@/services/db";
 import User from "@/models/User";
 import { IUser } from "@/types/User.interface";
 import bcrypt from "bcryptjs";
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 			{ status: 200 }
 		);
 
-		res.cookies.set("userId" as string, user._id as string, {
+		res.cookies.set("userId", user._id!.toString(), {
 			httpOnly: true,
 			secure: true,
 			sameSite: "strict",

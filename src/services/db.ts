@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let cachedConnection: mongoose.Mongoose | null = null;
 
-export default async function dbConnect(): Promise<mongoose.Mongoose> {
+export async function dbConnect(): Promise<mongoose.Mongoose> {
 	if (cachedConnection) {
 		return cachedConnection;
 	}

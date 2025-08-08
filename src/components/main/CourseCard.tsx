@@ -32,7 +32,7 @@ export default function CourseCard({
 							{courseData.title}
 						</h1>
 						<h2 className="font-regular text-xs break-words text-text mt-1">
-							{courseData.author as string}
+							{courseData.author?.toString()}
 						</h2>
 					</div>
 					<div className="flex justify-between items-center">
