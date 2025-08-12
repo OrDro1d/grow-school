@@ -1,9 +1,10 @@
 import Course from "@/models/Course";
-import { ICourse, ICourseData } from "@/types/Course.interface";
+import { ICourse, ICourseClient } from "@/types/Course.interface";
 
 import ModulesList from "@/components/create_course/ModulesList";
 import CourseContent from "@/components/create_course/CourseContent";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
 import { getModules } from "@/services/courses";
 import { IModuleClient } from "@/types/Module.interface";
@@ -21,6 +22,10 @@ export default async function CourseEditingPage({
 	const { id } = await params;
 	const course: ICourse | null = await Course.findById(id).lean<ICourse>();
 	// console.log(course);
+	if (!course) {
+		redirect("/not-found");
+	}
+
 	const modulesData: Promise<IModuleClient[]> = getModules(id);
 
 	return (

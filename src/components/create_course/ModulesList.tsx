@@ -6,7 +6,7 @@ import { IModule, IModuleClient } from "@/types/Module.interface";
 
 import { useState, useEffect, use } from "react";
 import LessonsList from "./LessonsList";
-import { createAndReturnModule, getModules } from "@/services/courses";
+import { saveAndReturnModule, getModules } from "@/services/courses";
 
 export default function ModulesList({
 	className,
@@ -27,7 +27,7 @@ export default function ModulesList({
 	}
 
 	async function addModule(event: React.MouseEvent<HTMLButtonElement>) {
-		const newModule: IModuleClient = await createAndReturnModule({
+		const newModule: IModuleClient = await saveAndReturnModule({
 			title: `Модуль ${modules.length + 1}`,
 			course: id as Types.ObjectId
 		});

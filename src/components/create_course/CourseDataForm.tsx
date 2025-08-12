@@ -32,7 +32,6 @@ export default function CourseDataForm() {
 				title,
 				price,
 				imageURL,
-				imageId,
 				certificate,
 				length
 			});

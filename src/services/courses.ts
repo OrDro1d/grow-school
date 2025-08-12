@@ -17,20 +17,22 @@ import Step from "@/models/Step";
 
 import { id } from "@/types/id.type";
 import { IUser } from "@/types/User.interface";
-import { ICourse, ICourseData } from "@/types/Course.interface";
+import { ICourse, ICourseClient } from "@/types/Course.interface";
 import { IModule, IModuleClient } from "@/types/Module.interface";
 import { ILesson } from "@/types/Lesson.interface";
 import { IStep } from "@/types/Step.interface";
 
 import { cookies } from "next/headers";
 import { v2 as cloudinary } from "cloudinary";
+import { revalidate } from "@/components/main/MainCourses";
+import { revalidatePath } from "next/cache";
 
 /**
  * Создает новый курс и сохраняет его в базе данных.
  *
  * @param {ICourseData} courseData - Данные курса.
  */
-export async function saveCourse(courseData: ICourseData): Promise<void> {
+export async function saveCourse(courseData: ICourseClient): Promise<void> {
 	await dbConnect();
 	const cookieStore = await cookies();
 
@@ -82,9 +84,9 @@ export async function getCourseId(title: string): Promise<string | null> {
  * @param {number} limit - Ограничение на количество возвращаемых курсов.
  * @returns {Promise<ICourseData[]>} - Массив курсов.
  */
-export async function getCourses(limit: number = 6): Promise<ICourseData[]> {
+export async function getCourses(limit: number = 6): Promise<ICourseClient[]> {
 	await dbConnect();
-	const courses: ICourseData[] = await Course.find()
+	const courses: ICourseClient[] = await Course.find()
 		.populate("author", "name")
 		.limit(limit)
 		.lean()
@@ -126,7 +128,7 @@ export async function getModules(id: id): Promise<IModuleClient[]> {
  *
  * @param {IModule} moduleData - Данные модуля.
  */
-export async function createModule(moduleData: IModule): Promise<void> {
+export async function saveModule(moduleData: IModule): Promise<void> {
 	const newModule = new Module({
 		course: moduleData.course,
 		title: moduleData.title
@@ -141,7 +143,7 @@ export async function createModule(moduleData: IModule): Promise<void> {
  * @param {IModule} moduleData - Данные для создания нового модуля курса.
  * @returns {IModuleClient} - Новый модуль в виде плоского JS объекта.
  */
-export async function createAndReturnModule(
+export async function saveAndReturnModule(
 	moduleData: IModule
 ): Promise<IModuleClient> {
 	const newModule = new Module({
@@ -159,7 +161,13 @@ export async function createAndReturnModule(
 	return newModuleClient;
 }
 
-export async function createLesson(lessonData: ILesson): Promise<void> {
+export async function deleteCourse(id: id, imageURL: string): Promise<void> {
+	const cookieStore = await cookies();
+	await cloudinary.uploader.destroy(imageURL);
+	await Course.deleteOne({ _id: id }).then(revalidatePath("/"));
+}
+
+export async function saveLesson(lessonData: ILesson): Promise<void> {
 	const newLesson = new Lesson({
 		module: lessonData.module,
 		title: lessonData.title
@@ -167,7 +175,7 @@ export async function createLesson(lessonData: ILesson): Promise<void> {
 	await newLesson.save();
 }
 
-export async function createStep(stepData: IStep): Promise<void> {
+export async function saveStep(stepData: IStep): Promise<void> {
 	const newLesson = new Lesson({
 		lesson: stepData.lesson,
 		title: stepData.title
