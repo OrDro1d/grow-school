@@ -14,7 +14,7 @@ export default async function CourseEditingPage({
 	searchParams
 }: {
 	params: Promise<{ id: string }>;
-	searchParams?: string;
+	searchParams?: Promise<any>;
 }) {
 	await authGuard();
 
