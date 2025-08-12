@@ -1,7 +1,7 @@
-import ProfileBtn from "@/components/other/ProfileBtn";
-import LogoBtn from "@/components/other/LogoBtn";
-import SearchBar from "@/components/other/SearchBar";
-import NavBarBtn from "@/components/other/NavBarBtn";
+import ProfileBtn from "@/components/global/ProfileBtn";
+import LogoBtn from "@/components/global/LogoBtn";
+import SearchBar from "@/components/global/SearchBar";
+import NavBarBtn from "@/components/global/NavBarBtn";
 import { cookies } from "next/headers";
 
 export default async function NavBar() {

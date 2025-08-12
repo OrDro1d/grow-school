@@ -1,12 +1,13 @@
 import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+import { Metadata } from "next";
 
 const fontInter = Inter({
 	subsets: ["latin", "cyrillic"]
 });
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Grow School",
 	icons: {
 		icon: "/favicon.ico"
