@@ -4,7 +4,6 @@ import { IUser } from "@/types/User.interface";
 import { getUser } from "@/services/users";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { authGuard } from "@/services/auth";
 
 export default async function UserPage({

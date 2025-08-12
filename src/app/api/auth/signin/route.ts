@@ -7,7 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
 	await dbConnect();
 
-	const { email, password } = await request.json();
+	const { email, password }: { email: string; password: string } =
+		await request.json();
 
 	try {
 		const user: IUser | null = await User.findOne({ email });
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
 		});
 
 		return res;
-	} catch (error) {
+	} catch (error: any) {
 		return NextResponse.json(
 			{ error: "Внутренняя ошибка сервера" },
 			{ status: 500 }
