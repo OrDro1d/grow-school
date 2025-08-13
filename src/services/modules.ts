@@ -69,6 +69,7 @@ export async function saveAndReturnModule(
 	await newModule.save();
 
 	const newModuleClient: IModuleClient = {
+		_id: newModule._id.toString(),
 		course: newModule.course.toString(),
 		title: newModule.title
 	};

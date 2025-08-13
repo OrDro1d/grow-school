@@ -4,13 +4,9 @@ import { Types } from "mongoose";
 import { id } from "@/types/id.type";
 import { IModule, IModuleClient } from "@/types/Module.interface";
 
-import { useState, useEffect, use } from "react";
+import { useState, use } from "react";
 import LessonsList from "./LessonsList";
-import {
-	saveAndReturnModule,
-	getModules,
-	saveModuleTitle
-} from "@/services/modules";
+import { saveAndReturnModule, saveModuleTitle } from "@/services/modules";
 
 export default function ModulesList({
 	className,
@@ -58,10 +54,33 @@ export default function ModulesList({
 						<input
 							className="font-medium"
 							placeholder="Имя модуля"
-							onBlur={(e) =>
-								saveModuleTitle(modules[index]._id!, e.target.value)
-							}
+							// Отображение изменения имени в поле input и обновление состояния modules
 							onChange={(e) => updateTitles(e.target.value, index)}
+							// onBlur и onKeyDown только передают и сохраняют в бд значения titles, обновленные ранее
+							onBlur={async (e) => {
+								e.preventDefault();
+								try {
+									await saveModuleTitle(
+										modules[index]._id!,
+										modules[index].title
+									);
+								} catch (error: any) {
+									console.log(error);
+								}
+							}}
+							onKeyDown={async (e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									try {
+										await saveModuleTitle(
+											modules[index]._id!,
+											modules[index].title
+										);
+									} catch (error: any) {
+										console.log(error);
+									}
+								}
+							}}
 							value={module.title}
 						></input>
 						<LessonsList></LessonsList>
