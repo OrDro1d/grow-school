@@ -1,6 +1,6 @@
 "use client";
 
-import { ICourseData } from "@/types/Course.interface";
+import { ICourseClient } from "@/types/Course.interface";
 
 import Link from "next/link";
 import { CldImage } from "next-cloudinary";
@@ -9,7 +9,7 @@ import AddToWishListBtn from "./AddToWishListBtn";
 export default function CourseCard({
 	courseData
 }: {
-	courseData: ICourseData;
+	courseData: ICourseClient;
 }) {
 	return (
 		<Link href="#">
