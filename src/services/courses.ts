@@ -109,15 +109,15 @@ export async function deleteCourse(courseId: id): Promise<void> {
 
 	const session = await mongoose.startSession();
 
-	let imageURL: string | undefined;
-
 	try {
 		await session.withTransaction(async () => {
-			const course = await Course.findById(courseId).session(session);
+			const course = await Course.findById(courseId)
+				.lean<ICourse>()
+				.session(session);
 			if (!course) throw new Error("Курс не найден");
 
 			// Сохраняем публичный ID изображения для удаления в Cloudinary после коммита
-			imageURL = course.imageURL;
+			const imageURL = course.imageURL;
 
 			// Собираем зависимости
 			const moduleIds = await Module.find({ course: courseId })
@@ -143,10 +143,16 @@ export async function deleteCourse(courseId: id): Promise<void> {
 			await Module.deleteMany({ course: courseId }).session(session);
 
 			await Course.deleteOne({ _id: courseId }).session(session);
+
+			try {
+				await cloudinary.uploader.destroy(imageURL);
+			} catch (error) {
+				console.log(error);
+			}
 		});
 
 		// Вне транзакции: удаляем ресурс в Cloudinary (ошибка не ломает процесс)
-		await cloudinary.uploader.destroy(imageURL!);
+
 		revalidatePath("/");
 	} finally {
 		session.endSession();
