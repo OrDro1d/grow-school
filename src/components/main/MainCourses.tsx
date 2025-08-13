@@ -1,4 +1,4 @@
-import { ICourseData } from "@/types/Course.interface";
+import { ICourseClient } from "@/types/Course.interface";
 
 import { getCourses } from "@/services/courses";
 
@@ -12,7 +12,7 @@ export default async function MainCourses({
 }: {
 	className?: string;
 }) {
-	const courses: ICourseData[] = await getCourses(3);
+	const courses: ICourseClient[] = await getCourses(3);
 
 	return (
 		<section

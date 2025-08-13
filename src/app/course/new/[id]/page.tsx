@@ -6,7 +6,7 @@ import CourseContent from "@/components/create_course/CourseContent";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
-import { getModules } from "@/services/courses";
+import { getModules } from "@/services/modules";
 import { IModuleClient } from "@/types/Module.interface";
 import { authGuard } from "@/services/auth";
 

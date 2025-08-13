@@ -6,7 +6,11 @@ import { IModule, IModuleClient } from "@/types/Module.interface";
 
 import { useState, useEffect, use } from "react";
 import LessonsList from "./LessonsList";
-import { saveAndReturnModule, getModules } from "@/services/courses";
+import {
+	saveAndReturnModule,
+	getModules,
+	saveModuleTitle
+} from "@/services/modules";
 
 export default function ModulesList({
 	className,
@@ -18,34 +22,46 @@ export default function ModulesList({
 	id: id;
 }) {
 	const [modules, setModules] = useState<IModuleClient[]>(use(initialData));
-	const [title, setTitle] = useState("");
-	console.log(modules);
-	function changeModuleTitle(title: string, index: number) {
+
+	/**
+	 * Обновляет имя модуля на клиенте.
+	 *
+	 * @param newTitle - Новое имя модуля.
+	 * @param index - индекс переименовываемого модуля.
+	 */
+	function updateTitles(newTitle: string, index: number): void {
 		setModules((prev) =>
-			prev.map((module, i) => (i === index ? { ...module, title } : module))
+			prev.map((module, i) =>
+				i === index ? { ...module, title: newTitle } : module
+			)
 		);
 	}
 
-	async function addModule(event: React.MouseEvent<HTMLButtonElement>) {
+	/**
+	 * Добавляет новый пустой модуль на клиенте.
+	 */
+	async function addModule() {
 		const newModule: IModuleClient = await saveAndReturnModule({
 			title: `Модуль ${modules.length + 1}`,
 			course: id as Types.ObjectId
 		});
 		setModules((prev) => [...prev, newModule]);
 	}
+
 	return (
 		<section
 			className={`p-4 overflow-y-scroll bg-gray-100 rounded-2xl w-xs h-full border-16 border-gray-100 ${className}`}
 		>
 			<ol>
 				{modules.map((module, index) => (
-					<li key={index} className="mb-8">
+					<li key={module._id!} className="mb-8">
 						<input
 							className="font-medium"
 							placeholder="Имя модуля"
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								changeModuleTitle(e.target.value, index)
+							onBlur={(e) =>
+								saveModuleTitle(modules[index]._id!, e.target.value)
 							}
+							onChange={(e) => updateTitles(e.target.value, index)}
 							value={module.title}
 						></input>
 						<LessonsList></LessonsList>
@@ -55,7 +71,7 @@ export default function ModulesList({
 					<button
 						type="button"
 						className="block px-8 py-2 mx-auto text-sm transition-all bg-white border-2 border-gray-200 shadow-lg cursor-pointer rounded-4xl w-fit shadow-black/10 hover:bg-mint/40 hover:border-mint"
-						onClick={(e) => addModule(e)}
+						onClick={(e) => addModule()}
 					>
 						Добавить модуль
 					</button>

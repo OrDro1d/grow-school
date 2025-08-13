@@ -18,13 +18,9 @@ import Step from "@/models/Step";
 import { id } from "@/types/id.type";
 import { IUser } from "@/types/User.interface";
 import { ICourse, ICourseClient } from "@/types/Course.interface";
-import { IModule, IModuleClient } from "@/types/Module.interface";
-import { ILesson } from "@/types/Lesson.interface";
-import { IStep } from "@/types/Step.interface";
 
 import { cookies } from "next/headers";
 import { v2 as cloudinary } from "cloudinary";
-import { revalidate } from "@/components/main/MainCourses";
 import { revalidatePath } from "next/cache";
 
 /**
@@ -104,81 +100,55 @@ export async function getCourses(limit: number = 6): Promise<ICourseClient[]> {
 }
 
 /**
- * Возвращает все модули курса по его id.
+ * Удаляет курс и все связанные модули, уроки и шаги в одной транзакции.
  *
- * @param {id} id - id модуля.
- * @returns {Promise<IModuleClient[]>} - Массив модулей курса.
+ * @param {id} courseId - ID курса.
  */
-export async function getModules(id: id): Promise<IModuleClient[]> {
-	const modules: IModuleClient[] = await Module.find({ course: id })
-		.lean()
-		.transform((docs) =>
-			docs.map((doc) => ({
-				...doc,
-				_id: doc._id?.toString(),
-				title: doc.title,
-				course: doc.course.toString()
-			}))
-		);
-	return modules;
-}
+export async function deleteCourse(courseId: id): Promise<void> {
+	await dbConnect();
 
-/**
- * Создает новый модуль курса.
- *
- * @param {IModule} moduleData - Данные модуля.
- */
-export async function saveModule(moduleData: IModule): Promise<void> {
-	const newModule = new Module({
-		course: moduleData.course,
-		title: moduleData.title
-	});
+	const session = await mongoose.startSession();
 
-	await newModule.save();
-}
+	let imageURL: string | undefined;
 
-/**
- * Создает новый модуль курса и возвращает его в виде плоского JS объекта.
- *
- * @param {IModule} moduleData - Данные для создания нового модуля курса.
- * @returns {IModuleClient} - Новый модуль в виде плоского JS объекта.
- */
-export async function saveAndReturnModule(
-	moduleData: IModule
-): Promise<IModuleClient> {
-	const newModule = new Module({
-		course: moduleData.course,
-		title: moduleData.title
-	});
+	try {
+		await session.withTransaction(async () => {
+			const course = await Course.findById(courseId).session(session);
+			if (!course) throw new Error("Курс не найден");
 
-	await newModule.save();
+			// Сохраняем публичный ID изображения для удаления в Cloudinary после коммита
+			imageURL = course.imageURL;
 
-	const newModuleClient: IModuleClient = {
-		course: newModule.course.toString(),
-		title: newModule.title
-	};
+			// Собираем зависимости
+			const moduleIds = await Module.find({ course: courseId })
+				.distinct("_id")
+				.session(session);
 
-	return newModuleClient;
-}
+			const lessonIds =
+				moduleIds.length > 0
+					? await Lesson.find({ module: { $in: moduleIds } })
+							.distinct("_id")
+							.session(session)
+					: [];
 
-export async function deleteCourse(id: id, imageURL: string): Promise<void> {
-	const cookieStore = await cookies();
-	await cloudinary.uploader.destroy(imageURL);
-	await Course.deleteOne({ _id: id }).then(revalidatePath("/"));
-}
+			// Удаляем в правильном порядке: Steps -> Lessons -> Modules -> Course
+			await Step.deleteMany(
+				lessonIds.length ? { lesson: { $in: lessonIds } } : { _id: null }
+			).session(session);
 
-export async function saveLesson(lessonData: ILesson): Promise<void> {
-	const newLesson = new Lesson({
-		module: lessonData.module,
-		title: lessonData.title
-	});
-	await newLesson.save();
-}
+			await Lesson.deleteMany(
+				moduleIds.length ? { module: { $in: moduleIds } } : { _id: null }
+			).session(session);
 
-export async function saveStep(stepData: IStep): Promise<void> {
-	const newLesson = new Lesson({
-		lesson: stepData.lesson,
-		title: stepData.title
-	});
-	await newLesson.save();
+			await Module.deleteMany({ course: courseId }).session(session);
+
+			await Course.deleteOne({ _id: courseId }).session(session);
+		});
+
+		// Вне транзакции: удаляем ресурс в Cloudinary (ошибка не ломает процесс)
+		await cloudinary.uploader.destroy(imageURL!);
+		revalidatePath("/");
+	} finally {
+		session.endSession();
+	}
 }
