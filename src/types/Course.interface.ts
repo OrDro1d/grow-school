@@ -1,11 +1,11 @@
 import { Types } from "mongoose";
-
+import { IModuleContentClient } from "@/types/Module.interface";
 export interface ICourse {
+	_id?: Types.ObjectId | string;
 	title: string;
 	imageURL: string;
-	author?: Types.ObjectId;
+	author?: Types.ObjectId | string;
 	createdAt?: Date;
-	updatedAt?: Date;
 	recommended?: boolean;
 	certificate?: boolean;
 	length?: number;
@@ -13,7 +13,6 @@ export interface ICourse {
 	price?: number;
 	imageId?: string;
 	published?: boolean;
-	modules?: Types.ObjectId[];
 }
 
 export interface ICourseClient {
@@ -22,7 +21,6 @@ export interface ICourseClient {
 	imageURL: string;
 	author?: string;
 	createdAt?: string;
-	updatedAt?: string;
 	recommended?: boolean;
 	certificate?: boolean;
 	length?: number;
@@ -30,5 +28,20 @@ export interface ICourseClient {
 	price?: number;
 	imageId?: string;
 	published?: boolean;
-	modules?: string[];
+}
+
+export interface ICourseContentClient {
+	_id: string;
+	title: string;
+	imageURL?: string;
+	author?: string;
+	recommended?: boolean;
+	certificate?: boolean;
+	length?: number;
+	students?: number;
+	price?: number;
+	imageId?: string;
+	published?: boolean;
+	modules?: IModuleContentClient[];
+	createdAt?: string;
 }

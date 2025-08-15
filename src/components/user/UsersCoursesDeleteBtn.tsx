@@ -6,11 +6,9 @@ import { deleteCourse } from "@/services/courses";
 
 export default function UsersCoursesDeleteBtn({
 	courseId,
-	imageId,
 	className
 }: {
 	courseId: id;
-	imageId: string;
 	className?: string;
 }) {
 	return (

@@ -12,7 +12,7 @@ export default async function MainCourses({
 }: {
 	className?: string;
 }) {
-	const courses: ICourseClient[] = await getCourses(3);
+	const courses: ICourseClient[] = await getCourses({ limit: 3 });
 
 	return (
 		<section

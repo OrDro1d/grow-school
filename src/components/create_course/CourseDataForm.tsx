@@ -28,13 +28,17 @@ export default function CourseDataForm() {
 				return;
 			}
 			// Сохраняем курс
-			await saveCourse({
-				title,
-				price,
-				imageURL,
-				certificate,
-				length
-			});
+			await saveCourse(
+				{
+					title,
+					price,
+					imageURL,
+					imageId,
+					certificate,
+					length
+				},
+				{ blankContent: true }
+			);
 			// Получаем id полученного курса и переносим пользователя на страницу дальнейшего редактирования курса
 			const newCourseId = await getCourseId(title);
 			router.replace(`/course/new/${newCourseId}`);

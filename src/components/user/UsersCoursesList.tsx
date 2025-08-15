@@ -3,7 +3,7 @@ import Link from "next/link";
 import UsersCoursesDeleteBtn from "./UsersCoursesDeleteBtn";
 
 export default async function UserCoursesList() {
-	const courses = await getCourses(10);
+	const courses = await getCourses();
 
 	return (
 		<ol>
@@ -19,7 +19,6 @@ export default async function UserCoursesList() {
 						</Link>
 						<UsersCoursesDeleteBtn
 							courseId={course._id!}
-							imageId={course.imageURL!}
 						></UsersCoursesDeleteBtn>
 					</div>
 				</li>

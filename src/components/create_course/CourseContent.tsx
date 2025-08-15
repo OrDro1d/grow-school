@@ -1,7 +1,18 @@
 import Step from "@/components/create_course/Steps";
+import { ICourseContentClient } from "@/types/Course.interface";
 
-export default function CourseContent() {
-	return (
+import { use } from "react";
+
+export default function CourseContent({
+	initialData,
+	searchParams
+}: {
+	initialData: Promise<ICourseContentClient>;
+	searchParams?: { module: string; lesson: string; step: string };
+}) {
+	const courseData = use(initialData);
+
+	return searchParams ? (
 		<form className="flex flex-col gap-4">
 			<div className="flex flex-col gap-2">
 				<label htmlFor="lesson-title" className="text-2xl font-medium">
@@ -14,6 +25,11 @@ export default function CourseContent() {
 					title="Название урока"
 					type="text"
 					required
+					// value={
+					// 	courseData.modules![Number(searchParams.module)].lessons![
+					// 		Number(searchParams.lesson)
+					// 	].title
+					// }
 				></input>
 			</div>
 			<div className="flex flex-col gap-2">
@@ -34,5 +50,5 @@ export default function CourseContent() {
 				Сохранить
 			</button>
 		</form>
-	);
+	) : null;
 }

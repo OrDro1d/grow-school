@@ -18,7 +18,6 @@ const UserSchema = new mongoose.Schema({
 		default: "student"
 	},
 	createdAt: { type: Date, default: Date.now },
-	courses: { type: [mongoose.Schema.Types.ObjectId], default: null },
 	wishList: { type: [mongoose.Schema.Types.ObjectId], default: null }
 });
 

@@ -11,7 +11,7 @@ export default async function AllCourses({
 }: {
 	className?: string;
 }) {
-	const courses: ICourseClient[] = await getCourses(6);
+	const courses: ICourseClient[] = await getCourses({ limit: 6 });
 
 	return (
 		<section className={`w-fit mx-auto mt-8 ${className}`}>

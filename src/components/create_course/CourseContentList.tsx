@@ -1,23 +1,27 @@
 "use client";
-
+// Типы и интерфейсы
 import { Types } from "mongoose";
 import { id } from "@/types/id.type";
-import { IModule, IModuleClient } from "@/types/Module.interface";
-
+import { ICourseContentClient } from "@/types/Course.interface";
+import { IModuleClient, IModuleContentClient } from "@/types/Module.interface";
+import { ILessonContentClient } from "@/types/Lesson.interface";
+// Функции и хуки
 import { useState, use } from "react";
-import LessonsList from "./LessonsList";
+import ModuleContentList from "./ModuleContentList";
 import { saveAndReturnModule, saveModuleTitle } from "@/services/modules";
 
-export default function ModulesList({
+export default function CourseContentList({
 	className,
-	initialData,
-	id
+	initialData
 }: {
 	className?: string;
-	initialData: Promise<IModuleClient[]>;
-	id: id;
+	initialData: Promise<ICourseContentClient>;
 }) {
-	const [modules, setModules] = useState<IModuleClient[]>(use(initialData));
+	const courseData = use(initialData);
+	const [modules, setModules] = useState<IModuleContentClient[]>(
+		courseData.modules!
+	);
+	const [prevTitle, setPrevTitle] = useState("");
 
 	/**
 	 * Обновляет имя модуля на клиенте.
@@ -37,11 +41,14 @@ export default function ModulesList({
 	 * Добавляет новый пустой модуль на клиенте.
 	 */
 	async function addModule() {
-		const newModule: IModuleClient = await saveAndReturnModule({
+		const newModule: IModuleContentClient = await saveAndReturnModule({
 			title: `Модуль ${modules.length + 1}`,
-			course: id as Types.ObjectId
+			courseId: courseData._id
 		});
-		setModules((prev) => [...prev, newModule]);
+		setModules((prev) => [
+			...prev,
+			{ ...newModule, lessons: [] as ILessonContentClient[] }
+		]);
 	}
 
 	return (
@@ -52,19 +59,24 @@ export default function ModulesList({
 				{modules.map((module, index) => (
 					<li key={module._id!} className="mb-8">
 						<input
-							className="font-medium"
+							className="font-medium w-full"
 							placeholder="Имя модуля"
 							// Отображение изменения имени в поле input и обновление состояния modules
-							onChange={(e) => updateTitles(e.target.value, index)}
+							onChange={(e) => {
+								if (modules[index].title && modules[index].title.trim())
+									setPrevTitle(modules[index].title);
+								updateTitles(e.target.value, index);
+							}}
 							// onBlur и onKeyDown только передают и сохраняют в бд значения titles, обновленные ранее
 							onBlur={async (e) => {
 								e.preventDefault();
 								try {
 									await saveModuleTitle(
-										modules[index]._id!,
+										modules[index]._id,
 										modules[index].title
 									);
 								} catch (error: any) {
+									updateTitles(prevTitle, index);
 									console.log(error);
 								}
 							}}
@@ -73,17 +85,21 @@ export default function ModulesList({
 									e.preventDefault();
 									try {
 										await saveModuleTitle(
-											modules[index]._id!,
+											modules[index]._id,
 											modules[index].title
 										);
 									} catch (error: any) {
+										updateTitles(prevTitle, index);
 										console.log(error);
 									}
 								}
 							}}
 							value={module.title}
 						></input>
-						<LessonsList></LessonsList>
+						<ModuleContentList
+							initialData={modules[index].lessons!}
+							moduleId={modules[index]._id}
+						></ModuleContentList>
 					</li>
 				))}
 				<li>

@@ -11,14 +11,12 @@ const CourseSchema = new mongoose.Schema({
 		required: true
 	},
 	createdAt: { type: Date, default: Date.now },
-	updatedAt: { type: Date, default: Date.now },
 	recommended: { type: Boolean, default: false },
 	certificate: { type: Boolean, default: false },
 	length: { type: Number, default: 0 },
 	students: { type: Number, default: 0 },
 	price: { type: Number, default: 0 },
-	published: { type: Boolean, default: false },
-	modules: { type: [mongoose.Schema.Types.ObjectId], ref: "Module" }
+	published: { type: Boolean, default: false }
 });
 
 export default mongoose.models.Course || mongoose.model("Course", CourseSchema);

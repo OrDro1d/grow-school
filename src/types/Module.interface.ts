@@ -1,18 +1,23 @@
 import { Types } from "mongoose";
-
+import { ILessonContentClient } from "@/types/Lesson.interface";
 export interface IModule {
+	_id?: Types.ObjectId | string;
 	title: string;
-	course: Types.ObjectId;
-	lessons?: Types.ObjectId[];
+	courseId: Types.ObjectId | string;
 	createdAt?: Date;
-	updatedAt?: Date;
 }
 
 export interface IModuleClient {
-	_id?: string;
+	_id: string;
 	title: string;
-	course: string;
-	lessons?: string[];
+	courseId: string;
 	createdAt?: string;
-	updatedAt?: string;
+}
+
+export interface IModuleContentClient {
+	_id: string;
+	title: string;
+	courseId: string;
+	lessons?: ILessonContentClient[];
+	createdAt?: string;
 }

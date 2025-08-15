@@ -1,9 +1,15 @@
 import { Types } from "mongoose";
 
 export interface IStep {
-	title: string;
-	lesson: Types.ObjectId;
-	content?: string;
+	_id?: Types.ObjectId | string;
+	lessonId: Types.ObjectId | string;
+	content: string;
 	createdAt?: Date;
-	updatedAt?: Date;
+}
+
+export interface IStepClient {
+	_id: string;
+	lessonId: string;
+	content?: string;
+	createdAt?: string;
 }

@@ -1,38 +1,34 @@
 "use server";
-
-import mongoose from "mongoose";
+// Подключение Mongoose и базы данных
+import mongoose, { ClientSession, HydratedDocument } from "mongoose";
 import { dbConnect } from "@/services/db";
-
+// Подключение файлов с моделями Mongoose
 import "@/models/User";
 import "@/models/Course";
 import "@/models/Module";
 import "@/models/Lesson";
 import "@/models/Step";
-
-import User from "@/models/User";
-import Course from "@/models/Course";
+// Модели Mongoose
 import Module from "@/models/Module";
-import Lesson from "@/models/Lesson";
-import Step from "@/models/Step";
-
+// Типы и интерфейсы
 import { id } from "@/types/id.type";
 import { IModule, IModuleClient } from "@/types/Module.interface";
+import { ILessonContentClient } from "@/types/Lesson.interface";
 
 /**
  * Возвращает все модули курса по его id.
  *
- * @param {id} id - id модуля.
+ * @param {id} id - id курса.
  * @returns {Promise<IModuleClient[]>} - Массив модулей курса.
  */
-export async function getModules(id: id): Promise<IModuleClient[]> {
-	const modules: IModuleClient[] = await Module.find({ course: id })
-		.lean()
+export async function getModules(courseId: id): Promise<IModuleClient[]> {
+	const modules: IModuleClient[] = await Module.find({ courseId })
+		.lean<IModuleClient[]>()
 		.transform((docs) =>
 			docs.map((doc) => ({
 				...doc,
-				_id: doc._id?.toString(),
-				title: doc.title,
-				course: doc.course.toString()
+				_id: doc._id.toString(),
+				courseId: doc.courseId.toString()
 			}))
 		);
 	return modules;
@@ -43,13 +39,15 @@ export async function getModules(id: id): Promise<IModuleClient[]> {
  *
  * @param {IModule} moduleData - Данные модуля.
  */
-export async function saveModule(moduleData: IModule): Promise<void> {
-	const newModule = new Module({
-		course: moduleData.course,
-		title: moduleData.title
+export async function saveModule(
+	moduleData: IModule,
+	opts?: { session: ClientSession }
+): Promise<void> {
+	const newModule: HydratedDocument<IModule> = new Module({
+		...moduleData
 	});
 
-	await newModule.save();
+	await newModule.save({ session: opts?.session });
 }
 
 /**
@@ -59,21 +57,22 @@ export async function saveModule(moduleData: IModule): Promise<void> {
  * @returns {IModuleClient} - Новый модуль в виде плоского JS объекта.
  */
 export async function saveAndReturnModule(
-	moduleData: IModule
+	moduleData: IModule,
+	opts?: { session: ClientSession }
 ): Promise<IModuleClient> {
-	const newModule = new Module({
-		course: moduleData.course,
-		title: moduleData.title
+	const newModule: HydratedDocument<IModule> = new Module({
+		...moduleData
 	});
 
-	await newModule.save();
+	await newModule.save({ session: opts?.session });
 
 	const newModuleClient: IModuleClient = {
 		_id: newModule._id.toString(),
-		course: newModule.course.toString(),
-		title: newModule.title
+		title: newModule.title,
+		courseId: newModule.courseId.toString(),
+		createdAt: newModule.createdAt?.toDateString()
 	};
-
+	console.log(newModuleClient);
 	return newModuleClient;
 }
 
@@ -91,13 +90,12 @@ export async function saveModuleTitle(
 ): Promise<void> {
 	await dbConnect();
 
-	if (!title || !title.trim()) {
+	if (!title || !title.trim())
 		throw new Error("Название модуля не может быть пустым");
-	}
 
 	await Module.findOneAndUpdate(
 		{ _id: moduleId },
-		{ $set: { title: title.trim() } },
+		{ title: title.trim() },
 		{ new: true, runValidators: true }
 	);
 }
