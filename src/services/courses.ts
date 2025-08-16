@@ -32,6 +32,7 @@ import { revalidatePath } from "next/cache";
 import { saveAndReturnModule } from "@/services/modules";
 import { saveAndReturnLesson } from "@/services/lessons";
 import { saveStep } from "@/services/steps";
+import { assert } from "console";
 
 /**
  * Создает новый курс и сохраняет его в базе данных.
@@ -174,6 +175,7 @@ export async function getCourseFull(
 	courseId: id
 ): Promise<ICourseContentClient> {
 	await dbConnect();
+	// console.log("Идет получение курса");
 
 	const course: ICourseContentClient | null = await Course.findById(courseId)
 		.lean<ICourseContentClient>()
