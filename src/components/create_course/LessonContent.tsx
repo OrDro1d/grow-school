@@ -7,8 +7,14 @@ import { IStepClient } from "@/types/Step.interface";
 // Функции и хуки
 import { use, useEffect, useState, useRef } from "react";
 import Step from "@/components/create_course/Steps";
-import { useSearchParams, useRouter } from "next/navigation";
-import { getLessonFull, saveLessonTitle } from "@/services/lessons";
+import {
+	useSearchParams,
+	useRouter,
+	useParams,
+	usePathname
+} from "next/navigation";
+import { getLessonFull, saveLesson, saveLessonTitle } from "@/services/lessons";
+import { updateSteps, deleteStep } from "@/services/steps";
 
 export default function LessonContent({
 	initialData
@@ -16,6 +22,7 @@ export default function LessonContent({
 	initialData: ILessonContentClient;
 }) {
 	const searchParams = useSearchParams();
+	const pathname = usePathname();
 	const router = useRouter();
 
 	const lesson = initialData;
@@ -36,15 +43,43 @@ export default function LessonContent({
 	// Предыдущее значение имени урока на случай если пользователем будет введен некорректный для обновления
 	const prevTitle = useRef("");
 	// Текущий шаг, который просматривает пользователь
-	const currentStep = useRef<IStepClient>(null);
-	for (let step of steps) {
-		if (step._id === stepId) {
-			currentStep!.current = step;
-		}
+	const [currentStep, setCurrentStep] = useState<IStepClient>(
+		steps.find((step) => step.lessonId === lessonId)!
+	);
+
+	function editStepContent(content: string) {
+		setCurrentStep((prev) => ({ ...prev, content: content }));
 	}
 
-	function editStepContent() {}
-	function changeLessonTitle() {}
+	function changeLessonTitle(title: string) {
+		if (lesson.title && lesson.title.trim()) {
+			prevTitle.current = lesson.title;
+		}
+		setTitle(title);
+	}
+
+	/**
+	 * Сохраняет изменения в шаге.
+	 */
+	async function saveChanges() {
+		const updatedSteps = steps.map((step) =>
+			step.lessonId === lessonId
+				? { ...step, content: currentStep.content }
+				: step
+		);
+
+		await updateSteps(updatedSteps);
+
+		await saveLessonTitle(lessonId!, title);
+
+		setSteps((prev) =>
+			prev.map((step) =>
+				step.lessonId === lessonId
+					? { ...step, content: currentStep.content }
+					: step
+			)
+		);
+	}
 
 	return (
 		<form className="flex flex-col gap-4">
@@ -58,39 +93,10 @@ export default function LessonContent({
 					placeholder="введите название урока"
 					title="Название урока"
 					type="text"
+					inputMode="text"
 					required
-					value={title}
-					// Отображение изменения имени в поле input
-					onChange={(e) => {
-						if (lesson.title && lesson.title.trim())
-							prevTitle.current = lesson.title;
-						setTitle(e.target.value);
-					}}
-					// onBlur и onKeyDown только передают и сохраняют в бд значения titles, обновленные ранее
-					onBlur={async (e) => {
-						e.preventDefault();
-						try {
-							await saveLessonTitle(lesson._id, title);
-						} catch (error: any) {
-							setTitle(prevTitle.current);
-							console.log(error);
-						} finally {
-							router.refresh();
-						}
-					}}
-					onKeyDown={async (e) => {
-						if (e.key === "Enter") {
-							e.preventDefault();
-							try {
-								await saveLessonTitle(lesson._id, title);
-							} catch (error: any) {
-								setTitle(prevTitle.current);
-								console.log(error);
-							} finally {
-								router.refresh();
-							}
-						}
-					}}
+					value={title ?? "..."}
+					onChange={(e) => changeLessonTitle(e.target.value)}
 				></input>
 			</div>
 			<div className="flex flex-col gap-2">
@@ -102,20 +108,33 @@ export default function LessonContent({
 					id="step-content"
 					placeholder="введите содержимое урока"
 					title="Содержимое урока"
+					inputMode="text"
 					required
 					rows={12}
 					maxLength={9999}
-					value={
-						currentStep
-							? currentStep?.current?.content ?? "Содержимое шага не найдено"
-							: "Загрузка..."
-					}
-					onChange={editStepContent}
+					value={currentStep?.content ?? "..."}
+					onChange={(e) => editStepContent(e.target.value)}
 				></textarea>
 			</div>
-			<button className="inline-block px-16 py-4 text-xs font-medium transition-all border-2 shadow-lg cursor-pointer w-fit md:text-base border-skiey rounded-4xl sm:text-xs hover:bg-skiey hover:text-white shadow-black/10 hover:shadow-skiey/20">
-				Сохранить
-			</button>
+			<section className="flex gap-4">
+				<button
+					className="px-16 py-4 text-xs font-medium transition-all border-2 shadow-lg cursor-pointer w-fit md:text-base border-skiey rounded-4xl  hover:bg-skiey hover:text-white shadow-black/10 hover:shadow-skiey/20"
+					type="button"
+					onClick={saveChanges}
+				>
+					Сохранить
+				</button>
+				<button
+					className="flex items-center px-16 py-4 text-xs font-medium md:text-base transition-all bg-white border-2 border-red-500 shadow-lg cursor-pointer rounded-4xl w-40h-full shadow-black/10 hover:text-white hover:bg-red-500 hover:shadow:red-700/20 hover:border-red-700"
+					type="button"
+					onClick={async (e) => {
+						await deleteStep(currentStep._id, { checkLesson: true });
+						router.push(pathname);
+					}}
+				>
+					Удалить шаг 🗑️
+				</button>
+			</section>
 		</form>
 	);
 }

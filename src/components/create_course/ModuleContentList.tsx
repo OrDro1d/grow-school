@@ -70,7 +70,14 @@ export default function ModuleContentList({
 		>
 			{lessons.length
 				? lessons.map((lesson) => (
-						<li key={lesson._id} className="my-2">
+						<li
+							key={lesson._id}
+							className={`hover:bg-gray-50 rounded-xl py-1 px-2 border-2  hover:border-gray-200 transition-all ${
+								lesson._id === lessonId
+									? "border-skiey bg-skiey/20"
+									: "border-white"
+							} `}
+						>
 							<button
 								className="cursor-pointer wrap-anywhere text-left"
 								type="button"
@@ -84,7 +91,7 @@ export default function ModuleContentList({
 			<li>
 				<button
 					type="button"
-					className="block px-8 py-2 mx-auto text-sm transition-all bg-white border-2 border-gray-200 shadow-lg cursor-pointer rounded-4xl w-fit shadow-black/10 hover:bg-mint/40 hover:border-mint"
+					className="block mt-2 px-8 py-2 mx-auto text-sm transition-all bg-white border-2 border-gray-200 shadow-lg cursor-pointer rounded-4xl w-fit shadow-black/10 hover:bg-mint/40 hover:border-mint"
 					onClick={addLesson}
 				>
 					Добавить урок

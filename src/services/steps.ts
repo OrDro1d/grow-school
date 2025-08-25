@@ -8,12 +8,14 @@ import "@/models/Course";
 import "@/models/Module";
 import "@/models/Step";
 // Модели Mongoose
+import Lesson from "@/models/Lesson";
 import Step from "@/models/Step";
 // Константы
 import { NEW_COURSE_DEFAULTS } from "@/constants/newCourseContent";
 // Типы и интерфейсы
 import { id } from "@/types/id.type";
 import { IStep, IStepClient } from "@/types/Step.interface";
+import { deleteCourse } from "./courses";
 
 export async function getSteps(id: id): Promise<IStepClient[]> {
 	const steps: IStepClient[] = await Step.find({ id })
@@ -66,4 +68,33 @@ export async function saveAndReturnStep(
 	};
 
 	return newStepClient;
+}
+
+export async function updateSteps(steps: IStepClient[]) {
+	await dbConnect();
+
+	await steps.forEach(async (step) => {
+		await Step.findOneAndUpdate(
+			{ _id: step._id },
+			{ content: step.content },
+			{ new: true, runValidators: true }
+		);
+	});
+}
+
+export async function deleteStep(id: id, opts?: { checkLesson?: boolean }) {
+	const deletedStep: HydratedDocument<IStep> | null =
+		await Step.findByIdAndDelete(id);
+
+	if (!deletedStep) throw new Error("Шаг с переданным id не был найден.");
+	// Проверка на наличие шагов у урока.
+	if (opts?.checkLesson) {
+		const existingSteps: HydratedDocument<IStep>[] = await Step.find({
+			lessonId: deletedStep.lessonId
+		});
+		// Если у урока после удаления шага больше нет других, то удаляется и сам урок
+		if (existingSteps.length === 0)
+			await Lesson.findByIdAndDelete(deletedStep.lessonId);
+	}
+	// НЕ РАБОТАЕТ. ПЕРЕДЕЛАТЬ
 }

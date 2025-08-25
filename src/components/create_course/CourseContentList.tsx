@@ -10,7 +10,7 @@ import { ILessonContentClient } from "@/types/Lesson.interface";
 // Функции и хуки
 import { useState, useRef, use } from "react";
 import ModuleContentList from "./ModuleContentList";
-import { saveAndReturnModule, saveModuleTitle } from "@/services/modules";
+import { saveAndReturnModule, updateModuleTitle } from "@/services/modules";
 import { getLessons } from "@/services/lessons";
 
 export default function CourseContentList({
@@ -65,7 +65,7 @@ export default function CourseContentList({
 				{modules.map((module, index) => (
 					<li key={module._id!} className="mb-8">
 						<input
-							className="font-medium w-full"
+							className="font-medium w-full outline-skiey focus:outline-2 outline-0 rounded-xl p-2"
 							placeholder="Имя модуля"
 							// Отображение изменения имени в поле input и обновление состояния modules
 							onChange={(e) => {
@@ -77,7 +77,7 @@ export default function CourseContentList({
 							onBlur={async (e) => {
 								e.preventDefault();
 								try {
-									await saveModuleTitle(module._id, module.title);
+									await updateModuleTitle(module._id, module.title);
 								} catch (error: any) {
 									updateTitles(prevTitle.current, index);
 									console.log(error);
@@ -87,7 +87,7 @@ export default function CourseContentList({
 								if (e.key === "Enter") {
 									e.preventDefault();
 									try {
-										await saveModuleTitle(module._id, module.title);
+										await updateModuleTitle(module._id, module.title);
 									} catch (error: any) {
 										updateTitles(prevTitle.current, index);
 										console.log(error);

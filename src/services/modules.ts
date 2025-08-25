@@ -177,7 +177,7 @@ export async function saveAndReturnModule(
  * @param {string} title - Новое название модуля.
  * @returns {Promise<IModuleClient>} - Обновленный модуль (плоский объект).
  */
-export async function saveModuleTitle(
+export async function updateModuleTitle(
 	moduleId: id,
 	title: string
 ): Promise<void> {
