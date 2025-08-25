@@ -59,6 +59,7 @@ export default function SignInBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="email"
 						type="email"
+						inputMode="email"
 						placeholder="введите свою эл. почту"
 						onChange={(e) => setEmail(e.target.value)}
 						value={email}
@@ -73,6 +74,7 @@ export default function SignInBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="password"
 						type="password"
+						inputMode="text"
 						placeholder="введите свой пароль"
 						onChange={(e) => setPassword(e.target.value)}
 						value={password}

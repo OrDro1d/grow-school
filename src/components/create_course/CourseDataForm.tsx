@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { saveCourse, getCourseId } from "@/services/courses";
+import { saveAndReturnCourse } from "@/services/courses";
 import { CldUploadWidget } from "next-cloudinary";
 import Link from "next/link";
 
@@ -28,20 +28,23 @@ export default function CourseDataForm() {
 				return;
 			}
 			// Сохраняем курс
-			await saveCourse(
-				{
-					title,
-					price,
-					imageURL,
-					imageId,
-					certificate,
-					length
-				},
-				{ blankContent: true }
-			);
-			// Получаем id полученного курса и переносим пользователя на страницу дальнейшего редактирования курса
-			const newCourseId = await getCourseId(title);
-			router.replace(`/course/new/${newCourseId}`);
+			try {
+				const newCourse = await saveAndReturnCourse(
+					{
+						title,
+						price,
+						imageURL,
+						imageId,
+						certificate,
+						length
+					},
+					{ blankContent: true }
+				);
+				// Получаем id полученного курса и переносим пользователя на страницу дальнейшего редактирования курса
+				router.replace(`/course/new/${newCourse._id}`);
+			} catch (error: any) {
+				console.log(error.message);
+			}
 		} catch (error: any) {
 			setError(error.message);
 			console.log(error.message);
@@ -50,7 +53,7 @@ export default function CourseDataForm() {
 	return (
 		<form
 			className="flex flex-col w-fit border-2 border-gray-black mx-auto my-4 p-4"
-			onSubmit={handleSubmit}
+			onSubmit={async (e) => await handleSubmit(e)}
 		>
 			<div>
 				<CldUploadWidget

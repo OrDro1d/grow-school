@@ -70,6 +70,7 @@ export default function SignUpBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="name"
 						type="text"
+						inputMode="text"
 						placeholder="введите, как к вам можно обращаться"
 						onChange={(e) => setName(e.target.value)}
 						value={name}
@@ -84,6 +85,7 @@ export default function SignUpBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="email"
 						type="email"
+						inputMode="email"
 						placeholder="введите свою эл. почту"
 						onChange={(e) => setEmail(e.target.value)}
 						value={email}
@@ -98,6 +100,7 @@ export default function SignUpBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="password"
 						type="password"
+						inputMode="text"
 						placeholder="придумайте и введите свой пароль"
 						onChange={(e) => setPassword(e.target.value)}
 						value={password}
@@ -112,6 +115,7 @@ export default function SignUpBlock() {
 						className="bg-gray-100 px-4 py-2 rounded-4xl outline-skiey placeholder:text-sm"
 						id="confirmationPassword"
 						type="password"
+						inputMode="text"
 						placeholder="повторите введенный ранее пароль"
 						onChange={(e) => setConfirmationPassword(e.target.value)}
 						value={confirmationPassword}

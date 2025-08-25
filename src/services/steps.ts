@@ -9,16 +9,35 @@ import "@/models/Module";
 import "@/models/Step";
 // Модели Mongoose
 import Step from "@/models/Step";
+// Константы
+import { NEW_COURSE_DEFAULTS } from "@/constants/newCourseContent";
 // Типы и интерфейсы
 import { id } from "@/types/id.type";
 import { IStep, IStepClient } from "@/types/Step.interface";
 
+export async function getSteps(id: id): Promise<IStepClient[]> {
+	const steps: IStepClient[] = await Step.find({ id })
+		.lean<IStepClient[]>()
+		.transform((docs) =>
+			docs.map((doc) => ({
+				...doc,
+				_id: doc._id.toString(),
+				lessonId: doc.lessonId.toString()
+			}))
+		);
+	return steps;
+}
+
 export async function saveStep(
 	stepData: IStep,
-	opts?: { session: ClientSession }
+	opts?: { session?: ClientSession }
 ): Promise<void> {
 	const newStep = new Step({
-		...stepData
+		...stepData,
+		lessonId: stepData.lessonId,
+		content: stepData.content
+			? stepData.content
+			: NEW_COURSE_DEFAULTS.STEP_CONTENT
 	});
 
 	await newStep.save({ session: opts?.session });
