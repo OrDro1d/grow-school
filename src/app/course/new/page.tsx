@@ -1,6 +1,6 @@
 import { authGuard } from "@/services/auth";
 
-import CourseDataForm from "@/components/create_course/CourseDataForm";
+import CourseDataForm from "@/components/UI/newCourse/forms/CourseDataForm";
 
 export default async function NewCoursePage() {
 	await authGuard();

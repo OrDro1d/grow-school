@@ -5,7 +5,7 @@ import { getUser } from "@/services/users";
 
 import Link from "next/link";
 import { authGuard } from "@/services/auth";
-import UserCoursesList from "@/components/user/UsersCoursesList";
+import UserCoursesList from "@UI/user/UsersCoursesList";
 
 export default async function UserPage({
 	params

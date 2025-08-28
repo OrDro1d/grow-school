@@ -16,6 +16,8 @@ import { NEW_COURSE_DEFAULTS } from "@/constants/newCourseContent";
 import { id } from "@/types/id.type";
 import { IStep, IStepClient } from "@/types/Step.interface";
 import { deleteCourse } from "./courses";
+import { revalidate } from "@/components/UI/main/MainCourses";
+import { revalidatePath } from "next/cache";
 
 export async function getSteps(id: id): Promise<IStepClient[]> {
 	const steps: IStepClient[] = await Step.find({ id })
@@ -82,19 +84,33 @@ export async function updateSteps(steps: IStepClient[]) {
 	});
 }
 
-export async function deleteStep(id: id, opts?: { checkLesson?: boolean }) {
-	const deletedStep: HydratedDocument<IStep> | null =
-		await Step.findByIdAndDelete(id);
+/**
+ * Удаляет шаг из урока.
+ *
+ * @param {id} stepId - id шага.
+ * @param {boolean} opts.checkLesson - Удаление урока в случае, если был удален его единственный шаг.
+ * @param {string} opts.pathname - Путь для ревалидации.
+ */
 
-	if (!deletedStep) throw new Error("Шаг с переданным id не был найден.");
-	// Проверка на наличие шагов у урока.
-	if (opts?.checkLesson) {
-		const existingSteps: HydratedDocument<IStep>[] = await Step.find({
-			lessonId: deletedStep.lessonId
-		});
-		// Если у урока после удаления шага больше нет других, то удаляется и сам урок
-		if (existingSteps.length === 0)
-			await Lesson.findByIdAndDelete(deletedStep.lessonId);
-	}
-	// НЕ РАБОТАЕТ. ПЕРЕДЕЛАТЬ
+export async function deleteStep(
+	stepId: id,
+	opts?: { checkLesson?: boolean; pathname?: string }
+) {
+	await mongoose.connection.transaction(async (session) => {
+		const deletedStep: HydratedDocument<IStep> | null =
+			await Step.findByIdAndDelete(stepId).session(session);
+
+		if (!deletedStep) throw new Error("Шаг с переданным id не был найден.");
+		// Проверка на наличие шагов у урока.
+		if (opts?.checkLesson) {
+			const existingSteps: HydratedDocument<IStep>[] = await Step.find({
+				lessonId: deletedStep.lessonId
+			});
+			// Если у урока после удаления шага больше нет других, то удаляется и сам урок
+			if (existingSteps.length === 0)
+				await Lesson.findByIdAndDelete(deletedStep.lessonId).session(session);
+		}
+		// НЕ РАБОТАЕТ. ПЕРЕДЕЛАТЬ
+	});
+	if (opts?.pathname) revalidatePath(opts.pathname);
 }

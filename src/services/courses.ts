@@ -176,7 +176,8 @@ export async function getCourseFull(
 			title: doc!.title,
 			modules: [] as IModuleContentClient[]
 		}));
-	if (!course) throw new Error(`Курс с id ${courseId} не найден в базе данных`);
+	if (!course)
+		throw new Error(`Курс с переданным id ${courseId} не найден в базе данных`);
 	// Получаем модули курса
 	course.modules = await Module.find({ courseId: course._id })
 		.lean<IModuleContentClient[]>()

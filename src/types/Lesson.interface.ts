@@ -19,6 +19,6 @@ export interface ILessonContentClient {
 	_id: string;
 	title: string;
 	moduleId: string;
-	steps?: IStepClient[];
+	steps: IStepClient[];
 	createdAt?: string;
 }

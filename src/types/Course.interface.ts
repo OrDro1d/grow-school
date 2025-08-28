@@ -42,6 +42,6 @@ export interface ICourseContentClient {
 	price?: number;
 	imageId?: string;
 	published?: boolean;
-	modules?: IModuleContentClient[];
+	modules: IModuleContentClient[];
 	createdAt?: string;
 }

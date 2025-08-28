@@ -18,8 +18,8 @@ export default function CourseDataForm() {
 
 	const router = useRouter();
 
-	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
 		setError("");
 
 		try {
@@ -135,19 +135,13 @@ export default function CourseDataForm() {
 					placeholder="Добавьте описание для своего курса"
 				></textarea>
 			</div>
-			{!!error ? <p className="text-red-500">{error}</p> : null}
+			{error ? <p className="text-red-500">{error}</p> : null}
 			<button
 				className="border-skiey border-2 rounded-4xl px-8 py-4 mx-auto mt-8 block w-fit"
 				type="submit"
 			>
 				Опубликовать
 			</button>
-			<Link
-				className="border-skiey border-2 rounded-4xl px-8 py-4 mx-auto mt-8 block w-fit"
-				href="/course/new/module/1"
-			>
-				Дальше
-			</Link>
 		</form>
 	);
 }

@@ -18,6 +18,6 @@ export interface IModuleContentClient {
 	_id: string;
 	title: string;
 	courseId: string;
-	lessons?: ILessonContentClient[];
+	lessons: ILessonContentClient[];
 	createdAt?: string;
 }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SignInBlock from "@/components/auth/SignInBlock";
+import SignInBlock from "@/components/UI/auth/SignInBlock";
 
 export default function SignInPage() {
 	return (

@@ -3,7 +3,7 @@ import { ICourseClient } from "@/types/Course.interface";
 import { getCourses } from "@/services/courses";
 
 import Image from "next/image";
-import MainCourseCard from "@/components/main/MainCourseCard";
+import MainCourseCard from "@UI/main/MainCourseCard";
 
 export const revalidate = 60;
 

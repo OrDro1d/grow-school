@@ -1,9 +1,9 @@
-import NavBar from "@/components/global/NavBar";
-import WelcomeScreen from "@/components/main/WelcomeScreen";
-import MainCourses from "@/components/main/MainCourses";
-import AllCourses from "@/components/main/AllCourses";
-import CreateCourseBlock from "@/components/main/CreateCourseBlock";
-import Footer from "@/components/global/Footer";
+import NavBar from "@UI/global/NavBar";
+import WelcomeScreen from "@UI/main/WelcomeScreen";
+import MainCourses from "@UI/main/MainCourses";
+import AllCourses from "@UI/main/AllCourses";
+import CreateCourseBlock from "@UI/main/CreateCourseBlock";
+import Footer from "@UI/global/Footer";
 
 export default function Home() {
 	return (

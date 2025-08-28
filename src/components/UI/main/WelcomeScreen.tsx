@@ -1,5 +1,5 @@
 import Image from "next/image";
-import WelcomeScreenBtn from "@/components/main/MainBtn";
+import WelcomeScreenBtn from "@UI/main/MainBtn";
 import { cookies } from "next/headers";
 
 export default async function WelcomeScreen({

@@ -4,7 +4,7 @@ import { ICourseClient } from "@/types/Course.interface";
 
 import Link from "next/link";
 import { CldImage } from "next-cloudinary";
-import AddToWishListBtn from "./AddToWishListBtn";
+import AddToWishListBtn from "@UI/main/AddToWishListBtn";
 
 export default function CourseCard({
 	courseData

@@ -1,4 +1,4 @@
-import NavBar from "@/components/global/NavBar";
+import NavBar from "@UI/global/NavBar";
 
 export default function UserLayout({
 	children

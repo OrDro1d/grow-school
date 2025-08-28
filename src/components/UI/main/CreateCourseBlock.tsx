@@ -1,5 +1,5 @@
 import Image from "next/image";
-import MainBtn from "@/components/main/MainBtn";
+import MainBtn from "@/components/UI/main/MainBtn";
 
 export default function CreateCourseBlock({
 	className

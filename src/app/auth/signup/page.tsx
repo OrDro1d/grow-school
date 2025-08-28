@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import SignUpBlock from "@/components/auth/SignIUpBlock";
+import SignUpBlock from "@/components/UI/auth/SignIUpBlock";
 
 export default function SignUpPage() {
 	return (

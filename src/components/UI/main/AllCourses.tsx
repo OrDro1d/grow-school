@@ -2,7 +2,7 @@ import { ICourseClient } from "@/types/Course.interface";
 
 import { getCourses } from "@/services/courses";
 
-import CourseCard from "@/components/main/CourseCard";
+import CourseCard from "@/components/UI/main/CourseCard";
 
 export const revalidate = 60;
 
