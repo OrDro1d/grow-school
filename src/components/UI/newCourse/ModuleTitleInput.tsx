@@ -17,7 +17,7 @@ export default function ModuleTitleInput({
 	className?: string;
 }) {
 	const [title, setTitle] = useState(initialTitle);
-	const prevTitle = useRef("");
+	const prevTitle = useRef(title);
 
 	return (
 		<input
@@ -29,7 +29,11 @@ export default function ModuleTitleInput({
 			onBlur={async (e) => {
 				e.preventDefault();
 				try {
-					await updateModuleTitleAction(moduleId, title);
+					if (title && title.trim()) {
+						await updateModuleTitleAction(moduleId, title);
+					} else {
+						setTitle(prevTitle.current);
+					}
 				} catch (error: any) {
 					console.log(error);
 				}
@@ -38,7 +42,11 @@ export default function ModuleTitleInput({
 				if (e.key === "Enter") {
 					e.preventDefault();
 					try {
-						await updateModuleTitleAction(moduleId, title);
+						if (title && title.trim()) {
+							await updateModuleTitleAction(moduleId, title);
+						} else {
+							setTitle(prevTitle.current);
+						}
 					} catch (error: any) {
 						console.log(error);
 					}
