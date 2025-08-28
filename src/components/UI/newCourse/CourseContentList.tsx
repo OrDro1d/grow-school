@@ -15,6 +15,7 @@ import ModuleContentList from "@UI/newCourse/ModuleContentList";
 import AddModuleBtn from "@/components/UI/newCourse/buttons/AddModuleBtn";
 import { saveAndReturnModule, updateModuleTitle } from "@/services/modules";
 import { getLessons } from "@/services/lessons";
+import { revalidatePath } from "next/cache";
 
 export default function CourseContentList({
 	initialData,
@@ -35,15 +36,30 @@ export default function CourseContentList({
 	 */
 	async function updateModuleTitle(moduleId: string, newModuleTitle: string) {
 		"use server";
-		await Module.findByIdAndUpdate(moduleId, { title: newModuleTitle });
+		try {
+			await Module.findByIdAndUpdate(moduleId, { title: newModuleTitle });
+		} catch (error: any) {
+			console.log(error.message);
+		}
 	}
 
+	/**
+	 * Создает новый модуль в базе данных и обновляет страницу для его отображения.
+	 */
 	async function addModule() {
 		"use server";
+		await saveAndReturnModule(
+			{
+				courseId: initialData._id,
+				title: NEW_COURSE_DEFAULTS.MODULE_TITLE
+			},
+			{ blankLesson: true }
+		);
+		revalidatePath(`/course/new/${initialData._id}`);
 	}
 	return (
 		<section
-			className={`p-4 overflow-y-scroll bg-gray-100 rounded-2xl w-xs h-full border-16 border-gray-100 ${className}`}
+			className={`p-4 overflow-y-scroll bg-gray-100 rounded-2xl w-xs border-16 border-gray-100 h-[80%] ${className}`}
 		>
 			<ol>
 				{initialData.modules.map((module) => (
@@ -61,7 +77,9 @@ export default function CourseContentList({
 					</li>
 				))}
 				<li>
-					<AddModuleBtn onClickAction={addModule}>Добавить модуль</AddModuleBtn>
+					<AddModuleBtn addModuleAction={addModule}>
+						Добавить модуль
+					</AddModuleBtn>
 				</li>
 			</ol>
 		</section>
