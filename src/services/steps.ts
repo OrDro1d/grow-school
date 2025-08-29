@@ -72,16 +72,14 @@ export async function saveAndReturnStep(
 	return newStepClient;
 }
 
-export async function updateSteps(steps: IStepClient[]) {
+export async function updateStep(step: IStepClient) {
 	await dbConnect();
 
-	await steps.forEach(async (step) => {
-		await Step.findOneAndUpdate(
-			{ _id: step._id },
-			{ content: step.content },
-			{ new: true, runValidators: true }
-		);
-	});
+	await Step.findOneAndUpdate(
+		{ _id: step._id },
+		{ content: step.content },
+		{ new: true, runValidators: true }
+	);
 }
 
 /**
@@ -89,7 +87,6 @@ export async function updateSteps(steps: IStepClient[]) {
  *
  * @param {id} stepId - id шага.
  * @param {boolean} opts.checkLesson - Удаление урока в случае, если был удален его единственный шаг.
- * @param {string} opts.pathname - Путь для ревалидации.
  */
 
 export async function deleteStep(
@@ -105,12 +102,10 @@ export async function deleteStep(
 		if (opts?.checkLesson) {
 			const existingSteps: HydratedDocument<IStep>[] = await Step.find({
 				lessonId: deletedStep.lessonId
-			});
+			}).session(session);
 			// Если у урока после удаления шага больше нет других, то удаляется и сам урок
 			if (existingSteps.length === 0)
 				await Lesson.findByIdAndDelete(deletedStep.lessonId).session(session);
 		}
-		// НЕ РАБОТАЕТ. ПЕРЕДЕЛАТЬ
 	});
-	if (opts?.pathname) revalidatePath(opts.pathname);
 }

@@ -14,6 +14,7 @@ import ModuleContentListItem from "@UI/newCourse/ModuleContentListItem";
 import { getModuleFull } from "@/services/modules";
 import { saveAndReturnLesson } from "@/services/lessons";
 import { getSteps } from "@/services/steps";
+import { revalidatePath } from "next/cache";
 
 export default function ModuleContentList({
 	initialData,
@@ -26,8 +27,19 @@ export default function ModuleContentList({
 	searchParams: { module: string; lesson: string; step: string };
 	className?: string;
 }) {
+	/**
+	 * Создает новый урок в базе данных и обновляет страницу для его отображения.
+	 */
 	async function addLesson() {
 		"use server";
+		await saveAndReturnLesson(
+			{
+				moduleId: initialData._id,
+				title: NEW_COURSE_DEFAULTS.LESSON_TITLE
+			},
+			{ blankStep: true }
+		);
+		revalidatePath(`/course/new/${initialData._id}`);
 	}
 
 	return (
@@ -39,7 +51,7 @@ export default function ModuleContentList({
 						<ModuleContentListItem
 							key={lesson._id}
 							lessonData={lesson}
-							href={``}
+							href={`/course/new/${initialData.courseId}/?module=${lesson.moduleId}&lesson=${lesson._id}&step=${lesson.steps?.[0]?._id}`}
 						></ModuleContentListItem>
 				  ))
 				: null}
