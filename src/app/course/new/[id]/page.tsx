@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 // Компоненты
 import { Suspense } from "react";
 import Header from "@UI/newCourse/Header";
-import CourseEditingBlock from "@UI/newCourse/CourseEditingBlock";
+import CourseEditingSection from "@UI/newCourse/sections/CourseEditingSection";
 
 export default async function CourseEditingPage({
 	params,
@@ -46,11 +46,11 @@ export default async function CourseEditingPage({
 					</div>
 				}
 			>
-				<CourseEditingBlock
+				<CourseEditingSection
 					initialData={courseInitialData}
 					params={{ courseId }}
 					searchParams={searchParams}
-				></CourseEditingBlock>
+				></CourseEditingSection>
 			</Suspense>
 		</main>
 	);

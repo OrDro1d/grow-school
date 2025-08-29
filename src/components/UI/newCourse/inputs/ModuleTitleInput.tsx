@@ -54,7 +54,7 @@ export default function ModuleTitleInput({
 			}}
 			value={title}
 			title="Название модуля"
-			placeholder="Название модуля"
+			placeholder="Введите название модуля"
 		></input>
 	);
 }

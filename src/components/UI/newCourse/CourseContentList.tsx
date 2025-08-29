@@ -10,7 +10,7 @@ import { IModuleClient, IModuleContentClient } from "@/types/Module.interface";
 import { ILessonContentClient } from "@/types/Lesson.interface";
 // Функции и хуки
 import { use } from "react";
-import ModuleTitleInput from "@UI/newCourse/ModuleTitleInput";
+import ModuleTitleInput from "@/components/UI/newCourse/inputs/ModuleTitleInput";
 import ModuleContentList from "@UI/newCourse/ModuleContentList";
 import AddModuleBtn from "@/components/UI/newCourse/buttons/AddModuleBtn";
 import { saveAndReturnModule, updateModuleTitle } from "@/services/modules";
@@ -46,7 +46,7 @@ export default function CourseContentList({
 	/**
 	 * Создает новый модуль в базе данных и обновляет страницу для его отображения.
 	 */
-	async function addModule() {
+	async function addModuleAction() {
 		"use server";
 		await saveAndReturnModule(
 			{
@@ -77,7 +77,7 @@ export default function CourseContentList({
 					</li>
 				))}
 				<li>
-					<AddModuleBtn addModuleAction={addModule}>
+					<AddModuleBtn addModuleAction={addModuleAction}>
 						Добавить модуль
 					</AddModuleBtn>
 				</li>
