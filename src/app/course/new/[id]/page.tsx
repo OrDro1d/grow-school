@@ -1,14 +1,10 @@
 // Модели и связь с бд
 import Course from "@/models/Course";
 // Типы и интерфейсы
-import { ICourse, ICourseClient } from "@/types/Course.interface";
-import { IModuleClient } from "@/types/Module.interface";
+import { ICourse } from "@/types/Course.interface";
 // Функции и хуки
 import { authGuard } from "@/services/auth";
 import { getCourseFull } from "@/services/courses";
-import { getModules, getModuleFull } from "@/services/modules";
-import { getLessonFull } from "@/services/lessons";
-import { getSteps } from "@/services/steps";
 import { redirect } from "next/navigation";
 // Компоненты
 import { Suspense } from "react";

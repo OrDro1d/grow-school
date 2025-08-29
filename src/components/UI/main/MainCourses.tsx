@@ -1,25 +1,25 @@
 import { ICourseClient } from "@/types/Course.interface";
 
-import { getCourses } from "@/services/courses";
-
+import { use } from "react";
 import Image from "next/image";
 import MainCourseCard from "@UI/main/MainCourseCard";
 
 export const revalidate = 60;
 
-export default async function MainCourses({
+export default function MainCourses({
+	courses,
 	className
 }: {
+	courses: Promise<ICourseClient[]>;
 	className?: string;
 }) {
-	const courses: ICourseClient[] = await getCourses({ limit: 3 });
-
+	const coursesData = use(courses);
 	return (
 		<section
 			id="recommended-courses"
 			className={`flex items-center justify-center my-4 gap-2 flex-nowrap ${className}`}
 		>
-			{courses.map((course) => (
+			{coursesData.map((course) => (
 				<MainCourseCard
 					key={course._id as React.Key}
 					courseData={course}
