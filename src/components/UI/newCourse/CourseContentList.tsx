@@ -3,18 +3,13 @@ import { NEW_COURSE_DEFAULTS } from "@/constants/newCourseContent";
 // Модели Mongoose
 import Module from "@/models/Module";
 // Типы и интерфейсы
-import { Types } from "mongoose";
-import { id } from "@/types/id.type";
 import { ICourseContentClient } from "@/types/Course.interface";
-import { IModuleClient, IModuleContentClient } from "@/types/Module.interface";
-import { ILessonContentClient } from "@/types/Lesson.interface";
 // Функции и хуки
 import { use } from "react";
-import ModuleTitleInput from "@/components/UI/newCourse/inputs/ModuleTitleInput";
+import ModuleTitleInput from "@UI/newCourse/inputs/ModuleTitleInput";
 import ModuleContentList from "@UI/newCourse/ModuleContentList";
-import AddModuleBtn from "@/components/UI/newCourse/buttons/AddModuleBtn";
-import { saveAndReturnModule, updateModuleTitle } from "@/services/modules";
-import { getLessons } from "@/services/lessons";
+import AddModuleBtn from "@UI/newCourse/buttons/AddModuleBtn";
+import { saveAndReturnModule } from "@/services/modules";
 import { revalidatePath } from "next/cache";
 
 export default function CourseContentList({

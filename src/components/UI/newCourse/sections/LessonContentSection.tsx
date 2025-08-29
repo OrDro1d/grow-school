@@ -5,12 +5,10 @@ import { IStepClient } from "@/types/Step.interface";
 // Функции и хуки
 import LessonTitleInput from "@UI/newCourse/inputs/LessonTitleInput";
 import StepContentForm from "@UI/newCourse/forms/StepContentForm";
-import Step from "@UI/newCourse/Step";
-import { saveLessonTitle } from "@/services/lessons";
 import { updateStep, deleteStep } from "@/services/steps";
 import { revalidatePath } from "next/cache";
 
-export default function LessonContentForm({
+export default function LessonContentSection({
 	initialData,
 	params,
 	searchParams

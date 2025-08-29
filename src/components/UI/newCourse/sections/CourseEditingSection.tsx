@@ -1,15 +1,10 @@
 import { ICourseContentClient } from "@/types/Course.interface";
 
-import { saveLessonTitle } from "@/services/lessons";
-import { deleteStep, updateStep } from "@/services/steps";
-
 import { Suspense, use } from "react";
 import CourseContentList from "@UI/newCourse/CourseContentList";
-import LessonContentForm from "@/components/UI/newCourse/sections/LessonContentSection";
-import { IStepClient } from "@/types/Step.interface";
-import { revalidatePath } from "next/cache";
+import LessonContentForm from "@UI/newCourse/sections/LessonContentSection";
 
-export default function CourseEditingBlock({
+export default function CourseEditingSection({
 	params,
 	searchParams,
 	initialData

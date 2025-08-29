@@ -16,7 +16,7 @@ export default function StepContentForm({
 	const [step, setStep] = useState(initialData);
 	return (
 		<form className="flex flex-col gap-2 px-4">
-			<label htmlFor="step-content" className="text-2xl font-medium">
+			<label htmlFor="step-content" className="pl-1 text-2xl font-medium">
 				Содержание шага
 			</label>
 			<textarea

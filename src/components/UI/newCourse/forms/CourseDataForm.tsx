@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveAndReturnCourse } from "@/services/courses";
 import { CldUploadWidget } from "next-cloudinary";
-import Link from "next/link";
 
 export default function CourseDataForm() {
 	const [imageURL, setImageURL] = useState("");
@@ -18,8 +17,7 @@ export default function CourseDataForm() {
 
 	const router = useRouter();
 
-	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
+	async function createCourse() {
 		setError("");
 
 		try {
@@ -53,7 +51,7 @@ export default function CourseDataForm() {
 	return (
 		<form
 			className="flex flex-col w-fit border-2 border-gray-black mx-auto my-4 p-4"
-			onSubmit={async (e) => await handleSubmit(e)}
+			onSubmit={createCourse}
 		>
 			<div>
 				<CldUploadWidget
@@ -70,7 +68,6 @@ export default function CourseDataForm() {
 				>
 					{({ open }) => (
 						<button
-							type="button"
 							onClick={() => open()}
 							className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
 						>

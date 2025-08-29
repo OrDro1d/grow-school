@@ -21,7 +21,7 @@ export default function ModuleTitleInput({
 
 	return (
 		<input
-			className={`font-medium w-full outline-skiey focus:outline-2 outline-0 rounded-xl p-2 ${className}`}
+			className={`hover:outline-gray-300 font-medium w-full focus:outline-skiey outline-white/0 outline-2 rounded-xl p-2 ${className}`}
 			onChange={(e) => {
 				if (title && title.trim()) prevTitle.current = title;
 				setTitle(e.target.value);

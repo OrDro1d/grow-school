@@ -1,19 +1,11 @@
 // Константы
 import { NEW_COURSE_DEFAULTS } from "@/constants/newCourseContent";
 // Типы и интерфейсы
-import { Types } from "mongoose";
-import { id } from "@/types/id.type";
 import { IModuleContentClient } from "@/types/Module.interface";
-import { ILessonContentClient } from "@/types/Lesson.interface";
-import { IStepClient } from "@/types/Step.interface";
 // Функции и хуки
-import { use } from "react";
-import Link from "next/link";
-import AddLessonBtn from "@/components/UI/newCourse/buttons/AddLessonBtn";
+import AddLessonBtn from "@UI/newCourse/buttons/AddLessonBtn";
 import ModuleContentListItem from "@UI/newCourse/ModuleContentListItem";
-import { getModuleFull } from "@/services/modules";
 import { saveAndReturnLesson } from "@/services/lessons";
-import { getSteps } from "@/services/steps";
 import { revalidatePath } from "next/cache";
 
 export default function ModuleContentList({
@@ -30,7 +22,7 @@ export default function ModuleContentList({
 	/**
 	 * Создает новый урок в базе данных и обновляет страницу для его отображения.
 	 */
-	async function addLesson() {
+	async function addLessonAction() {
 		"use server";
 		await saveAndReturnLesson(
 			{
@@ -51,12 +43,15 @@ export default function ModuleContentList({
 						<ModuleContentListItem
 							key={lesson._id}
 							lessonData={lesson}
+							currentLessonId={searchParams.lesson}
 							href={`/course/new/${initialData.courseId}/?module=${lesson.moduleId}&lesson=${lesson._id}&step=${lesson.steps?.[0]?._id}`}
 						></ModuleContentListItem>
 				  ))
 				: null}
 			<li>
-				<AddLessonBtn addLessonAction={addLesson}>Добавить урок</AddLessonBtn>
+				<AddLessonBtn addLessonAction={addLessonAction}>
+					Добавить урок
+				</AddLessonBtn>
 			</li>
 		</ol>
 	);
