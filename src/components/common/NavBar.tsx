@@ -1,7 +1,7 @@
-import ProfileBtn from "@UI/global/ProfileBtn";
-import LogoBtn from "@UI/global/LogoBtn";
-import SearchBar from "@UI/global/SearchBar";
-import NavBarBtn from "@UI/global/NavBarBtn";
+import ProfileBtn from "@common/ProfileBtn";
+import LogoBtn from "@common/LogoBtn";
+import SearchBar from "@common/SearchBar";
+import NavBarBtn from "@common/NavBarBtn";
 import { cookies } from "next/headers";
 
 export default async function NavBar() {
@@ -9,7 +9,7 @@ export default async function NavBar() {
 	const userId = cookieStore.get("userId")?.value;
 
 	return (
-		<nav className="fixed top-0 left-0 right-0 flex justify-between py-2 px-4 bg-white border-b-2 border-b-gray-200">
+		<nav className="fixed top-0 left-0 right-0 flex justify-between px-4 py-2 bg-white border-b-2 border-b-gray-200">
 			<div className="flex items-center *:mx-3">
 				<LogoBtn></LogoBtn>
 				<NavBarBtn href="/" className="hidden sm:block">

@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mint: #98FF98;
-  --color-skiey: #42AAFF;
-  --color-text: #666;
+	--color-mint: #98ff98;
+	--color-skiey: #42aaff;
+	--color-text: #666;
 }
 
 html {
-  color: #333;
+	color: #333;
 }

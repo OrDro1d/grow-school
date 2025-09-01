@@ -50,7 +50,7 @@ export default function CourseDataForm() {
 	}
 	return (
 		<form
-			className="flex flex-col w-fit border-2 border-gray-black mx-auto my-4 p-4"
+			className="flex flex-col p-4 mx-auto my-4 border-2 w-fit border-gray-black"
 			onSubmit={createCourse}
 		>
 			<div>
@@ -69,7 +69,7 @@ export default function CourseDataForm() {
 					{({ open }) => (
 						<button
 							onClick={() => open()}
-							className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+							className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
 						>
 							Загрузить обложку курса
 						</button>
@@ -79,7 +79,7 @@ export default function CourseDataForm() {
 			<div className="*:m-2">
 				<label htmlFor="course-name">Имя курса</label>
 				<input
-					className="border-2 border-gray-300 p-2 rounded-2xl"
+					className="p-2 border-2 border-gray-300 rounded-2xl"
 					type="text"
 					id="course-name"
 					maxLength={80}
@@ -91,7 +91,7 @@ export default function CourseDataForm() {
 			<div className="*:m-2">
 				<label htmlFor="course-length">Продолжительность курса</label>
 				<input
-					className="border-2 border-gray-300 p-2 rounded-2xl"
+					className="p-2 border-2 border-gray-300 rounded-2xl"
 					type="number"
 					id="course-length"
 					value={length}
@@ -103,7 +103,7 @@ export default function CourseDataForm() {
 			<div className="*:m-2">
 				<label htmlFor="course-certificate">С сертификатом</label>
 				<input
-					className="border-2 border-gray-300 p-2 rounded-2xl"
+					className="p-2 border-2 border-gray-300 rounded-2xl"
 					type="checkbox"
 					id="course-certificate"
 					checked={certificate}
@@ -113,7 +113,7 @@ export default function CourseDataForm() {
 			<div className="*:m-2">
 				<label htmlFor="course-price">Стоимость курса</label>
 				<input
-					className="border-2 border-gray-300 p-2 rounded-2xl"
+					className="p-2 border-2 border-gray-300 rounded-2xl"
 					type="number"
 					id="course-price"
 					value={price}
@@ -125,7 +125,7 @@ export default function CourseDataForm() {
 			<div className="*:m-2">
 				<label htmlFor="course-description">Описание курса</label>
 				<textarea
-					className="border-2 border-gray-300 p-2 rounded-2xl"
+					className="p-2 border-2 border-gray-300 rounded-2xl"
 					id="course-description"
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
@@ -134,7 +134,7 @@ export default function CourseDataForm() {
 			</div>
 			{error ? <p className="text-red-500">{error}</p> : null}
 			<button
-				className="border-skiey border-2 rounded-4xl px-8 py-4 mx-auto mt-8 block w-fit"
+				className="block px-8 py-4 mx-auto mt-8 border-2 border-skiey rounded-4xl w-fit"
 				type="submit"
 			>
 				Опубликовать

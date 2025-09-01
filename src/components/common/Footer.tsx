@@ -57,12 +57,12 @@ export default function Footer({ className }: { className?: string }) {
 					lyumanowo@gmail.com
 				</Link>
 				<button
-					className="text-sm cursor-pointer bg-white rounded-4xl w-fit py-2 px-8 shadow-lg shadow-black/10 hover:bg-gray-100 border-2 hover:border-gray-300 border-gray-200"
+					className="px-8 py-2 text-sm bg-white border-2 border-gray-200 shadow-lg cursor-pointer rounded-4xl w-fit shadow-black/10 hover:bg-gray-100 hover:border-gray-300"
 					type="button"
 				>
 					Подписаться на рассылку
 				</button>
-				<p className="w-sm text-xs font-light">
+				<p className="text-xs font-light w-sm">
 					Вы можете подписаться на рассылку новостей от Grow School, чтобы
 					первыми узнавать о новых курсах, акциях, обновлениях и прочих новостях
 					на платформе

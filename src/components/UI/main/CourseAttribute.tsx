@@ -4,7 +4,7 @@ export default function CourseAttribute({
 	children: React.ReactNode;
 }) {
 	return (
-		<p className="inline-block rounded-4xl bg-gray-200 py-2 px-4 text-sm whitespace-nowrap">
+		<p className="inline-block px-4 py-2 text-sm bg-gray-200 rounded-4xl whitespace-nowrap">
 			<span>{children}</span>
 		</p>
 	);

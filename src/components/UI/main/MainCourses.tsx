@@ -25,8 +25,8 @@ export default function MainCourses({
 					courseData={course}
 				></MainCourseCard>
 			))}
-			<div className="flex-col gap-4 w-70 bg-gradient-to-tr from-blue-600 to-blue-300 rounded-xl p-8">
-				<h2 className="inline-block font-medium text-white text-lg">
+			<div className="flex-col gap-4 p-8 w-70 bg-gradient-to-tr from-blue-600 to-blue-300 rounded-xl">
+				<h2 className="inline-block text-lg font-medium text-white">
 					Не знаете с чего начать? Попробуйте наши{" "}
 					<span className="text-mint">популярные</span> курсы!
 				</h2>

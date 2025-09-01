@@ -1,7 +1,7 @@
 import { ILessonClient } from "@/types/Lesson.interface";
 import Link from "next/link";
 
-export default function ModuleContentListItem({
+export default function ModuleContentItem({
 	lessonData,
 	href,
 	currentLessonId,

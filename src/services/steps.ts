@@ -72,6 +72,11 @@ export async function saveAndReturnStep(
 	return newStepClient;
 }
 
+/**
+ * Обновляет данные шага.
+ *
+ * @param {IStepClient} step - Данные шага для обновления.
+ */
 export async function updateStep(step: IStepClient) {
 	await dbConnect();
 

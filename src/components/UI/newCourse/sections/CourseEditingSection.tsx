@@ -1,5 +1,6 @@
+// Типы и интерфейсы
 import { ICourseContentClient } from "@/types/Course.interface";
-
+// Функции и хуки
 import { Suspense, use } from "react";
 import CourseContentList from "@UI/newCourse/CourseContentList";
 import LessonContentForm from "@UI/newCourse/sections/LessonContentSection";

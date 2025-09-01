@@ -1,4 +1,10 @@
 {
 	"typescript.tsdk": "node_modules\\typescript\\lib",
-	"cSpell.words": ["turbopack"]
+	"cSpell.words": ["turbopack"],
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"editor.quickSuggestions": {
+		"strings": "on"
+	}
 }

@@ -15,7 +15,7 @@ export default function MainCoursesCard({
 }) {
 	return (
 		<Link href="#">
-			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-200 transition-all w-85 shadow-lg hover:shadow-skiey/20 shadow-black/10">
+			<section className="flex flex-col p-4 transition-all bg-white border-2 border-gray-200 shadow-lg rounded-2xl hover:border-skiey w-85 hover:shadow-skiey/20 shadow-black/10">
 				<div className="flex items-start gap-2">
 					<CldImage
 						className="rounded-xl"
@@ -26,7 +26,7 @@ export default function MainCoursesCard({
 						alt="Картинка на карточке курса"
 						crop="pad"
 					></CldImage>
-					<div className="flex gap-2 flex-wrap">
+					<div className="flex flex-wrap gap-2">
 						{
 							// Если курс был создан менее чем 6 месяцев назад, будет считаться новым
 							(Number(Date.now()) - Number(courseData.createdAt)) /
@@ -51,16 +51,16 @@ export default function MainCoursesCard({
 
 				<div className="mt-2">
 					<div className="h-24">
-						<h1 className="font-medium text-md break-words">
+						<h1 className="font-medium break-words text-md">
 							{courseData.title}
 						</h1>
-						<h2 className="font-regular text-sm  break-words text-text mt-1">
+						<h2 className="mt-1 text-sm break-words font-regular text-text">
 							{courseData.author?.toString()}
 						</h2>
 					</div>
-					<div className="flex justify-between items-center">
+					<div className="flex items-center justify-between">
 						{courseData.price ? (
-							<p className="text-skiey font-bold">{courseData.price}р.</p>
+							<p className="font-bold text-skiey">{courseData.price}р.</p>
 						) : (
 							<p className="text-green-500">Бесплатно</p>
 						)}

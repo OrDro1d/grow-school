@@ -1,12 +1,14 @@
-import Lesson from "@/models/Lesson";
 // Типы и интерфейсы
 import { ILessonContentClient } from "@/types/Lesson.interface";
-import { IStepClient } from "@/types/Step.interface";
 // Функции и хуки
 import LessonTitleInput from "@UI/newCourse/inputs/LessonTitleInput";
 import StepContentForm from "@UI/newCourse/forms/StepContentForm";
-import { updateStep, deleteStep } from "@/services/steps";
-import { revalidatePath } from "next/cache";
+import StepsSection from "@UI/newCourse/sections/StepsSection";
+import {
+	updateLessonTitleAction,
+	updateStepAction,
+	deleteStepAction
+} from "@/services/actions";
 
 export default function LessonContentSection({
 	initialData,
@@ -22,53 +24,8 @@ export default function LessonContentSection({
 	};
 }) {
 	const currentStep = initialData.steps.find(
-		(step) => step.lessonId === searchParams.lesson
+		(step) => step._id === searchParams.step
 	);
-	/**
-	 * Изменяет название урока с переданным id в базе данных.
-	 *
-	 * @param lessonId - id урока.
-	 * @param newLessonTitle - Новое название урока.
-	 */
-	async function updateLessonTitleAction(
-		lessonId: string,
-		newLessonTitle: string
-	) {
-		"use server";
-		try {
-			await Lesson.findByIdAndUpdate(lessonId, { title: newLessonTitle });
-		} catch (error: any) {
-			console.log(error.message);
-		}
-	}
-
-	/**
-	 * Сохраняет изменения в шаге.
-	 *
-	 * @param {FormData} formData - Данные формы.
-	 * @param {IStepClient} currentStep - Текущий редактируемый шаг.
-	 */
-	async function updateStepAction(currentStep: IStepClient): Promise<void> {
-		"use server";
-		// Обновляем измененные шаги
-		await updateStep(currentStep);
-		// Сохраняем изменение имени урока
-		revalidatePath(`/course/new/${params.courseId}`);
-	}
-
-	/**
-	 * Удаляет шаг из урока.
-	 *
-	 * @param {IStepClient} currentStep - Удаляемый шаг.
-	 */
-	async function deleteStepAction(currentStep: IStepClient) {
-		"use server";
-
-		await deleteStep(currentStep!._id, {
-			checkLesson: true
-		});
-		revalidatePath(`/course/new/${params.courseId}`);
-	}
 
 	return (
 		<section className="flex flex-col gap-4">
@@ -79,7 +36,15 @@ export default function LessonContentSection({
 					updateLessonTitleAction={updateLessonTitleAction}
 				></LessonTitleInput>
 			</div>
+			<StepsSection
+				courseId={params.courseId}
+				searchParams={searchParams}
+				initialData={initialData}
+			></StepsSection>
 			<StepContentForm
+				key={searchParams.step}
+				courseId={params.courseId}
+				searchParams={searchParams}
 				initialData={currentStep!}
 				updateStepAction={updateStepAction}
 				deleteStepAction={deleteStepAction}

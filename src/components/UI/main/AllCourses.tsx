@@ -18,10 +18,10 @@ export default function AllCourses({
 
 	return (
 		<section className={`w-fit mx-auto mt-8 ${className}`}>
-			<h2 className="font-bold inline-block text-4xl">Все курсы</h2>
+			<h2 className="inline-block text-4xl font-bold">Все курсы</h2>
 			<div
 				id="all-courses"
-				className="grid grid-cols-3 grid-rows-2 my-4 gap-4 flex-wrap bg-neutral-100 rounded-2xl w-fit p-8"
+				className="grid flex-wrap grid-cols-3 grid-rows-2 gap-4 p-8 my-4 bg-neutral-100 rounded-2xl w-fit"
 			>
 				{coursesData.map((course) => (
 					<CourseCard

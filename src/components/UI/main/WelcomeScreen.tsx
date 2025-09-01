@@ -21,11 +21,11 @@ export default async function WelcomeScreen({
 				alt="Встречающий вас на платформе человечек с цветком в руках "
 			></Image>
 			<div className="lg:flex-col flex w-fit items-center *:my-2">
-				<h1 className="inline-block w-fit text-2xl font-bold text-white md:text-3xl lg:text-4xl flex-wrap text-center">
+				<h1 className="flex-wrap inline-block text-2xl font-bold text-center text-white w-fit md:text-3xl lg:text-4xl">
 					Каждый день - это новый шанс вырасти над собой
 				</h1>
 
-				<h2 className="inline-block w-fit text-sm font-medium text-white md:text-lg text-center">
+				<h2 className="inline-block text-sm font-medium text-center text-white w-fit md:text-lg">
 					И мы вам в этом поможем! С чего хотите начать?
 				</h2>
 				<div className="flex gap-2 w-fit">

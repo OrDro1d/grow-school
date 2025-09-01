@@ -13,7 +13,7 @@ export default function CourseCard({
 }) {
 	return (
 		<Link href="#">
-			<section className="flex flex-col p-4 bg-white rounded-2xl hover:border-skiey border-2 border-gray-200 transition-all w-65 shadow-lg shadow-black/10 hover:shadow-skiey/20">
+			<section className="flex flex-col p-4 transition-all bg-white border-2 border-gray-200 shadow-lg rounded-2xl hover:border-skiey w-65 shadow-black/10 hover:shadow-skiey/20">
 				<div className="flex items-start gap-2">
 					<CldImage
 						className="rounded-xl"
@@ -28,16 +28,16 @@ export default function CourseCard({
 
 				<div className="mt-2">
 					<div className="h-24">
-						<h1 className="font-medium text-sm break-words">
+						<h1 className="text-sm font-medium break-words">
 							{courseData.title}
 						</h1>
-						<h2 className="font-regular text-xs break-words text-text mt-1">
+						<h2 className="mt-1 text-xs break-words font-regular text-text">
 							{courseData.author?.toString()}
 						</h2>
 					</div>
-					<div className="flex justify-between items-center">
+					<div className="flex items-center justify-between">
 						{courseData.price ? (
-							<p className="text-skiey font-bold">{courseData.price}р.</p>
+							<p className="font-bold text-skiey">{courseData.price}р.</p>
 						) : (
 							<p className="text-green-500">Бесплатно</p>
 						)}
