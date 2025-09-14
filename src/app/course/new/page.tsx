@@ -1,13 +1,13 @@
-import { authGuard } from "@/services/auth";
+import { authGuard } from '@/services/auth'
 
-import CourseDataForm from "@/components/UI/newCourse/forms/CourseDataForm";
+import CourseDataForm from '@/components/UI/newCourse/forms/CourseDataForm'
 
 export default async function NewCoursePage() {
-	await authGuard();
+  await authGuard()
 
-	return (
-		<main className="mt-16">
-			<CourseDataForm></CourseDataForm>;
-		</main>
-	);
+  return (
+    <main className="mt-16">
+      <CourseDataForm></CourseDataForm>;
+    </main>
+  )
 }
