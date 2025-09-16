@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from 'next/link';
+import type React from 'react';
 
 export default function NavBarBtn({
   children,
   href,
   className,
 }: {
-  children: React.ReactNode
-  href: string
-  className?: string
+  children: React.ReactNode;
+  href: string;
+  className?: string;
 }) {
   return (
     <Link
@@ -18,5 +18,5 @@ export default function NavBarBtn({
     >
       {children}
     </Link>
-  )
+  );
 }

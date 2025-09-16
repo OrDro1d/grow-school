@@ -1,22 +1,22 @@
-'use server'
+'use server';
 // Подключение Mongoose и базы данных
-import mongoose, { ClientSession, HydratedDocument, Types } from 'mongoose'
-import { dbConnect } from '@/services/db'
+import type { ClientSession, HydratedDocument } from 'mongoose';
+import { dbConnect } from '@/services/db';
 // Подключение файлов с моделями Mongoose
-import '@/models/User'
-import '@/models/Course'
-import '@/models/Module'
-import '@/models/Lesson'
-import '@/models/Step'
-// Модели Mongoose
-import Lesson from '@/models/Lesson'
-import Step from '@/models/Step'
+import '@/models/User';
+import '@/models/Course';
+import '@/models/Module';
+import '@/models/Lesson';
+import '@/models/Step';
 // Константы
-import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent'
+import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent';
+// Модели Mongoose
+import Lesson from '@/models/Lesson';
+import Step from '@/models/Step';
 // Типы и интерфейсы
-import { id } from '@/types/id.type'
-import { ILesson, ILessonClient, ILessonContentClient } from '@/types/Lesson.interface'
-import { IStep, IStepClient } from '@/types/Step.interface'
+import type { id } from '@/types/id.type';
+import type { ILesson, ILessonClient, ILessonContentClient } from '@/types/Lesson.interface';
+import type { IStep, IStepClient } from '@/types/Step.interface';
 
 /**
  * Возвращает полный урок курса по его id.
@@ -29,13 +29,13 @@ export async function getLessonFull(lessonId: id): Promise<ILessonContentClient 
     .lean<ILessonContentClient>()
     .transform((doc) => ({
       ...doc,
-      _id: doc!._id.toString(),
-      title: doc!.title,
-      moduleId: doc!.moduleId.toString(),
+      _id: doc?._id.toString(),
+      title: doc?.title,
+      moduleId: doc?.moduleId.toString(),
       steps: [] as IStepClient[],
-    }))
+    }));
 
-  if (!lessonClient) return null
+  if (!lessonClient) return null;
 
   lessonClient.steps = await Step.find({ lessonId })
     .lean<IStepClient[]>()
@@ -45,10 +45,10 @@ export async function getLessonFull(lessonId: id): Promise<ILessonContentClient 
         _id: doc._id.toString(),
         content: doc.content,
         lessonId: doc.lessonId.toString(),
-      }))
-    )
+      })),
+    );
 
-  return lessonClient
+  return lessonClient;
 }
 
 /**
@@ -65,10 +65,10 @@ export async function getLessons(id: id) {
         ...doc,
         _id: doc._id?.toString(),
         moduleId: doc.moduleId.toString(),
-      }))
-    )
+      })),
+    );
 
-  return lessons
+  return lessons;
 }
 
 /**
@@ -78,21 +78,21 @@ export async function getLessons(id: id) {
  */
 export async function saveLesson(
   lessonData: ILesson,
-  opts?: { session?: ClientSession; blankStep?: boolean }
+  opts?: { session?: ClientSession; blankStep?: boolean },
 ): Promise<void> {
   const newLesson: HydratedDocument<ILesson> = new Lesson({
     ...lessonData,
-  })
+  });
 
   if (opts?.blankStep) {
     const newStep: HydratedDocument<IStep> = new Step({
       lessonId: newLesson._id,
       content: NEW_COURSE_DEFAULTS.STEP_CONTENT,
-    })
-    await newStep.save()
+    });
+    await newStep.save();
   }
 
-  await newLesson.save({ session: opts?.session })
+  await newLesson.save({ session: opts?.session });
 }
 
 /**
@@ -105,20 +105,20 @@ export async function saveLesson(
  */
 export async function saveAndReturnLesson(
   lessonData: ILesson,
-  opts?: { blankStep?: boolean; session?: ClientSession }
+  opts?: { blankStep?: boolean; session?: ClientSession },
 ): Promise<ILessonContentClient> {
   const newLesson: HydratedDocument<ILessonContentClient> = new Lesson({
     ...lessonData,
-  })
+  });
 
-  await newLesson.save({ session: opts?.session })
+  await newLesson.save({ session: opts?.session });
 
   if (opts?.blankStep) {
     const newStep: HydratedDocument<IStep> = new Step({
       lessonId: newLesson._id,
       content: NEW_COURSE_DEFAULTS.STEP_CONTENT,
-    })
-    await newStep.save({ session: opts?.session })
+    });
+    await newStep.save({ session: opts?.session });
 
     const newLessonClient: ILessonContentClient = {
       _id: newLesson._id.toString(),
@@ -132,9 +132,9 @@ export async function saveAndReturnLesson(
           content: newStep.content,
         },
       ],
-    }
+    };
 
-    return newLessonClient
+    return newLessonClient;
   }
 
   const newLessonClient: ILessonContentClient = {
@@ -143,9 +143,9 @@ export async function saveAndReturnLesson(
     moduleId: newLesson.moduleId.toString(),
     createdAt: newLesson.createdAt?.toString(),
     steps: [] as IStepClient[],
-  }
+  };
 
-  return newLessonClient
+  return newLessonClient;
 }
 
 /**
@@ -156,13 +156,13 @@ export async function saveAndReturnLesson(
  * @returns {Promise<ILessonClient>} - Обновленный урок (плоский объект).
  */
 export async function saveLessonTitle(lessonId: id, title: string): Promise<void> {
-  await dbConnect()
+  await dbConnect();
 
-  if (!title || !title.trim()) throw new Error('Название урока не может быть пустым')
+  if (!title || !title.trim()) throw new Error('Название урока не может быть пустым');
 
   await Lesson.findOneAndUpdate(
     { _id: lessonId },
     { title: title.trim() },
-    { new: true, runValidators: true }
-  )
+    { new: true, runValidators: true },
+  );
 }

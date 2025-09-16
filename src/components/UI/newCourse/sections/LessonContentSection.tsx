@@ -1,29 +1,30 @@
 // Типы и интерфейсы
-import { ILessonContentClient } from '@/types/Lesson.interface'
+
+import StepContentForm from '@UI/newCourse/forms/StepContentForm';
 // Функции и хуки
-import LessonTitleInput from '@UI/newCourse/inputs/LessonTitleInput'
-import StepContentForm from '@UI/newCourse/forms/StepContentForm'
-import StepsSection from '@UI/newCourse/sections/StepsSection'
-import { updateLessonTitleAction, updateStepAction, deleteStepAction } from '@/services/actions'
+import LessonTitleInput from '@UI/newCourse/inputs/LessonTitleInput';
+import StepsSection from '@UI/newCourse/sections/StepsSection';
+import { deleteStepAction, updateLessonTitleAction, updateStepAction } from '@/services/actions';
+import type { ILessonContentClient } from '@/types/Lesson.interface';
 
 export default function LessonContentSection({
   initialData,
   params,
   searchParams,
 }: {
-  initialData: ILessonContentClient
-  params: { courseId: string }
+  initialData: ILessonContentClient;
+  params: { courseId: string };
   searchParams: {
-    module: string
-    lesson: string
-    step: string
-  }
+    module: string;
+    lesson: string;
+    step: string;
+  };
 }) {
-  const currentStep = initialData.steps.find((step) => step._id === searchParams.step)
+  const currentStep = initialData.steps.find((step) => step._id === searchParams.step);
 
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+    <section className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-2'>
         <LessonTitleInput
           lessonId={initialData._id}
           initialTitle={initialData.title}
@@ -44,5 +45,5 @@ export default function LessonContentSection({
         deleteStepAction={deleteStepAction}
       ></StepContentForm>
     </section>
-  )
+  );
 }

@@ -1,20 +1,17 @@
-// Типы и интерфейсы
-import { IModuleContentClient } from '@/types/Module.interface'
-// Функции и хуки
-import AddLessonBtn from '@UI/newCourse/buttons/AddLessonBtn'
-import ModuleContentItem from '@/components/UI/newCourse/ModuleContentItem'
-import { addLessonAction } from '@/services/actions'
+import AddLessonBtn from '@UI/newCourse/buttons/AddLessonBtn';
+import ModuleContentItem from '@/components/UI/newCourse/ModuleContentItem';
+import { addLessonAction } from '@/services/actions';
+import type { IModuleContentClient } from '@/types/Module.interface';
 
 export default function ModuleContentList({
   initialData,
-  params,
   searchParams,
   className,
 }: {
-  initialData: IModuleContentClient
-  params: { courseId: string }
-  searchParams: { module: string; lesson: string; step: string }
-  className?: string
+  initialData: IModuleContentClient;
+  params: { courseId: string };
+  searchParams: { module: string; lesson: string; step: string };
+  className?: string;
 }) {
   return (
     <ol
@@ -36,5 +33,5 @@ export default function ModuleContentList({
         </AddLessonBtn>
       </li>
     </ol>
-  )
+  );
 }

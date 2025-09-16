@@ -1,32 +1,33 @@
 // Типы и интерфейсы
-import { ICourseContentClient } from '@/types/Course.interface'
+
+import CourseContentList from '@UI/newCourse/CourseContentList';
+import LessonContentForm from '@UI/newCourse/sections/LessonContentSection';
 // Функции и хуки
-import { Suspense, use } from 'react'
-import CourseContentList from '@UI/newCourse/CourseContentList'
-import LessonContentForm from '@UI/newCourse/sections/LessonContentSection'
+import { Suspense, use } from 'react';
+import type { ICourseContentClient } from '@/types/Course.interface';
 
 export default function CourseEditingSection({
   params,
   searchParams,
   initialData,
 }: {
-  params: { courseId: string }
+  params: { courseId: string };
   searchParams: Promise<{
-    module: string
-    lesson: string
-    step: string
-  }>
-  initialData: Promise<ICourseContentClient>
+    module: string;
+    lesson: string;
+    step: string;
+  }>;
+  initialData: Promise<ICourseContentClient>;
 }) {
-  const courseData = use(initialData)
-  const searchParamsData = use(searchParams)
+  const courseData = use(initialData);
+  const searchParamsData = use(searchParams);
 
-  const moduleData = courseData.modules.find((m) => m._id === searchParamsData.module)
+  const moduleData = courseData.modules.find((m) => m._id === searchParamsData.module);
 
-  const lessonData = moduleData?.lessons.find((l) => l._id === searchParamsData.lesson) || null
+  const lessonData = moduleData?.lessons.find((l) => l._id === searchParamsData.lesson) || null;
 
   return (
-    <section className="flex h-full gap-16 mt-2">
+    <section className='flex h-full gap-16 mt-2'>
       <Suspense
         fallback={
           <div>
@@ -61,5 +62,5 @@ export default function CourseEditingSection({
         </div>
       )}
     </section>
-  )
+  );
 }

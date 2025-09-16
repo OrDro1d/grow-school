@@ -1,14 +1,13 @@
-'use server'
+'use server';
 
-import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent'
-import { IStepClient } from '@/types/Step.interface'
-import Lesson from '@/models/Lesson'
-import { revalidatePath } from 'next/cache'
-import { saveAndReturnLesson } from './lessons'
-import { deleteStep, saveAndReturnStep, updateStep } from '@/services/steps'
-import Step from '@/models/Step'
-import { redirect, RedirectType } from 'next/navigation'
-import { HydratedDocument } from 'mongoose'
+import { revalidatePath } from 'next/cache';
+import { RedirectType, redirect } from 'next/navigation';
+import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent';
+import Lesson from '@/models/Lesson';
+import Step from '@/models/Step';
+import { deleteStep, saveAndReturnStep, updateStep } from '@/services/steps';
+import type { IStepClient } from '@/types/Step.interface';
+import { saveAndReturnLesson } from './lessons';
 
 /**
  * Создает новый урок в базе данных и обновляет страницу для его отображения.
@@ -23,12 +22,12 @@ export async function addLessonAction(courseId: string, moduleId: string): Promi
         moduleId,
         title: NEW_COURSE_DEFAULTS.LESSON_TITLE,
       },
-      { blankStep: true }
-    )
-  } catch (error: any) {
-    console.log(error instanceof Error ? error.message : error)
+      { blankStep: true },
+    );
+  } catch (error: unknown) {
+    console.log(error instanceof Error ? error.message : error);
   }
-  revalidatePath(`/course/new/${courseId}`)
+  revalidatePath(`/course/new/${courseId}`);
 }
 
 /**
@@ -39,12 +38,12 @@ export async function addLessonAction(courseId: string, moduleId: string): Promi
  */
 export async function updateLessonTitleAction(
   lessonId: string,
-  newLessonTitle: string
+  newLessonTitle: string,
 ): Promise<void> {
   try {
-    await Lesson.findByIdAndUpdate(lessonId, { title: newLessonTitle })
-  } catch (error: any) {
-    console.log(error instanceof Error ? error.message : error)
+    await Lesson.findByIdAndUpdate(lessonId, { title: newLessonTitle });
+  } catch (error: unknown) {
+    console.log(error instanceof Error ? error.message : error);
   }
 }
 
@@ -57,17 +56,17 @@ export async function updateLessonTitleAction(
 export async function addStepAction(courseId: string, lessonId: string): Promise<void> {
   if ((await Step.countDocuments({ lessonId })) > 9)
     throw new Error(
-      'Шагов в одном уроке не может быть больше 10. Если вам нужно создать больше шагов подумайте над созданием нового урока.'
-    )
+      'Шагов в одном уроке не может быть больше 10. Если вам нужно создать больше шагов подумайте над созданием нового урока.',
+    );
   try {
     await saveAndReturnStep({
       lessonId,
       content: NEW_COURSE_DEFAULTS.STEP_CONTENT,
-    })
-  } catch (error: any) {
-    console.log(error instanceof Error ? error.message : error)
+    });
+  } catch (error: unknown) {
+    console.log(error instanceof Error ? error.message : error);
   }
-  revalidatePath(`/course/new/${courseId}`)
+  revalidatePath(`/course/new/${courseId}`);
 }
 
 /**
@@ -79,12 +78,12 @@ export async function addStepAction(courseId: string, lessonId: string): Promise
 export async function updateStepAction(courseId: string, currentStep: IStepClient): Promise<void> {
   // Обновляем измененные шаги
   try {
-    await updateStep(currentStep)
-  } catch (error: any) {
-    console.log(error instanceof Error ? error.message : error)
+    await updateStep(currentStep);
+  } catch (error: unknown) {
+    console.log(error instanceof Error ? error.message : error);
   }
   // Сохраняем изменение имени урока
-  revalidatePath(`/course/new/${courseId}`)
+  revalidatePath(`/course/new/${courseId}`);
 }
 
 /**
@@ -96,26 +95,26 @@ export async function updateStepAction(courseId: string, currentStep: IStepClien
 export async function deleteStepAction(
   courseId: string,
   moduleId: string,
-  step: IStepClient
+  step: IStepClient,
 ): Promise<void> {
   try {
     await deleteStep(step._id, {
       checkLesson: true,
-    })
-  } catch (error: any) {
-    console.log(error instanceof Error ? error.message : error)
+    });
+  } catch (error: unknown) {
+    console.log(error instanceof Error ? error.message : error);
   }
   // Ищем шаг для перемещения пользователя после удаления шага.
   const stepToPush: { _id: string } | null = await Step.findOne({
     lessonId: step.lessonId,
   })
     .select('_id')
-    .lean<{ _id: string }>()
+    .lean<{ _id: string }>();
   // Если шага для перемещения не нашлось (вероятно, удаленный шаг был последним), перемещаем пользователя на выбор урока.
   redirect(
     stepToPush
       ? `/course/new/${courseId}?module=${moduleId}&lesson=${step.lessonId}&step=${stepToPush._id}`
       : `/course/new/${courseId}`,
-    RedirectType.replace
-  )
+    RedirectType.replace,
+  );
 }

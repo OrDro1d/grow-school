@@ -1,4 +1,4 @@
-import NavBar from '@/components/common/NavBar'
+import NavBar from '@/components/common/NavBar';
 
 export default function CourseLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -6,5 +6,5 @@ export default function CourseLayout({ children }: { children: React.ReactNode }
       <NavBar></NavBar>
       {children}
     </>
-  )
+  );
 }

@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'
-
-import { IUser } from '@/types/User.interface'
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -19,6 +17,6 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: { type: Date, default: Date.now },
   wishList: { type: [mongoose.Schema.Types.ObjectId], default: null },
-})
+});
 
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+export default mongoose.models.User || mongoose.model('User', UserSchema);

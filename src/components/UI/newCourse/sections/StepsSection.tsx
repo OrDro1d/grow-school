@@ -1,7 +1,7 @@
-import { ILessonContentClient } from '@/types/Lesson.interface'
-import GoToStepBtn from '@UI/newCourse/buttons/GoToStepBtn'
-import AddStepBtn from '@UI/newCourse/buttons/AddStepBtn'
-import { addStepAction } from '@/services/actions'
+import AddStepBtn from '@UI/newCourse/buttons/AddStepBtn';
+import GoToStepBtn from '@UI/newCourse/buttons/GoToStepBtn';
+import { addStepAction } from '@/services/actions';
+import type { ILessonContentClient } from '@/types/Lesson.interface';
 
 export default function StepsSection({
   courseId,
@@ -9,14 +9,14 @@ export default function StepsSection({
   initialData,
   className,
 }: {
-  courseId: string
+  courseId: string;
   searchParams: {
-    module: string
-    lesson: string
-    step: string
-  }
-  initialData: ILessonContentClient
-  className?: string
+    module: string;
+    lesson: string;
+    step: string;
+  };
+  initialData: ILessonContentClient;
+  className?: string;
 }) {
   return (
     <section className={`flex gap-4 ${className}`}>
@@ -33,5 +33,5 @@ export default function StepsSection({
         {'Добавить шаг ➕'}
       </AddStepBtn>
     </section>
-  )
+  );
 }

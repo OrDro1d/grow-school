@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-let cachedConnection: mongoose.Mongoose | null = null
+let cachedConnection: mongoose.Mongoose | null = null;
 
 /**
  * Соединяет приложение с базой данных.
@@ -9,13 +9,13 @@ let cachedConnection: mongoose.Mongoose | null = null
  */
 export async function dbConnect(): Promise<mongoose.Mongoose> {
   if (cachedConnection) {
-    return cachedConnection
+    return cachedConnection;
   }
 
   if (!process.env.MONGODB_URI) {
-    throw new Error('MONGODB_URI не задана')
+    throw new Error('MONGODB_URI не задана');
   }
 
-  cachedConnection = await mongoose.connect(process.env.MONGODB_URI)
-  return cachedConnection
+  cachedConnection = await mongoose.connect(process.env.MONGODB_URI);
+  return cachedConnection;
 }

@@ -1,13 +1,13 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 export default function GoToStepBtn({
   children,
   href,
   className,
 }: {
-  children: string
-  href: string
-  className?: string
+  children: string;
+  href: string;
+  className?: string;
 }) {
   return (
     <Link
@@ -16,5 +16,5 @@ export default function GoToStepBtn({
     >
       {children}
     </Link>
-  )
+  );
 }

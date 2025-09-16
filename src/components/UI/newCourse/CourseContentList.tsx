@@ -1,16 +1,11 @@
-// Константы
-import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent'
-// Модели Mongoose
-import Module from '@/models/Module'
-// Типы и интерфейсы
-import { ICourseContentClient } from '@/types/Course.interface'
-// Функции и хуки
-import { use } from 'react'
-import ModuleTitleInput from '@UI/newCourse/inputs/ModuleTitleInput'
-import ModuleContentList from '@UI/newCourse/ModuleContentList'
-import AddModuleBtn from '@UI/newCourse/buttons/AddModuleBtn'
-import { saveAndReturnModule } from '@/services/modules'
-import { revalidatePath } from 'next/cache'
+import AddModuleBtn from '@UI/newCourse/buttons/AddModuleBtn';
+import ModuleTitleInput from '@UI/newCourse/inputs/ModuleTitleInput';
+import ModuleContentList from '@UI/newCourse/ModuleContentList';
+import { revalidatePath } from 'next/cache';
+import { NEW_COURSE_DEFAULTS } from '@/constants/newCourseContent';
+import Module from '@/models/Module';
+import { saveAndReturnModule } from '@/services/modules';
+import type { ICourseContentClient } from '@/types/Course.interface';
 
 export default function CourseContentList({
   initialData,
@@ -18,10 +13,10 @@ export default function CourseContentList({
   searchParams,
   className,
 }: {
-  initialData: ICourseContentClient
-  params: { courseId: string }
-  searchParams: { module: string; lesson: string; step: string }
-  className?: string
+  initialData: ICourseContentClient;
+  params: { courseId: string };
+  searchParams: { module: string; lesson: string; step: string };
+  className?: string;
 }) {
   /**
    * Изменяет имя модуля с переданным id в базе данных.
@@ -30,11 +25,11 @@ export default function CourseContentList({
    * @param newModuleTitle - Новое название модуля.
    */
   async function updateModuleTitle(moduleId: string, newModuleTitle: string) {
-    'use server'
+    'use server';
     try {
-      await Module.findByIdAndUpdate(moduleId, { title: newModuleTitle })
-    } catch (error: any) {
-      console.log(error.message)
+      await Module.findByIdAndUpdate(moduleId, { title: newModuleTitle });
+    } catch (error: unknown) {
+      console.log(error instanceof Error ? error.message : error);
     }
   }
 
@@ -42,15 +37,15 @@ export default function CourseContentList({
    * Создает новый модуль в базе данных и обновляет страницу для его отображения.
    */
   async function addModuleAction() {
-    'use server'
+    'use server';
     await saveAndReturnModule(
       {
         courseId: initialData._id,
         title: NEW_COURSE_DEFAULTS.MODULE_TITLE,
       },
-      { blankLesson: true }
-    )
-    revalidatePath(`/course/new/${initialData._id}`)
+      { blankLesson: true },
+    );
+    revalidatePath(`/course/new/${initialData._id}`);
   }
   return (
     <section
@@ -58,7 +53,7 @@ export default function CourseContentList({
     >
       <ol>
         {initialData.modules.map((module) => (
-          <li key={module._id} className="mb-8">
+          <li key={module._id} className='mb-8'>
             <ModuleTitleInput
               moduleId={module._id}
               initialTitle={module.title}
@@ -76,5 +71,5 @@ export default function CourseContentList({
         </li>
       </ol>
     </section>
-  )
+  );
 }

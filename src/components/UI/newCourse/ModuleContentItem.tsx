@@ -1,5 +1,5 @@
-import { ILessonClient } from '@/types/Lesson.interface'
-import Link from 'next/link'
+import Link from 'next/link';
+import type { ILessonClient } from '@/types/Lesson.interface';
 
 export default function ModuleContentItem({
   lessonData,
@@ -7,10 +7,10 @@ export default function ModuleContentItem({
   currentLessonId,
   className,
 }: {
-  lessonData: ILessonClient
-  href: string
-  currentLessonId?: string
-  className?: string
+  lessonData: ILessonClient;
+  href: string;
+  currentLessonId?: string;
+  className?: string;
 }) {
   return (
     <Link
@@ -21,5 +21,5 @@ export default function ModuleContentItem({
     >
       <li>{lessonData.title}</li>
     </Link>
-  )
+  );
 }
