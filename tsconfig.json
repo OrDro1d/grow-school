@@ -30,7 +30,6 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@UI/*": ["./src/components/UI/*"],
-			"@types/*": ["./src/types/*"],
 			"@app/*": ["./src/app/*"],
 			"@common/*": ["./src/components/common/*"],
 			"@services/*": ["./src/services/*"],

@@ -7,8 +7,8 @@ import WelcomeScreen from '@UI/main/WelcomeScreen';
 import Footer from '@common/Footer';
 import NavBar from '@common/NavBar';
 import { getCourses } from '@services/courses';
-import type { ICourseClient } from '@types/Course.interface';
 import { Suspense } from 'react';
+import type { ICourseClient } from '@/types/Course.interface';
 
 export default function Home() {
   const mainCourses: Promise<ICourseClient[]> = getCourses({ limit: 3 });
