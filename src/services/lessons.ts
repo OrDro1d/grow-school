@@ -19,9 +19,9 @@ import type { ILesson, ILessonClient, ILessonContentClient } from '@/types/Lesso
 import type { IStep, IStepClient } from '@/types/Step.interface';
 
 /**
- * Возвращает полный урок курса по его id.
+ * Возвращает полный урок курса по его ID.
  *
- * @param lessonId - id курса.
+ * @param lessonId - ID курса.
  * @returns Урок курса.
  */
 export async function getLessonFull(lessonId: id): Promise<ILessonContentClient | null> {
@@ -56,10 +56,10 @@ export async function getLessonFull(lessonId: id): Promise<ILessonContentClient 
 }
 
 /**
- * Возвращает все уроки модуля по его id.
+ * Возвращает все уроки модуля по его ID.
  *
- * @param id - id модуля.
- * @returns - Массив уроков модуля.
+ * @param id - ID модуля.
+ * @returns Массив уроков модуля.
  */
 export async function getLessons(id: id) {
   return Lesson.find({ module: id })

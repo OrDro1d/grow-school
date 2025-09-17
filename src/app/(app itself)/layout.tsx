@@ -1,5 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/next';
 import { Inter } from 'next/font/google';
 import '@app/globals.css';
 import type { Metadata } from 'next';

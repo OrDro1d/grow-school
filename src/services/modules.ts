@@ -21,39 +21,48 @@ import type { IStepClient } from '@/types/Step.interface';
 import { saveAndReturnLesson } from './lessons';
 
 /**
- * Возвращает модуль курса по его id.
+ * Возвращает модуль курса по его ID.
  *
- * @param {id} id - id курса.
- * @returns {Promise<IModuleClient>} - Модуль курса.
+ * @param moduleId - ID курса.
+ * @returns Модуль курса.
  */
-export async function getModule(moduleId: id): Promise<IModuleClient> {
-  const moduleClient: IModuleClient | null = await Module.findById(moduleId)
+export async function getModule(moduleId: id): Promise<IModuleClient | null> {
+  return Module.findById(moduleId)
     .lean<IModuleClient>()
-    .transform((doc) => ({
-      ...doc,
-      _id: doc?._id.toString(),
-      title: doc?.title,
-      courseId: doc?.courseId.toString(),
-    }));
-  return moduleClient;
+    .transform((doc) =>
+      doc
+        ? {
+            ...doc,
+            _id: doc._id.toString(),
+            title: doc.title,
+            courseId: doc.courseId.toString(),
+          }
+        : null,
+    );
 }
 
 /**
- * Возвращает полный модуль курса по его id.
+ * Возвращает полный модуль курса по его ID.
  *
- * @param {id} id - id курса.
- * @returns {Promise<IModuleClient>} - Модуль курса.
+ * @param moduleId - ID курса.
+ * @returns Модуль курса.
  */
 export async function getModuleFull(moduleId: id): Promise<IModuleContentClient> {
   const moduleClient: IModuleContentClient | null = await Module.findById(moduleId)
     .lean<IModuleContentClient>()
-    .transform((doc) => ({
-      ...doc,
-      _id: doc?._id.toString(),
-      title: doc?.title,
-      courseId: doc?.courseId.toString(),
-      lessons: [] as ILessonContentClient[],
-    }));
+    .transform((doc) =>
+      doc
+        ? {
+            ...doc,
+            _id: doc?._id.toString(),
+            title: doc?.title,
+            courseId: doc?.courseId.toString(),
+            lessons: [] as ILessonContentClient[],
+          }
+        : null,
+    );
+
+  if (!moduleClient) throw new Error('Модуль не был найден.');
 
   moduleClient.lessons = await Lesson.find({ moduleId: moduleClient._id })
     .lean<ILessonContentClient[]>()
@@ -83,13 +92,13 @@ export async function getModuleFull(moduleId: id): Promise<IModuleContentClient>
 }
 
 /**
- * Возвращает все модули курса по его id.
+ * Возвращает все модули курса по его ID.
  *
- * @param {id} id - id курса.
- * @returns {Promise<IModuleClient[]>} - Массив модулей курса.
+ * @param courseId - ID курса.
+ * @returns Массив модулей курса.
  */
 export async function getModules(courseId: id): Promise<IModuleClient[]> {
-  const modules: IModuleClient[] = await Module.find({ courseId })
+  return Module.find({ courseId })
     .lean<IModuleClient[]>()
     .transform((docs) =>
       docs.map((doc) => ({
@@ -98,14 +107,14 @@ export async function getModules(courseId: id): Promise<IModuleClient[]> {
         courseId: doc.courseId.toString(),
       })),
     );
-  return modules;
 }
 
 /**
  * Создает новый модуль курса.
  *
- * @param {IModule} moduleData - Данные модуля.
- * @param {ClientSession} opts.session - Сессия MongoDB транзакций.
+ * @param moduleData - Данные модуля.
+ * @param opts - Дополнительные параметры.
+ * @param [opts.session] - Сессия MongoDB транзакций.
  */
 export async function saveModule(
   moduleData: IModule,
@@ -121,10 +130,12 @@ export async function saveModule(
 /**
  * Создает новый модуль курса и возвращает его в виде плоского JS объекта.
  *
- * @param {IModule} moduleData - Данные для создания нового модуля курса.
- * @param {boolean} opts.blankLesson - Флаг для создания пустого урока при создании нового модуля курса.
- * @param {ClientSession} opts.session - Сессия MongoDB транзакций.
- * @returns {IModuleContentClient} - Новый модуль в виде плоского JS объекта.
+ * @param  moduleData - Данные для создания нового модуля курса.
+ * @param opts - Дополнительные параметры.
+ * @param [opts.blankLesson] - Флаг для создания пустого урока при создании нового
+ * модуля курса.
+ * @param [opts.session] - Сессия MongoDB транзакций.
+ * @returns Новый модуль в виде плоского JS объекта.
  */
 export async function saveAndReturnModule(
   moduleData: IModule,
@@ -142,32 +153,30 @@ export async function saveAndReturnModule(
       { session: opts?.session, blankStep: true },
     );
 
-    const newModuleClient: IModuleContentClient = {
+    return {
       _id: newModule._id.toString(),
       title: newModule.title,
       courseId: newModule.courseId.toString(),
       createdAt: newModule.createdAt?.toDateString(),
       lessons: [lesson],
     };
-    return newModuleClient;
   }
 
-  const newModuleClient: IModuleContentClient = {
+  return {
     _id: newModule._id.toString(),
     title: newModule.title,
     courseId: newModule.courseId.toString(),
     createdAt: newModule.createdAt?.toDateString(),
     lessons: [] as ILessonContentClient[],
   };
-  return newModuleClient;
 }
 
 /**
  * Обновляет название модуля и возвращает плоский объект для клиента.
  *
- * @param {id} moduleId - ID модуля.
- * @param {string} title - Новое название модуля.
- * @returns {Promise<IModuleClient>} - Обновленный модуль (плоский объект).
+ * @param moduleId - ID модуля.
+ * @param title - Новое название модуля.
+ * @returns Обновленный модуль (плоский объект).
  */
 export async function updateModuleTitle(moduleId: id, title: string): Promise<void> {
   await dbConnect();

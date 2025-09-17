@@ -2,7 +2,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import '@app/globals.css';
 import type { Metadata } from 'next';
-import {Analytics} from "@vercel/analytics/next";
+import { Analytics } from '@vercel/analytics/next';
 
 const fontInter = Inter({
   subsets: ['latin', 'cyrillic'],
