@@ -10,7 +10,7 @@ import { getCourses } from '@services/courses';
 import { Suspense } from 'react';
 import type { ICourseClient } from '@/types/Course.interface';
 
-export default function Home() {
+export default function HomePage() {
   const mainCourses: Promise<ICourseClient[]> = getCourses({ limit: 3 });
   const allCourses: Promise<ICourseClient[]> = getCourses({ limit: 6 });
   return (

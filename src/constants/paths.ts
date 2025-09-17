@@ -5,12 +5,12 @@ interface IPath {
 
 const PATHS: Record<string, IPath> = {
   HOME: { URL: '/', pathname: 'Домой' },
-  MAIN_COURSES: { URL: '#main-courses', pathname: 'Популярные курсы' },
+  MAIN_COURSES: { URL: '/#main-courses', pathname: 'Популярные курсы' },
   RECOMMENDED_COURSES: {
-    URL: '#recommended-courses',
+    URL: '/#recommended-courses',
     pathname: 'Рекомендуемые',
   },
-  ALL_COURSES: { URL: '#all-courses', pathname: 'Все курсы' },
+  ALL_COURSES: { URL: '/#all-courses', pathname: 'Все курсы' },
   NEW_COURSE: { URL: '/course/new', pathname: 'Создать курс' },
   ABOUT: { URL: '/about', pathname: 'О нас' },
   SIGN_IN: { URL: '/auth/signin', pathname: 'Войти' },

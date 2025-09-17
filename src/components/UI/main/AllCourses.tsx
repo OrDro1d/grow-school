@@ -15,7 +15,7 @@ export default function AllCourses({
 
   return (
     <section className={`w-fit mx-auto mt-8 ${className}`}>
-      <h2 className='inline-block text-4xl font-bold'>Все курсы</h2>
+      <h2 className='inline-block  text-2xl md:text-3xl lg:text-4xl font-bold'>Все курсы</h2>
       <div
         id='all-courses'
         className='grid flex-wrap grid-cols-3 grid-rows-2 gap-4 p-8 my-4 bg-neutral-100 rounded-2xl w-fit'
