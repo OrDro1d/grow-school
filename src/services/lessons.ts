@@ -21,19 +21,23 @@ import type { IStep, IStepClient } from '@/types/Step.interface';
 /**
  * Возвращает полный урок курса по его id.
  *
- * @param {id} id - id курса.
- * @returns {Promise<ILessonContentClient>} - Урок курса.
+ * @param lessonId - id курса.
+ * @returns Урок курса.
  */
 export async function getLessonFull(lessonId: id): Promise<ILessonContentClient | null> {
   const lessonClient: ILessonContentClient | null = await Lesson.findById(lessonId)
     .lean<ILessonContentClient>()
-    .transform((doc) => ({
-      ...doc,
-      _id: doc?._id.toString(),
-      title: doc?.title,
-      moduleId: doc?.moduleId.toString(),
-      steps: [] as IStepClient[],
-    }));
+    .transform((doc) =>
+      doc
+        ? {
+            ...doc,
+            _id: doc._id.toString(),
+            title: doc.title,
+            moduleId: doc.moduleId.toString(),
+            steps: [] as IStepClient[],
+          }
+        : null,
+    );
 
   if (!lessonClient) return null;
 
@@ -54,11 +58,11 @@ export async function getLessonFull(lessonId: id): Promise<ILessonContentClient 
 /**
  * Возвращает все уроки модуля по его id.
  *
- * @param {id} id - id модуля.
- * @returns {Promise<ILessonClient[] | null>} - Массив уроков модуля.
+ * @param id - id модуля.
+ * @returns - Массив уроков модуля.
  */
 export async function getLessons(id: id) {
-  const lessons = await Lesson.find({ module: id })
+  return Lesson.find({ module: id })
     .lean<ILessonClient[]>()
     .transform((docs) =>
       docs.map((doc) => ({
@@ -67,14 +71,19 @@ export async function getLessons(id: id) {
         moduleId: doc.moduleId.toString(),
       })),
     );
-
-  return lessons;
 }
 
 /**
- * Создает новый урок в модуле.
+ * Создаёт новый урок в указанном модуле.
  *
- * @param {ILesson} lessonData - Данные урока.
+ * Если передан флаг `blankStep`, вместе с уроком будет создан
+ * пустой шаг с контентом по умолчанию.
+ *
+ * @param lessonData - Данные нового урока.
+ * @param opts - Дополнительные параметры сохранения.
+ * @param [opts.session] - Сессия MongoDB для выполнения операции в транзакции.
+ * @param [opts.blankStep] - Если `true`, создаёт пустой шаг с дефолтным содержимым.
+ * @returns Promise, который выполняется после сохранения урока (и шага, если он создавался).
  */
 export async function saveLesson(
   lessonData: ILesson,
@@ -98,10 +107,13 @@ export async function saveLesson(
 /**
  * Создает новый урок в модуле и возвращает его в виде плоского JS объекта.
  *
- * @param {ILesson} lessonData - Данные для создания нового урока курса.
- * @param {boolean} opts.blankStep - Флаг для создания пустого шага при создании нового урока.
- * @param {ClientSession} opts.session - Сессия MongoDB транзакций.
- * @returns {Promise<ILessonContentClient>} - Новый урок в виде плоского JS объекта.
+ * @param lessonData - Данные для создания нового урока курса.
+ * @param [opts] - Дополнительные параметры сохранения.
+ * @param [opts.session] - Сессия MongoDB для выполнения операции в
+ * транзакции.
+ * @param [opts.blankStep=false] - Если `true`, создаст пустой шаг с контентом по умолчанию
+ * вместе с уроком.
+ * @returns Новый урок в виде плоского JS объекта.
  */
 export async function saveAndReturnLesson(
   lessonData: ILesson,
@@ -120,7 +132,7 @@ export async function saveAndReturnLesson(
     });
     await newStep.save({ session: opts?.session });
 
-    const newLessonClient: ILessonContentClient = {
+    return {
       _id: newLesson._id.toString(),
       title: newLesson.title,
       moduleId: newLesson.moduleId.toString(),
@@ -133,27 +145,23 @@ export async function saveAndReturnLesson(
         },
       ],
     };
-
-    return newLessonClient;
   }
 
-  const newLessonClient: ILessonContentClient = {
+  return {
     _id: newLesson._id.toString(),
     title: newLesson.title,
     moduleId: newLesson.moduleId.toString(),
     createdAt: newLesson.createdAt?.toString(),
     steps: [] as IStepClient[],
   };
-
-  return newLessonClient;
 }
 
 /**
  * Обновляет название урока и возвращает плоский объект для клиента.
  *
- * @param {id} lessonId - ID урока.
- * @param {string} title - Новое название урока.
- * @returns {Promise<ILessonClient>} - Обновленный урок (плоский объект).
+ * @param lessonId - ID урока.
+ * @param title - Новое название урока.
+ * @returns Обновленный урок (плоский объект).
  */
 export async function saveLessonTitle(lessonId: id, title: string): Promise<void> {
   await dbConnect();

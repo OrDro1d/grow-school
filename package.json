@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@tsconfig/recommended": "^1.0.10",
 		"@types/react-dom": "^19.1.9",
+		"@vercel/analytics": "^1.5.0",
 		"@vercel/speed-insights": "^1.2.0",
 		"bcryptjs": "^3.0.2",
 		"cloudinary": "^2.7.0",

@@ -1,4 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next"
 import { Inter } from 'next/font/google';
 import '@app/globals.css';
 import type { Metadata } from 'next';
@@ -22,6 +23,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <NavBar></NavBar>
         {children}
         <SpeedInsights></SpeedInsights>
+        <Analytics></Analytics>
       </body>
     </html>
   );
