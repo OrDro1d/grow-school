@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function ContactsSection() {
   return (
     <section className='border-t border-gray-200 '>
@@ -6,18 +8,18 @@ export default function ContactsSection() {
           <h2 className='text-2xl font-semibold tracking-tight'>Контакты</h2>
           <p className='mt-2 text-gray-700'>Партнёрства и предложения: hello@grow.school</p>
           <div className='mt-6 flex flex-col gap-3 sm:flex-row'>
-            <a
-              href='#'
+            <Link
+              href='/course/new'
               className='inline-flex items-center justify-center rounded-md bg-gray-900 px-5 py-3 text-sm text-white hover:bg-gray-800'
             >
               Присоединиться как автор
-            </a>
-            <a
-              href='#'
+            </Link>
+            <Link
+              href='/'
               className='inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-3 text-sm text-gray-900 hover:bg-gray-50'
             >
               Начать обучение
-            </a>
+            </Link>
           </div>
         </div>
       </div>

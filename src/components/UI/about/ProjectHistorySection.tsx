@@ -6,7 +6,7 @@ export default function ProjectHistorySection({
   className?: string;
 }) {
   return (
-    <section className='border-t border-gray-200 '>
+    <section className={`border-t border-gray-200 ${className}`}>
       <div className='mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14'>
         <h2 className='text-2xl font-semibold tracking-tight'>История</h2>
         <ol className='mt-6 space-y-4'>

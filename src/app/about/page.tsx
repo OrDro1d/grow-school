@@ -2,8 +2,6 @@ import AboutUsSection from '@UI/about/AboutUsSection';
 import ContactsSection from '@UI/about/ContactsSection';
 import CourseCreationSection from '@UI/about/CourseCreationSection';
 import HeroSection from '@UI/about/HeroSection';
-import OurTeamSection from '@UI/about/OurTeamSection';
-import ProjectHistorySection from '@UI/about/ProjectHistorySection';
 import StatsSection from '@UI/about/StatsSection';
 import TargetAudienceSection from '@UI/about/TargetAudienceSection';
 
