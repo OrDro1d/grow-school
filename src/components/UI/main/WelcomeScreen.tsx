@@ -7,7 +7,7 @@ export default async function WelcomeScreen({ className }: { className?: string 
   const cookieStore = await cookies();
   return (
     <header
-      className={`flex-col items-center px-2 py-4 sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl mx-auto lg:w-6xl lg:px-24 ${className}`}
+      className={`flex-col items-center px-2 py-4 mx-2  sm:px-2 sm:py-4 md:px-4 md:py-8 lg:p-8 flex text-center lg:text-start lg:flex-row lg:justify-center bg-gradient-to-tr from-skiey to-mint rounded-3xl gap-4 sm:rounded-2xl lg:mx-auto lg:w-6xl lg:px-24 ${className}`}
     >
       <Image
         className='w-xs'
@@ -17,7 +17,7 @@ export default async function WelcomeScreen({ className }: { className?: string 
         title='Встречающая на платформе пользователя картинка'
         alt='Встречающий вас на платформе человечек с цветком в руках '
       ></Image>
-      <div className='lg:flex-col flex w-fit items-center *:my-2'>
+      <div className='flex-col flex w-fit items-center *:my-2'>
         <h1 className='flex-wrap inline-block text-2xl font-bold text-center text-white w-fit md:text-3xl lg:text-4xl'>
           Каждый день - это новый шанс вырасти над собой
         </h1>

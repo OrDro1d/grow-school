@@ -1,9 +1,9 @@
 import UserCoursesList from '@UI/user/UsersCoursesList';
+import { authGuard } from '@services/auth';
+import { getUser } from '@services/users';
+import type { id } from '@types/id.type';
+import type { IUser } from '@types/User.interface';
 import Link from 'next/link';
-import { authGuard } from '@/services/auth';
-import { getUser } from '@/services/users';
-import type { id } from '@/types/id.type';
-import type { IUser } from '@/types/User.interface';
 
 export default async function UserPage({ params }: { params: Promise<{ id: id }> }) {
   await authGuard();

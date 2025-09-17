@@ -2,15 +2,15 @@
 
 import Header from '@UI/newCourse/Header';
 import CourseEditingSection from '@UI/newCourse/sections/CourseEditingSection';
+// Функции и хуки
+import { authGuard } from '@services/auth';
+import { getCourseFull } from '@services/courses';
+// Типы и интерфейсы
+import type { ICourse } from '@types/Course.interface';
 import { redirect } from 'next/navigation';
 // Компоненты
 import { Suspense } from 'react';
 import Course from '@/models/Course';
-// Функции и хуки
-import { authGuard } from '@/services/auth';
-import { getCourseFull } from '@/services/courses';
-// Типы и интерфейсы
-import type { ICourse } from '@/types/Course.interface';
 
 export default async function CourseEditingPage({
   params,

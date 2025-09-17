@@ -1,8 +1,9 @@
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import '@app/globals.css';
 import type { Metadata } from 'next';
-import { Analytics } from '@vercel/analytics/next';
+import type { ReactNode } from 'react';
 
 const fontInter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='ru'>
       <body className={fontInter.className}>

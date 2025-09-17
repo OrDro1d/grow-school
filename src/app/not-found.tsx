@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import Link from 'next/link';
 import '@app/globals.css';
 
@@ -13,13 +14,13 @@ export default function NotFoundPage() {
 
       <div className='flex flex-col gap-4 mt-8 sm:flex-row'>
         <Link
-          href='/'
+          href={PATHS.ALL_COURSES.URL}
           className='px-6 py-3 text-white transition bg-blue-600 rounded-lg shadow hover:bg-blue-700'
         >
           На главную
         </Link>
         <Link
-          href='/courses'
+          href={PATHS.HOME.URL}
           className='px-6 py-3 text-blue-600 transition bg-white border border-blue-600 rounded-lg hover:bg-blue-50'
         >
           К курсам

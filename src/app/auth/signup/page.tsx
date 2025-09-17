@@ -1,7 +1,9 @@
-import Image from 'next/image';
-import SignInBlock from '@/components/UI/auth/SignInBlock';
+'use client';
 
-export default function SignInPage() {
+import SignUpBlock from '@UI/auth/SignIUpBlock';
+import Image from 'next/image';
+
+export default function SignUpPage() {
   return (
     <div className='absolute flex items-center justify-between w-[100%] h-[100%] bg-gradient-to-tr from-skiey to-mint p-8'>
       <div className='m-16 mb-50'>
@@ -16,10 +18,12 @@ export default function SignInPage() {
           <p className='font-bold text-white text-2xl'>Grow School</p>
         </div>
         <h1 className='font-extrabold text-6xl text-white my-2'>Добро пожаловать на Grow School</h1>
-        <h2 className='font-medium text-3xl text-white'>Войдите, чтобы продолжить свое обучение</h2>
+        <h2 className='font-medium text-3xl text-white'>
+          Зарегистрируйтесь, чтобы начать обучение
+        </h2>
       </div>
       <main className='h-[100%]'>
-        <SignInBlock></SignInBlock>
+        <SignUpBlock></SignUpBlock>
       </main>
     </div>
   );
