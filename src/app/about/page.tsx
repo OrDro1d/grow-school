@@ -16,10 +16,10 @@ export default function AboutPage() {
 
   return (
     <main>
-      <div className='bg-gradient-to-tr from-skiey to-mint p-2'>
+      <div className='bg-gradient-to-tr from-skiey to-mint'>
         <HeroSection className={'mx-auto'}></HeroSection>
         <AboutUsSection className={'mx-auto'}></AboutUsSection>
-        <div className='flex flex-col items-center gap-4 p-4 rounded-4xl mx-2 border-2 bg-white border-gray-200 mt-8'>
+        <div className='flex flex-col items-center gap-4 p-4  bg-white  mt-8'>
           <TargetAudienceSection></TargetAudienceSection>
           <CourseCreationSection></CourseCreationSection>
           <StatsSection stats={stats}></StatsSection>

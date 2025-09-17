@@ -9,7 +9,7 @@ export default function AboutUsCard({
 }) {
   return (
     <div
-      className={`shadow-xl shadow10-black/10 bg-white/10 md:max-w-40 border-2 border-white/60 rounded-2xl p-8 w-full text-sm sm:text-base ${className}`}
+      className={`text-center transition-all hover:hover:border-skiey hover:text-skiey hover:bg-white/60 bg-white/10 md:max-w-64 border-2 border-white/60 rounded-2xl p-8 w-full text-sm sm:text-base ${className}`}
     >
       <p>{children} </p>
     </div>
