@@ -47,10 +47,10 @@ export default function Footer({ className }: { className?: string }) {
         <h2 className='font-medium'>Связаться с нами</h2>
         <p className='w-xs'>Ленинградская обл., г. Санкт-Петербург, ул. Пушкина, д. Колотушкина</p>
         <Link className='hover:text-skiey' href='tel:+79780694485'>
-          8 (978) 069-44-85
+          8 (800) 555-35-35
         </Link>
         <Link className='hover:text-skiey' href='mailto:lyumanowo@gmail.com'>
-          lyumanowo@gmail.com
+          grow@school.com
         </Link>
         <button
           className='px-8 py-2 text-sm bg-white border-2 border-gray-200 shadow-lg cursor-pointer rounded-4xl w-fit shadow-black/10 hover:bg-gray-100 hover:border-gray-300'
