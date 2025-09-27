@@ -44,4 +44,5 @@ next-env.d.ts
 Dockerfile
 
 # vscode
-/.vscode/
+/.vscode
+/.idea

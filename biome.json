@@ -9,7 +9,7 @@
 
   "files": {
     "ignoreUnknown": true,
-    "includes": ["src/**/*.{js,jsx,ts,tsx}"]
+    "includes": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
   },
 
   "formatter": {
@@ -32,8 +32,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "jsxQuoteStyle": "single",
-      "lineWidth": 100
+      "jsxQuoteStyle": "single"
     },
     "parser": {
       "jsxEverywhere": true
