@@ -38,6 +38,9 @@ export default async function WelcomeScreen({ className }: { className?: string 
             Создать курс
           </WelcomeScreenBtn>
           <WelcomeScreenBtn href={PATHS.ABOUT.URL}>{PATHS.ABOUT.pathname}</WelcomeScreenBtn>
+          <WelcomeScreenBtn href={PATHS.INFOGRAPHICS.URL}>
+            {PATHS.INFOGRAPHICS.pathname}
+          </WelcomeScreenBtn>
         </div>
       </div>
     </header>

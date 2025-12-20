@@ -7,7 +7,7 @@ import TargetAudienceSection from '@UI/about/TargetAudienceSection';
 export default function AboutPage() {
   return (
     <main>
-      <div className='bg-gradient-to-tr from-skiey to-mint'>
+      <div className='bg-linear-to-tr from-skiey to-mint'>
         <HeroSection className={'mx-auto'}></HeroSection>
         <AboutUsSection className={'mx-auto'}></AboutUsSection>
         <TargetAudienceSection></TargetAudienceSection>

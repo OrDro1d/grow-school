@@ -13,6 +13,7 @@ const PATHS: Record<string, IPath> = {
   ALL_COURSES: { URL: '/#all-courses', pathname: 'Все курсы' },
   NEW_COURSE: { URL: '/course/new', pathname: 'Создать курс' },
   ABOUT: { URL: '/about', pathname: 'О нас' },
+  INFOGRAPHICS: { URL: '/infographics', pathname: 'Инфо' },
   SIGN_IN: { URL: '/auth/signin', pathname: 'Войти' },
   SIGN_UP: { URL: '/auth/signup', pathname: 'Зарегистрироваться' },
 };
